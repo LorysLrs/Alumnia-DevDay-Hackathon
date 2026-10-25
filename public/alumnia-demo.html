@@ -707,9 +707,17 @@ const CAT={
  "Gestionnaire de paie":J_("Gestionnaire de paie","Il prépare les salaires de tous les salariés, sans erreur, chaque mois.","BTS Gestion de la PME, puis licence pro paie","Lycée ou CFA, sur Parcoursup",3,"environ 1 900 € net par mois",[["9 h","Les absences du mois sont arrivées."],["11 h","Calcul des salaires."],["14 h","Un salarié a une question sur sa fiche de paie."],["16 h","Vérification avant d'envoyer."]],["La précision","Les chiffres","Suivre une méthode","Aider"],"Tu aimes vérifier les informations pour qu'il n'y ait aucune erreur.","C'est un métier qui recrute ?","",""),
   "Assistant RH":J_("Assistant RH","Il s'occupe des salariés : arrivées, contrats, formations, questions du quotidien.","BUT GEA, parcours ressources humaines","IUT, sur Parcoursup",3,"environ 1 900 € net par mois",[["9 h","Accueil d'une nouvelle salariée."],["11 h","Préparation de contrats."],["14 h","Organisation d'un forum de recrutement."],["16 h","Questions des salariés."]],["Organiser","Écouter","La discrétion","Aider"],"Tu aimes quand c'est organisé, et tu aimes les gens.","On fait aussi du recrutement ?","",""),
   "Ingénieur logiciel IA":J_("Software and AI engineer","Il conçoit des logiciels et des fonctionnalités qui utilisent l'intelligence artificielle.","BUT Informatique, licence ou master en informatique et intelligence artificielle","IUT, université ou école d'ingénieurs ; admissions selon la formation",5,"Variable selon l'expérience et le secteur",[["9 h","Review code et planification d'un sprint."],["11 h","Prototype d'une fonctionnalité de recherche par IA."],["14 h","Test de fiabilité avec des données anonymisées."],["16 h","Démonstration du projet à l'équipe."]],["Programmer","Résoudre des problèmes","Tester des idées","Travailler en équipe"],"Tu as nommé le développement logiciel et l'IA : ce métier est une piste directe à explorer.","Comment trouver un premier stage en logiciel ou en IA ?","",""),
+ };
+const EN_CAREER_COPY={
+ "Ingénieur logiciel IA":{court:"Software and AI engineer",phrase:"They design software and features powered by artificial intelligence.",form:"BUT Informatique, licence ou master en informatique et intelligence artificielle",lieux:"IUT, university or engineering school; requirements vary by program",sal:"Varies by experience and industry",jour:[["9:00 am","Code review and sprint planning."],["11:00 am","Prototype an AI-powered search feature."],["2:00 pm","Test reliability using anonymized data."],["4:00 pm","Present the project to the team."]],aimer:["Programming","Problem-solving","Testing ideas","Teamwork"],why:"You named software development and AI. This is a direct career path to explore.",q:"How can I build my first software or AI project?",cotxt:"The team builds and tests AI-powered software features."},
+ "Data analyst":{court:"Data analyst",phrase:"They analyze company data to help teams make better decisions.",form:"BUT Science des données",lieux:"IUT in Paris-Pajol or Vannes, through Parcoursup",sal:"About €2,200 net per month",jour:[["9:00 am","Check that yesterday's data is accurate."],["11:00 am","Build a chart for the sales team."],["2:00 pm","Investigate why sales fell in Lyon."],["4:30 pm","Explain the findings clearly to the team."]],aimer:["Working with data","Finding explanations","Explaining findings","Accuracy"],why:"You like finding the explanation behind the numbers.",q:"Do you need to love mathematics to do this job?",cotxt:"Helio Énergie analyzes wind-farm output and hires alternance students for its data team."},
+ "UX/UI designer":{court:"UX/UI designer",phrase:"They design apps and websites that are easy to use, screen by screen.",form:"DN MADe mention numérique",lieux:"High school or applied arts school, through Parcoursup",sal:"About €2,000 net per month",jour:[["9:30 am","Watch people use the app and note where they get stuck."],["11:00 am","Sketch a new screen."],["2:00 pm","Build a digital prototype."],["4:00 pm","Present it to the team that will build it."]],aimer:["Creating","Observing people","Designing","Explaining ideas"],why:"You like creating things and thinking about the people who will use them.",q:"Do I need to be good at drawing?",cotxt:"Nexora designers create apps for their clients."},
+ "Analyste en cybersécurité":{court:"Cybersecurity analyst",phrase:"They monitor company systems, spot attacks and help teams stay safe.",form:"BUT Réseaux et télécoms parcours cyber",lieux:"IUTs in Vélizy, Créteil or Villetaneuse, through Parcoursup",sal:"About €2,100 net per month",jour:[["9:00 am","Review overnight security alerts."],["11:00 am","Check what happened after a fake email was opened."],["2:00 pm","Test a new firewall."],["4:00 pm","Show teams how to spot scams."]],aimer:["Understanding systems","Investigating","Being thorough","Staying curious"],why:"You like figuring out why things do not work. Here, you investigate who is trying to get in.",q:"Do I need to be a computer expert to get started?",cotxt:"Vectra Rail monitors the systems used by trains and stations around the clock."},
+ "Administrateur systèmes et réseaux":{court:"Network administrator",phrase:"They keep a company's network running: servers, Wi-Fi, accounts and security.",form:"BUT Réseaux et télécoms",lieux:"IUTs in Vélizy, Créteil or Villetaneuse, through Parcoursup",sal:"About €2,000 net per month",jour:[["8:30 am","Diagnose a network switch that stopped responding."],["11:00 am","Set up accounts for six new employees."],["2:00 pm","Install a security update on the servers."],["4:30 pm","Review what broke this week and why."]],aimer:["Troubleshooting","Hands-on work","Helping colleagues","Staying calm"],why:"You like practical work, troubleshooting and helping teams every day.",q:"Is the job mostly on site or in front of a screen?",cotxt:"Nexora's infrastructure team hires four alternance students for its Networks and Telecommunications program."}
 };
+for(const [key,copy] of Object.entries(EN_CAREER_COPY))Object.assign(CAT[key],copy);
 const ALUMNI=[
- {id:'lorys',p:2,nom:"Lorys",poste:"Administrateur réseau",co:'nexora',job:"Administrateur systèmes et réseaux",parcours:"BUT Réseaux et télécoms en alternance, après une 1ʳᵉ année de fac abandonnée.",why:{yanis:"Il a hésité comme toi entre deux voies, et il a choisi l'alternance.",paul:"Lui aussi a changé de voie après une 1ʳᵉ année : il sait ce que ça fait.",etu:"Il a construit sa carrière en alternance : il sait ce que regardent les recruteurs."},slots:["Jeu. 29 oct, 18 h","Sam. 31 oct, 10 h","Mar. 3 nov, 19 h"]},
+ {id:'lorys',p:2,nom:"Lorys",poste:"Administrateur réseau",co:'nexora',job:"Administrateur systèmes et réseaux",parcours:"BUT Réseaux et télécoms en alternance, après une 1ʳᵉ année de fac abandonnée.",why:{yanis:"He also weighed two different paths before choosing alternance.",paul:"He changed direction after his first year, so he knows what that feels like.",etu:"He built his career through alternance and knows what recruiters look for."},slots:["Jeu. 29 oct, 18 h","Sam. 31 oct, 10 h","Mar. 3 nov, 19 h"]},
  {id:'nadia',p:7,nom:"Nadia",poste:"Analyste en cybersécurité",co:'vectra',job:"Analyste en cybersécurité",parcours:"BUT Réseaux et télécoms parcours cyber, en alternance. En poste depuis 3 ans.",why:{yanis:"She did not think she was good at computing in high school. She learned through a BUT program.",paul:"She chose a BUT to learn by doing, not only in the classroom.",etu:"She learned her profession through alternance and knows what beginners are expected to do."},slots:["Ven. 30 oct, 17 h 30","Lun. 2 nov, 18 h"]},
  {id:'ines',p:5,nom:"Inès",poste:"Ingénieure réseau",co:'helio',job:"Administrateur systèmes et réseaux",parcours:"BTS SIO, licence pro, puis école d'ingénieurs en alternance.",why:{yanis:"Elle a commencé par des études courtes et a continué ensuite : la preuve qu'on peut.",paul:"Elle a construit son chemin étape par étape, sans tout savoir au départ.",etu:"Elle a enchaîné BTS, licence pro et école d'ingénieurs : elle connaît les poursuites d'études."},slots:["Ven. 30 oct, 12 h 30","Lun. 2 nov, 18 h"]},
  {id:'sarah',p:1,nom:"Sarah",poste:"Data analyst",co:'helio',job:"Data analyst",parcours:"BUT Science des données, puis master en alternance.",why:{yanis:"Elle aime chercher l'explication derrière les chiffres, comme toi.",paul:"Elle a choisi un métier où on voit à quoi sert son travail.",etu:"Elle a fait un master en alternance après son BUT : exactement ta question du moment."},slots:["Jeu. 5 nov, 18 h"]},
@@ -829,11 +837,11 @@ function score(){
   return {sc,dom};
 }
 const level=v=>v>=80?"Très fort":v>=60?"Fort":v>=40?"Moyen":"Moins";
+function englishCareerTitle(j){return CAT[j]?.court||j}
 function localProfile(){
   const {sc,dom}=score(); const [a,b,c]=dom;
   const preferenceJobs=jobsFromIntent([S.careerFocus,S.ctx.idees,...S.chat.filter(m=>m.me).map(m=>m.t)].filter(Boolean).join(' '));
   const jobs=[...new Set([...preferenceJobs,JOBS[a][0],JOBS[a][1],JOBS[b][0]])].slice(0,3);
-  const careerTitle=j=>({"Administrateur réseau":"Network administrator","Maintenance industrielle":"Industrial maintenance technician","Support informatique":"IT support technician","Analyste cyber":"Cybersecurity analyst","Data analyst":"Data analyst","Technicien de labo":"Lab technician","UX/UI designer":"UX/UI designer","Motion designer":"Motion designer","Game designer":"Game designer","Professeur des écoles":"Primary school teacher","Chargé de formation":"Training specialist","Éducateur spécialisé":"Specialist educator","Chef de projet":"Project manager","Business developer":"Business development specialist","Chargé de com":"Communications specialist","Contrôleur de gestion":"Management controller","Gestionnaire de paie":"Payroll specialist","Assistant RH":"HR assistant","Software and AI engineer":"Software and AI engineer"}[CAT[j].court]||CAT[j].court);
   const court=(S.ctx.duree||'').startsWith('Courtes'), alt=['Oui','Peut-être'].includes(S.ctx.alternance);
   const stated=S.ctx.idees?.trim()||S.careerFocus?.trim();
   let synth=stated?`You said you are interested in ${stated.slice(0,180)}. We start with that direction; your interest answers help refine the next steps.`:`Your answers point to ${DESC[a]}. ${DESC[b]} is another clue, not a verdict.`;
@@ -841,7 +849,7 @@ function localProfile(){
   if(chatInsight) synth+=" Your AI conversation adds context to this direction and helps prioritize which routes to explore.";
   if(isReo()&&S.ctx.reo_why) synth+=` Your experience in ${S.ctx.reo_form||'your previous study program'} also helps shape this direction.`;
   else if(court) synth+=alt?" You prefer a shorter study route, and work-study (alternance) interests you.":" You prefer a shorter study route.";
-  const why=jobs.map(j=>stated?`You named ${stated.slice(0,100)}. Explore how ${careerTitle(j)} could connect to that direction and what the work involves.`:`Your answers suggest ${careerTitle(j)} as a path worth exploring.`);
+  const why=jobs.map(j=>stated?`You named ${stated.slice(0,100)}. Explore how ${englishCareerTitle(j)} could connect to that direction and what the work involves.`:`Your answers suggest ${englishCareerTitle(j)} as a path worth exploring.`);
   return {sc,dom,jobs,synth,why,questions:localQuestions(jobs),eclaircir:stated?[`Explore the day-to-day work in ${stated.slice(0,90)}.`,`Compare study routes and application timelines for ${stated.slice(0,90)}.`]:[`Compare ${LABEL[a].toLowerCase()} and ${LABEL[b].toLowerCase()} through real work examples.`,court?"Look at shorter study programs and work-study options near you.":"Compare longer study routes with shorter alternatives."]};
 }
 function normalizeIntent(value){return String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
@@ -1103,17 +1111,51 @@ function needQuiz(){return `<div class="wrap">${topbar('')}<section class="soft"
 // ======================= Chemin =======================
 const sk=k=>S.jobIx+':'+k;
 function curJob(){const j=S.profile.jobs[S.jobIx]||S.profile.jobs[0];return {title:j,...CAT[j]}}
+function pathStudyProgram(form){return ({
+  "BUT Informatique, licence ou master en informatique et intelligence artificielle":"BUT in Computer Science, a licence or master's in computer science and AI",
+  "BUT Réseaux et télécoms parcours cyber":"BUT in Networks and Telecommunications, cybersecurity track",
+  "BUT Réseaux et télécoms":"BUT in Networks and Telecommunications",
+  "BUT Science des données":"BUT in Data Science",
+  "BUT Génie industriel et maintenance":"BUT in Industrial Engineering and Maintenance",
+  "BTS SIO option SISR":"BTS SIO, SISR track",
+  "BUT Génie biologique":"BUT in Biological Engineering",
+  "DN MADe mention numérique":"DN MADe, digital design track",
+  "DN MADe mention numérique ou animation":"DN MADe, digital design or animation track",
+  "BUT Métiers du multimédia et de l'internet":"BUT in Multimedia and Internet Professions",
+  "Licence, puis master MEEF":"Licence, then a master’s in teaching (MEEF)",
+  "BUT Carrières sociales ou GEA, puis licence pro":"BUT in Social Careers or Business Administration, then a professional licence",
+  "Diplôme d'état d'éducateur spécialisé":"State diploma in specialist education",
+  "BUT GEA, puis master ou école de commerce":"BUT in Business Administration, then a master’s degree or business school",
+  "BUT Techniques de commercialisation":"BUT in Marketing and Sales Techniques",
+  "BUT Information-communication":"BUT in Information and Communication",
+  "BUT GEA, puis master":"BUT in Business Administration, then a master’s degree",
+  "BTS Gestion de la PME, puis licence pro paie":"BTS in Small Business Management, then a professional licence in payroll",
+  "BUT GEA, parcours ressources humaines":"BUT in Business Administration, Human Resources track"
+})[form]||form.replace(/, sur Parcoursup/g,', through Parcoursup').replace(/ sur Parcoursup/g,' through Parcoursup')}
+function pathStudyLocation(place){return ({
+  "IUT, université ou école d'ingénieurs ; admissions selon la formation":"IUT, university or engineering school; requirements vary by program",
+  "IUT de Vélizy, Créteil ou Villetaneuse, sur Parcoursup":"IUTs in Vélizy, Créteil or Villetaneuse, through Parcoursup",
+  "Lycée ou CFA, sur Parcoursup":"High school or apprenticeship training center, through Parcoursup",
+  "Lycée ou école d'arts appliqués, sur Parcoursup":"High school or applied arts school, through Parcoursup",
+  "Université, sur Parcoursup":"University, through Parcoursup",
+  "IUT, sur Parcoursup":"IUT, through Parcoursup",
+  "IUT près de chez toi, sur Parcoursup":"An IUT near you, through Parcoursup",
+  "IUT de Paris-Pajol ou de Vannes, sur Parcoursup":"IUT in Paris-Pajol or Vannes, through Parcoursup",
+  "IUT de Créteil ou d'Évry, sur Parcoursup":"IUT in Créteil or Évry, through Parcoursup",
+  "IUT de Villetaneuse":"IUT de Villetaneuse",
+  "École du travail social, sur Parcoursup":"Social work school, through Parcoursup"
+})[place]||place.replace(/, sur Parcoursup/g,', through Parcoursup').replace(/ sur Parcoursup/g,' through Parcoursup').replace(/Lycée/g,'High school').replace(/Université/g,'University')}
 function pathSteps(J){
   const alt=['Oui','Peut-être'].includes(S.ctx.alternance);
-  const base=isReo()?{key:'base',t:`${cap(S.ctx.reo_form||'Ma première formation')} : arrêtée`,s:"Ce n'est pas un échec : tu sais maintenant ce que tu ne veux pas.",past:true}
-    :{key:'base',t:(['Seconde','Première','Terminale'].includes(S.ctx.niveau)?"Bac général":"Mes études actuelles")+((S.ctx.specialites||[]).length?", "+S.ctx.specialites.slice(0,2).join(" et "):""),s:S.ctx.niveau==='Terminale'?"En cours, juin 2027":"En cours"};
-  const met=[...(S.past||[]).map(x=>x.rdv),...(S.rdv&&S.rdv.status==='done'?[S.rdv]:[])].map((r,i)=>{const a=ALUMNI.find(x=>x.id===r.id)||ALUMNI[0];return {key:'m'+i,t:`Échange de 30 min avec ${a.nom}`,s:`${a.poste} chez ${COMPANIES[a.co].nom}`,meet:true,when:r.when||a.slots[r.slot]||''}});
-  const extras=(S.extras||[]).map((x,i)=>({key:'x'+i,t:x.titre,s:x.de==='toi'?'Ajouté par toi':'Conseil de '+x.de,own:x.de==='toi',fromReport:true,quand:x.quand}));
+  const base=isReo()?{key:'base',t:`${S.ctx.reo_form||'My previous program'}: left behind`,s:"That was not a failure. You learned what you do not want.",past:true}
+    :{key:'base',t:(['Seconde','Première','Terminale'].includes(S.ctx.niveau)?"General baccalaureate":"My current studies")+((S.ctx.specialites||[]).length?", "+S.ctx.specialites.slice(0,2).map(optionLabel).join(" and "):""),s:S.ctx.niveau==='Terminale'?"In progress, June 2027":"In progress"};
+  const met=[...(S.past||[]).map(x=>x.rdv),...(S.rdv&&S.rdv.status==='done'?[S.rdv]:[])].map((r,i)=>{const a=ALUMNI.find(x=>x.id===r.id)||ALUMNI[0];return {key:'m'+i,t:`30-minute event with ${a.nom}`,s:`${a.poste} at ${COMPANIES[a.co].nom}`,meet:true,when:r.when||a.slots[r.slot]||''}});
+  const extras=(S.extras||[]).map((x,i)=>({key:'x'+i,t:x.titre,s:x.de==='you'?'Added by you':'Suggested by '+x.de,own:x.de==='you',fromReport:true,quand:x.quand}));
   const stg=stage();
-  const form=stg==='diplome'?{key:'form',t:"Me spécialiser, si besoin",s:"Un master en alternance, ou directement un premier poste"}:stg==='etudiant'&&!isReo()?{key:'form',t:"Choisir ma poursuite d'études",s:"Master ou licence pro, candidatures au printemps (Mon Master)"}:{key:'form',t:`Choisir ma formation : ${J.form}`,s:J.lieux};
+  const form=stg==='diplome'?{key:'form',t:"Specialize, if you want to",s:"Complete a master’s through alternance or move directly into a first role"}:stg==='etudiant'&&!isReo()?{key:'form',t:"Choose your next study path",s:"Apply for a master’s degree or professional licence in spring through Mon Master"}:{key:'form',t:`Choose a study program: ${pathStudyProgram(J.form)}`,s:pathStudyLocation(J.lieux)};
   return [base,...met,...extras,form,
-    {key:'alt',t:stg==='diplome'?"Décrocher un premier poste ou une alternance":alt?"Trouver une alternance":"Faire un stage dans le métier",s:stg==='diplome'?"Les pros de la communauté peuvent relire ton CV":alt?"En 1ʳᵉ ou 2ᵉ année. La formation est payée, et toi aussi.":"Pour voir le métier de l'intérieur",pros:ALUMNI.filter(a=>a.job===J.title).length},
-    {key:'goal',t:"Premier poste",s:`Après ${J.ans} ans d'études, ${J.sal}`,goal:true}];
+    {key:'alt',t:stg==='diplome'?"Find a first role or an alternance placement":alt?"Find an alternance placement":"Complete a placement in this career",s:stg==='diplome'?"Alumnia professionals can review your CV":alt?"In your first or second year. Your studies are paid for, and you earn a salary too.":"Get a first-hand look at the work",pros:ALUMNI.filter(a=>a.job===J.title).length},
+    {key:'goal',t:"First role",s:`After ${J.ans} years of study, ${J.sal}`,goal:true}];
 }
 const JICON={
  base:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4c0 1.5 2.2 3 5 3s5-1.5 5-3v-4"/></svg>`,
@@ -1131,12 +1173,12 @@ V.roadmap=()=>{
   const todo=steps.filter(s=>!s.goal&&s.key!=='base'&&!s.meet); const done=todo.filter(s=>S.steps[sk(s.key)]).length;
   const nextKey=(todo.find(s=>!S.steps[sk(s.key)])||{}).key; const num={}; todo.filter(s=>!s.fromReport).forEach((s,i)=>num[s.key]=i+1);
   return `<div class="wrap">${topbar('roadmap')}
-  <div class="row" role="group" aria-label="Choisir un métier" style="margin-bottom:16px">${P.jobs.map((j,k)=>`<button class="chip" aria-pressed="${k===S.jobIx}" data-jobix="${k}">${esc(CAT[j].court)}</button>`).join('')}</div>
-  <section class="journey" aria-label="Ton chemin" id="journey">
+  <div class="row" role="group" aria-label="Choose a career" style="margin-bottom:16px">${P.jobs.map((j,k)=>`<button class="chip" aria-pressed="${k===S.jobIx}" data-jobix="${k}">${esc(CAT[j].court)}</button>`).join('')}</div>
+  <section class="journey" aria-label="Your roadmap" id="journey">
     <div class="jhead">
-      <div style="min-width:0"><span class="jkicker">Ton chemin vers</span><h1 class="h1" style="margin-top:4px">${esc(J.title)}</h1>
-        <p class="jsub">${J.ans} ans${['Oui','Peut-être'].includes(S.ctx.alternance)?", en alternance":""} · ${esc(J.form)} · ${esc(J.sal)} au début</p></div>
-      <div class="jstat"><div><b id="jdone">${done}</b><span> of ${todo.length}</span></div><span>étapes du chemin faites</span><div class="jbar"><i id="jbar" style="transform:scaleX(${todo.length?done/todo.length:0})"></i></div><span class="jyears">${new Date().getFullYear()} → ${Y.end}</span></div>
+      <div style="min-width:0"><span class="jkicker">Your roadmap to</span><h1 class="h1" style="margin-top:4px">${esc(englishCareerTitle(J.title))}</h1>
+        <p class="jsub">${J.ans} years${['Oui','Peut-être'].includes(S.ctx.alternance)?", through alternance":""} · ${esc(pathStudyProgram(J.form))} · ${esc(J.sal)} at the start</p></div>
+      <div class="jstat"><div><b id="jdone">${done}</b><span> of ${todo.length}</span></div><span>roadmap steps completed</span><div class="jbar"><i id="jbar" style="transform:scaleX(${todo.length?done/todo.length:0})"></i></div><span class="jyears">${new Date().getFullYear()} → ${Y.end}</span></div>
     </div>
     <div class="jbody" id="jbody">
       <svg class="jsvg" id="jsvg" aria-hidden="true"><defs><mask id="jmask" maskUnits="userSpaceOnUse"><path id="jmaskp" fill="none" stroke="#fff" stroke-width="60" stroke-linecap="round"/></mask></defs>
@@ -1145,25 +1187,25 @@ V.roadmap=()=>{
         const nx=s.key===nextKey;
         return `<div class="jnode ${s.goal?'goal':''} ${s.past?'past':''} ${isDone&&!s.past?'done':''} ${nx?'next':''}" data-i="${i}" data-n="${num[s.key]||''}" aria-hidden="true">${s.goal?ICON.star('#15201B',30):(s.key==='base'?ICON.check(s.past?'#8A8470':'#fff',22):(isDone?ICON.check('#fff',24):(num[s.key]||JICON.extra)))}</div>
         <article class="jcard ${s.goal?'goal':''} ${s.fromReport?'extra':''} ${isDone&&s.key!=='base'&&!s.past?'done':''} ${nx?'next':''}" data-i="${i}">
-          <span class="yr">${num[s.key]?`Étape ${num[s.key]} · `:''}${esc(yr(s))}</span>${nx?` <span class="who ok" style="margin-left:4px"><i></i>À faire maintenant</span>`:''}<b class="t">${esc(s.t)}</b><p class="s">${esc(s.s)}</p>
-          ${s.pros?`<p class="tagl"><span class="who hu"><i></i>${s.pros} pro${s.pros>1?'s ont':' a'} pris ce chemin</span></p>`:''}${s.fromReport?`<p class="tagl"><span class="who ok"><i></i>${s.own?'Ajouté par toi':'Ajouté après ton échange'}</span></p>`:''}
-          ${s.meet?`<p class="tagl"><span class="who ok"><i></i>Fait</span></p>`:s.goal?`<p class="tagl"><span class="who" style="background:var(--sun-wash);color:#7A5300">Objectif</span></p>`:s.key==='base'?(s.past?'':`<p class="tagl"><span class="who ok"><i></i>Tu es ici</span></p>`):`<div class="act"><button class="jdone" data-jstep="${sk(s.key)}" aria-pressed="${!!S.steps[sk(s.key)]}">${S.steps[sk(s.key)]?ICON.check('#14632F',16)+' Fait':"C'est fait"}</button></div>`}
+          <span class="yr">${num[s.key]?`Step ${num[s.key]} · `:''}${esc(yr(s))}</span>${nx?` <span class="who ok" style="margin-left:4px"><i></i>Up next</span>`:''}<b class="t">${esc(s.t)}</b><p class="s">${esc(s.s)}</p>
+          ${s.pros?`<p class="tagl"><span class="who hu"><i></i>${s.pros} professional${s.pros>1?'s followed':' followed'} this route</span></p>`:''}${s.fromReport?`<p class="tagl"><span class="who ok"><i></i>${s.own?'Added by you':'Added after your event'}</span></p>`:''}
+          ${s.meet?`<p class="tagl"><span class="who ok"><i></i>Completed</span></p>`:s.goal?`<p class="tagl"><span class="who" style="background:var(--sun-wash);color:#7A5300">Goal</span></p>`:s.key==='base'?(s.past?'':`<p class="tagl"><span class="who ok"><i></i>You are here</span></p>`):`<div class="act"><button class="jdone" data-jstep="${sk(s.key)}" aria-pressed="${!!S.steps[sk(s.key)]}">${S.steps[sk(s.key)]?ICON.check('#14632F',16)+' Completed':'Mark as done'}</button></div>`}
         </article>`}).join('')}
-      <div class="jme" id="jme">${av(ME().p,42,'#fff')}<span class="tag">${ME().nom==='Toi'?'Toi':esc(ME().nom)}, ici</span></div>
+      <div class="jme" id="jme">${av(ME().p,42,'#fff')}<span class="tag">${ME().nom==='Toi'?'You':esc(ME().nom)}, here</span></div>
     </div>
   </section>
   <div class="grid3" style="margin-top:24px">
-    <section class="card"><div class="row" style="justify-content:space-between"><b class="muted small">Fiche métier</b>${J.co?coLogo(J.co):''}</div>
+    <section class="card"><div class="row" style="justify-content:space-between"><b class="muted small">Career profile</b>${J.co?coLogo(J.co):''}</div>
       <h2 style="font-size:22px;margin:10px 0 8px">${esc(J.title)}</h2><p>${esc(J.phrase)}</p>
-      <button class="btn alt" style="margin-top:14px" data-go="metier">Voir la fiche complète</button></section>
+      <button class="btn alt" style="margin-top:14px" data-go="metier">View full career profile</button></section>
     <section class="card" style="background:var(--human-wash);border-color:#FAD5C2">
-      <span class="who hu" style="background:#fff"><i></i>Disponible cette semaine</span>
-      <div class="row" style="margin-top:12px;flex-wrap:nowrap">${av(al.p,56,'#fff')}<div style="min-width:0"><b style="font-size:19px">${al.nom}</b><div class="muted small">${esc(al.poste)} chez ${esc(COMPANIES[al.co].nom)}</div></div></div>
+      <span class="who hu" style="background:#fff"><i></i>Available this week</span>
+      <div class="row" style="margin-top:12px;flex-wrap:nowrap">${av(al.p,56,'#fff')}<div style="min-width:0"><b style="font-size:19px">${al.nom}</b><div class="muted small">${esc(al.poste)} at ${esc(COMPANIES[al.co].nom)}</div></div></div>
       <p style="margin-top:10px;font-weight:600">${esc(whyOf(al))}</p>
-      <div class="row" style="margin-top:14px"><button class="btn" data-pick="${al.id}">Parler 30 min avec ${al.nom}</button></div></section>
+      <div class="row" style="margin-top:14px"><button class="btn" data-pick="${al.id}">Talk with ${al.nom} for 30 minutes</button></div></section>
     <div class="stack" style="gap:14px">
-      <div class="note" style="background:var(--ai-wash);color:var(--ai-ink)"><b>Pourquoi ce chemin</b><p style="margin-top:4px">${isReo()?`Ta 1ʳᵉ formation compte : elle t'a appris ce que tu ne veux plus. Ce chemin est plus ${J.ans<=3?'court et ':''}concret.`:`Tu voulais ${(S.ctx.duree||'').startsWith('Courtes')?'des études courtes':'un chemin clair'} : celui-ci fait ${J.ans} ans${['Oui','Peut-être'].includes(S.ctx.alternance)?", et l'alternance paie la formation":""}.`}</p></div>
-      <div class="note" style="background:var(--human-wash);color:var(--human)"><b>À demander à un pro</b><p style="margin-top:4px">${esc(J.q)}</p></div>
+      <div class="note" style="background:var(--ai-wash);color:var(--ai-ink)"><b>Why this path</b><p style="margin-top:4px">${isReo()?`Your previous program matters: it helped you learn what you do not want. This route is more ${J.ans<=3?'direct and ':''}hands-on.`:`You wanted ${(S.ctx.duree||'').startsWith('Courtes')?'a shorter study path':'a clear path'}: this program takes ${J.ans} years${['Oui','Peut-être'].includes(S.ctx.alternance)?", and alternance helps pay for your studies":""}.`}</p></div>
+      <div class="note" style="background:var(--human-wash);color:var(--human)"><b>Ask a professional</b><p style="margin-top:4px">${esc(J.q)}</p></div>
     </div>
   </div></div>`;
 };
@@ -1495,12 +1537,13 @@ function buildRail(){const el=$('#rail');if(!el||el.dataset.ok)return;el.dataset
 const NORAIL=['visio','rapport'];
 
 // ======================= v6 : l'humain décide (journal) =======================
-const DEC={'validé':'ok','gardé':'ok','envoyé':'ok','répondu':'hu','choisi':'hu','modifié':'ed','refusé':'no','retiré':'no'};
+const DEC={'validé':'ok','gardé':'ok','envoyé':'ok','répondu':'hu','choisi':'hu','modifié':'ed','refusé':'no','retiré':'no','approved':'ok','kept':'ok','sent':'ok','answered':'hu','chosen':'hu','edited':'ed','declined':'no','removed':'no'};
 const qv=f=>typeof f==='function'?f():f;
 function logIt(quoi,ia,toi,detail=''){quoi=qv(quoi);S.log=[{at:Date.now(),quoi,ia,toi,detail},...(S.log||[])].slice(0,40);save();const label=String(quoi).toLowerCase();const kind=label.includes('synth')?'synth':label.includes('compte rendu')?'report':label.includes('étape')?'step':label.includes('fiche')?'alv':label.includes('prochaine action')?'next_action':label.includes('brief')?'brief':label.includes('humain')?'support':null;if(kind&&['validé','modifié','refusé','envoyé','choisi','répondu'].includes(toi)){fetch('/api/decisions',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({kind,aiOutput:{description:quoi,original:ia},decision:toi,finalValue:detail?{value:detail}:null})}).catch(()=>{})}}
-function ago(t){const s=(Date.now()-t)/1000;if(s<60)return "à l'instant";if(s<3600)return `il y a ${Math.round(s/60)} min`;if(s<86400)return `il y a ${Math.round(s/3600)} h`;const d=Math.round(s/86400);return d<=1?'hier':`il y a ${d} jours`}
+function ago(t){const s=(Date.now()-t)/1000;if(s<60)return "just now";if(s<3600)return `${Math.round(s/60)} min ago`;if(s<86400)return `${Math.round(s/3600)} hr ago`;const d=Math.round(s/86400);return d<=1?'yesterday':`${d} days ago`}
+function decisionLabel(v){return ({'validé':'approved','gardé':'kept','envoyé':'sent','répondu':'replied','choisi':'chose','modifié':'edited','refusé':'declined','retiré':'removed'})[v]||v}
 function logHTML(n){const L=(S.log||[]).slice(0,n);if(!L.length)return `<p class="muted">Rien pour l'instant. Chaque fois que l'IA te propose quelque chose, ta décision s'affiche ici.</p>`;
-  return L.map(l=>`<div class="logr"><time>${ago(l.at)}</time><div style="min-width:0"><b>${esc(l.quoi)}</b><div class="muted small">L'IA ${esc(l.ia)}${l.detail?' · '+esc(l.detail):''}</div></div><span class="dec ${DEC[l.toi]||'ok'}">Tu as ${esc(l.toi)}</span></div>`).join('')}
+  return L.map(l=>`<div class="logr"><time>${ago(l.at)}</time><div style="min-width:0"><b>${esc(l.quoi)}</b><div class="muted small">AI ${esc(l.ia)}${l.detail?' · '+esc(l.detail):''}</div></div><span class="dec ${DEC[l.toi]||'ok'}">You ${esc(decisionLabel(l.toi))}</span></div>`).join('')}
 // Chaque texte écrit par l'IA a trois boutons : valider, modifier, refuser.
 const HITL={
   synth:{quoi:'Synthèse de ton profil',ia:()=>'a écrit 3 phrases sur tes goûts',get:()=>S.profile.synth,set:v=>{if(!S.profile.synthIA)S.profile.synthIA=S.profile.synth;S.profile.synth=v},
@@ -1562,14 +1605,14 @@ function opps(){const J=curJob();const co=J.co?COMPANIES[J.co].nom:'relevant emp
 }
 function nextAction(){
   const r=S.rdv,skip=S.skipAct||{},L=[];
-  if(S.report&&!(S.dec||{}).step) L.push({id:'step',t:"Décider de l'étape proposée après ton échange",s:`L'IA propose : « ${S.report.etape.titre} ». Tu l'ajoutes, tu la modifies ou tu la refuses.`,go:'rdv',cta:'Voir la proposition'});
-  if(r&&r.status==='done'&&!S.report) L.push({id:'report',t:`Raconter ton échange avec ${proOf().nom}`,s:"Écris tes notes en vrac : l'IA en tire l'essentiel, tu valides.",go:'rdv',cta:'Écrire mes notes'});
-  if(activeRdv()&&!(S.briefSent&&S.briefFor===r.id)) L.push({id:'prep:'+r.id,t:`Préparer ton échange avec ${proOf().nom}`,s:"2 minutes avec le copilote : il te propose des questions, tu choisis celles que le pro verra.",go:'prep',cta:'Préparer avec le copilote'});
-  if(r&&r.status==='confirmed') L.push({id:'visio:'+r.id,t:`Rejoindre ${proOf().nom} en visio`,s:`${proOf().slots[r.slot]} · 30 minutes, dans Alumnia`,go:'visio',cta:'Rejoindre la visio'});
-  if(!activeRdv()){const a=suggestPro();L.push({id:'pro:'+a.id,t:`Parler 30 minutes avec ${a.nom}`,s:`${a.poste} chez ${COMPANIES[a.co].nom}. ${whyOf(a)}`,pick:a.id,cta:'Voir ses créneaux'})}
+  if(S.report&&!(S.dec||{}).step) L.push({id:'step',t:"Choose what to do with the suggested next step",s:`AI suggests: “${S.report.etape.titre}”. Add it, edit it or decline it.`,go:'rdv',cta:'Review suggestion'});
+  if(r&&r.status==='done'&&!S.report) L.push({id:'report',t:`Reflect on your event with ${proOf().nom}`,s:"Write a few notes; AI will summarize the key points for you to review.",go:'rdv',cta:'Write my notes'});
+  if(activeRdv()&&!(S.briefSent&&S.briefFor===r.id)) L.push({id:'prep:'+r.id,t:`Prepare for your event with ${proOf().nom}`,s:"Spend 2 minutes with your AI coach. It suggests questions, and you choose what the professional sees.",go:'prep',cta:'Prepare with your AI coach'});
+  if(r&&r.status==='confirmed') L.push({id:'visio:'+r.id,t:`Join ${proOf().nom} on video`,s:`${proOf().slots[r.slot]} · 30 minutes in Alumnia`,go:'visio',cta:'Join the call'});
+  if(!activeRdv()){const a=suggestPro();L.push({id:'pro:'+a.id,t:`Meet ${a.nom} for 30 minutes`,s:`${a.poste} at ${COMPANIES[a.co].nom}. ${whyOf(a)}`,pick:a.id,cta:'View available times'})}
   const st=pathSteps(curJob()).find(s=>!s.goal&&s.key!=='base'&&!s.meet&&!S.steps[sk(s.key)]);
   if(st) L.push({id:'path:'+S.jobIx+st.key,t:st.t,s:st.s,go:'roadmap',cta:'Voir mon chemin'});
-  L.push({id:'explore',t:'Comparer avec une autre piste',s:"Regarde la fiche d'un autre métier, pour être sûr de ton choix.",go:'profil',cta:'Voir mes pistes'});
+  L.push({id:'explore',t:'Compare another career idea',s:"Review another career profile to feel confident in your choice.",go:'profil',cta:'View my ideas'});
   return L.find(x=>!skip[x.id])||L[L.length-1];
 }
 function briefQs(){const k=(S.brief||[]).filter(b=>b.st==='kept');return S.briefSent&&k.length&&S.rdv&&S.briefFor===S.rdv.id?k.map(b=>b.t):rdvQuestions()}
@@ -1605,7 +1648,7 @@ V.hub=()=>{
       ${opps().map(o=>`<div class="opp2"><span class="who pa"><i></i>${esc(o.k)}</span><b>${esc(o.t)}</b><span class="muted small">${esc(o.d)}</span></div>`).join('')}</section>
     <section class="hcard c3"><h2>Mon agenda</h2><div class="agenda2">${agenda.map(([d,t,k])=>`<div class="ag ${k}"><b>${esc(d)}</b><span>${esc(t)}</span></div>`).join('')||'<p class="muted">Rien de prévu.</p>'}</div></section>
     <section class="hcard c7"><h2>Mon chemin vers ${esc(J.court)} <button class="lnk" data-go="roadmap">Voir en grand</button></h2>
-      <div class="hbar"><i style="transform:scaleX(${allS.length?done/allS.length:0})"></i></div><p class="muted small" style="margin:6px 0 4px">${done} sur ${allS.length} étapes · objectif en ${Y.end}</p>
+      <div class="hbar"><i style="transform:scaleX(${allS.length?done/allS.length:0})"></i></div><p class="muted small" style="margin:6px 0 4px">${done} of ${allS.length} steps · target: ${Y.end}</p>
       ${steps.map(s=>{const isD=s.past||s.key==='base'||s.meet||S.steps[sk(s.key)];const n=(!s.goal&&s.key!=='base'&&!s.meet)?++num:0;const nx=s.key===nextKey;
         return `<div class="mrow"><span class="mdot ${s.goal?'goal':isD?'done':nx?'next':''}">${s.goal?ICON.star('#15201B',15):isD?ICON.check('#fff',14):n}</span><b style="flex:1;min-width:0">${esc(s.t)}</b>${nx?'<span class="who ok"><i></i>À faire</span>':''}</div>`}).join('')}</section>
     <section class="hcard c5"><h2>Mes 3 pistes</h2>
@@ -1629,7 +1672,7 @@ function prepHello(a){const has=activeRdv();const nom=ME().nom==='Toi'?'':' '+ME
 function pchatHTML(typing){let h='';const lastAi=typing?-1:S.pchat.map(m=>!m.me).lastIndexOf(true);
   S.pchat.forEach((m,k)=>{const nw=pFresh&&k===S.pchat.length-1?' new':'';
     h+=m.me?`<div class="msg me${nw}"><div class="bub">${esc(m.t)}</div>${av(ME().p,44)}</div>`
-    :`<div class="msg ai${nw}"><div class="orbwrap">${k===lastAi?`<div data-orb="breathing" data-size="40" role="img" aria-label="Le copilote"></div>`:ORB_STILL}</div><div style="min-width:0"><div class="who-n">Copilote Alumnia · IA</div><div class="bub">${esc(m.t)}</div>${m.q?`<span class="qadd">${ICON.check('#1D63B8',14)} Question proposée dans ton brief</span>`:''}${m.human?`<div class="row" style="margin-top:10px;gap:8px"><button class="btn sm" data-human="1">Écrire à l'équipe Alumnia</button><button class="btn alt sm" data-go="alumni">Voir les pros</button></div>`:''}</div></div>`});
+    :`<div class="msg ai${nw}"><div class="orbwrap">${k===lastAi?`<div data-orb="breathing" data-size="40" role="img" aria-label="AI coach"></div>`:ORB_STILL}</div><div style="min-width:0"><div class="who-n">Copilote Alumnia · IA</div><div class="bub">${esc(m.t)}</div>${m.q?`<span class="qadd">${ICON.check('#1D63B8',14)} Question proposée dans ton brief</span>`:''}${m.human?`<div class="row" style="margin-top:10px;gap:8px"><button class="btn sm" data-human="1">Écrire à l'équipe Alumnia</button><button class="btn alt sm" data-go="alumni">Voir les pros</button></div>`:''}</div></div>`});
   if(typing) h+=`<div class="msg ai new"><div class="orbwrap"><div data-orb="composing" data-size="40" role="img" aria-label="Le copilote écrit"></div></div><div><div class="who-n">Copilote Alumnia · IA</div><div class="bub" style="opacity:.75">Le copilote réfléchit…</div></div></div>`;
   return h}
 function localPrep(text,a){const t=text.toLowerCase();const J=CAT[a.job]||curJob();const nb=(S.brief||[]).filter(b=>b.st!=='removed').length;
@@ -1674,17 +1717,17 @@ V.prep=()=>{
   if(!S.pchat.length){S.pchat.push({me:false,t:prepHello(a)});save()}
   const B=S.brief, kept=B.filter(b=>b.st==='kept').length, removed=B.filter(b=>b.st==='removed').length, sent=S.briefSent&&has;
   return `<div class="wrap">${topbar('echanges',true)}
-  <div class="prephead"><div style="min-width:0;max-width:720px">${aiBadge('Copilote IA · avant ton échange')}<h1 class="h1" style="margin-top:10px">Prepare for your event with ${a.nom}</h1><p class="lead muted" style="margin-top:8px">Spend 2 minutes with AI, then 30 minutes with a professional. Nothing is shared with ${a.nom} without your approval.</p></div>
-    <div class="promini">${av(a.p,56,'#fff')}<div style="min-width:0"><b>${a.nom}</b><div class="muted small">${esc(a.poste)} chez ${esc(COMPANIES[a.co].nom)}</div><div style="margin-top:4px">${has?statusBadge(S.rdv.status):'<span class="who wait"><i></i>Pas encore réservé</span>'}</div></div></div></div>
+  <div class="prephead"><div style="min-width:0;max-width:720px">${aiBadge('AI coach · event prep')}<h1 class="h1" style="margin-top:10px">Prepare for your event with ${a.nom}</h1><p class="lead muted" style="margin-top:8px">Spend 2 minutes with AI, then 30 minutes with a professional. Nothing is shared with ${a.nom} without your approval.</p></div>
+    <div class="promini">${av(a.p,56,'#fff')}<div style="min-width:0"><b>${a.nom}</b><div class="muted small">${esc(a.poste)} at ${esc(COMPANIES[a.co].nom)}</div><div style="margin-top:4px">${has?statusBadge(S.rdv.status):'<span class="who wait"><i></i>Not booked yet</span>'}</div></div></div></div>
   <div class="g-prep">
-    <section class="chatbox" aria-label="Discussion avec le copilote">
-      <div class="chathead"><button class="btn alt sm mobonly" data-scroll="brief" style="order:9;margin:0">Mon brief (${B.filter(b=>b.st==='kept').length} gardée${B.filter(b=>b.st==='kept').length>1?'s':''})</button><div class="orbwrap" style="width:44px;height:44px"><div data-orb="breathing" data-size="36" role="img" aria-label="Le copilote"></div></div><b>Copilote Alumnia</b>${engPill()}<span class="small" style="margin-left:auto;font-weight:600">L'IA propose, tu décides</span></div>
+    <section class="chatbox" aria-label="AI coach conversation">
+      <div class="chathead"><button class="btn alt sm mobonly" data-scroll="brief" style="order:9;margin:0">My briefing (${B.filter(b=>b.st==='kept').length} kept)</button><div class="orbwrap" style="width:44px;height:44px"><div data-orb="breathing" data-size="36" role="img" aria-label="AI coach"></div></div><b>Alumnia AI coach</b>${engPill()}<span class="small" style="margin-left:auto;font-weight:600">AI suggests; you decide</span></div>
       <div class="pmsgs" id="pchat" aria-live="polite">${pchatHTML(pBusy)}</div>
       <div class="quick">${PQ.map(q=>`<button data-pq="${esc(q)}" ${pBusy?'disabled':''}>${esc(q)}</button>`).join('')}</div>
-      <form id="pform" class="pform"><label for="pin" class="sr">Ton message au copilote</label><input class="input" id="pin" placeholder="Écris au copilote…" autocomplete="off" ${pBusy?'disabled':''}><button class="btn ai" type="submit" ${pBusy?'disabled':''}>Envoyer</button></form>
+      <form id="pform" class="pform"><label for="pin" class="sr">Your message to the AI coach</label><input class="input" id="pin" placeholder="Write to your AI coach…" autocomplete="off" ${pBusy?'disabled':''}><button class="btn ai" type="submit" ${pBusy?'disabled':''}>Send</button></form>
       <div class="chatnote"><p class="muted small">The AI coach does not replace ${a.nom}; it helps you prepare. Would you rather talk to a person now? <button class="lnk" data-human="1">Message the Alumnia team</button></p>${peekHTML('prechat')}</div>
     </section>
-    <aside class="brief" id="brief" aria-label="Ton brief"><div class="row" style="justify-content:space-between"><h2 class="t2" style="margin:0;color:var(--human)">Your briefing for ${a.nom}</h2>${sent?'<span class="who ok"><i></i>Envoyé</span>':''}</div>
+    <aside class="brief" id="brief" aria-label="Your briefing"><div class="row" style="justify-content:space-between"><h2 class="t2" style="margin:0;color:var(--human)">Your briefing for ${a.nom}</h2>${sent?'<span class="who ok"><i></i>Sent</span>':''}</div>
       <p style="margin-top:6px">AI suggests questions. <b>You choose what ${a.nom} can see.</b></p>
       <ul class="blist">${B.map((b,i)=>b.st==='removed'?'':`<li class="bq ${b.st}${b.fresh?' flash':''}">${b.src==='ia'?aiBadge(b.edited?"Proposée par l'IA, modifiée par toi":"Proposée par l'IA",1):'<span class="who hu"><i></i>Ta question</span>'}
         ${S.bEdit===i?`<form data-bqform="${i}" style="display:grid;gap:8px;margin-top:8px"><label for="bqIn" class="sr">Modifier la question</label><input class="input" id="bqIn" value="${esc(b.t)}"><div class="bact"><button class="k" type="submit">Enregistrer</button><button type="button" data-bq="${i}:cancel">Annuler</button></div></form>`
@@ -1822,29 +1865,29 @@ function fillDemo(who){
 function seedDemo(who){
   const D=86400000,H=3600000,now=Date.now();
   S.aiCount=3;
-  S.log=[{at:now-5*60000,quoi:'Question de relance du questionnaire',ia:'a rebondi sur ta réponse',toi:'répondu'}];
+  S.log=[{at:now-5*60000,quoi:'Questionnaire follow-up',ia:'built on your answer',toi:'answered'}];
   if(who==='camille'){
     S.jobIx=0; S.aiCount=11; S.steps={}; {const P=S.profile;P.questions=localQuestions(P.jobs)}
-    const rep={retiens:["Le master en alternance se prépare dès l'automne : les entreprises recrutent tôt.","Pour débuter, SQL et Excel comptent plus que les maths très poussées.","Un petit projet sur des données publiques aide beaucoup en entretien."],etape:{titre:"Postuler à 3 masters data en alternance",quand:"avant fin mars"},merci:"Merci Sarah pour tes conseils très concrets. Je sais maintenant comment m'y prendre pour le master."};
-    S.past=[{rdv:{id:'sarah',slot:0,status:'done',rating:5,thanked:true,when:'Mar. 20 oct, 18 h'},report:rep}];
+    const rep={retiens:["Companies start recruiting in the fall for master’s programs through alternance.","For entry-level roles, SQL and Excel matter more than advanced mathematics.","A small project using public data is great interview material."],etape:{titre:"Apply to 3 data science master’s programs through alternance",quand:"by late March"},merci:"Thank you, Sarah, for such practical advice. I know how to approach master’s applications now."};
+    S.past=[{rdv:{id:'sarah',slot:0,status:'done',rating:5,thanked:true,when:'Tue, Oct 20 · 6 pm'},report:rep}];
     S.extras=[{titre:rep.etape.titre,quand:rep.etape.quand,de:'Sarah'}];
-    S.log=[{at:now-20*H,quoi:"Étape proposée après l'échange avec Sarah",ia:'a proposé « Postuler au master data en alternance »',toi:'modifié',detail:'ta version : « Postuler à 3 masters data en alternance »'},
-      {at:now-21*H,quoi:"Compte rendu de l'échange avec Sarah",ia:'a résumé tes notes en 3 points',toi:'validé'},
-      {at:now-4*D,quoi:'Brief envoyé à Sarah',ia:'a proposé 6 questions',toi:'envoyé',detail:'4 gardées, 1 modifiée, 1 de toi'},
-      {at:now-5*D,quoi:'Synthèse de ton profil',ia:'a écrit 3 phrases sur tes goûts',toi:'validé'},
-      {at:now-5*D-H,quoi:'Question de relance du questionnaire',ia:'a rebondi sur ta réponse',toi:'répondu'}];
+    S.log=[{at:now-20*H,quoi:'Next step after the event with Sarah',ia:'suggested “Apply to a data science master’s through alternance”',toi:'edited',detail:'your version: “Apply to 3 data science master’s programs through alternance”'},
+      {at:now-21*H,quoi:'Event summary with Sarah',ia:'summarized your notes in 3 points',toi:'approved'},
+      {at:now-4*D,quoi:'Questions sent to Sarah',ia:'suggested 6 questions',toi:'sent',detail:'4 kept, 1 edited, 1 written by you'},
+      {at:now-5*D,quoi:'Profile summary',ia:'wrote 3 sentences about your interests',toi:'approved'},
+      {at:now-5*D-H,quoi:'Questionnaire follow-up',ia:'built on your answer',toi:'answered'}];
     S.dec={synth:'validé'};
   }
   if(who==='sami'){
     S.jobIx=0; S.aiCount=9;
-    const rep={retiens:["Un portfolio avec 3 études de cas bien expliquées vaut mieux que 15 jolis écrans.","Les premiers postes se trouvent souvent par le réseau : il faut montrer son travail.","Les tests avec de vrais utilisateurs impressionnent toujours en entretien."],etape:{titre:"Refaire mon portfolio avec 3 études de cas",quand:"d'ici 3 semaines"},merci:"Merci Léa, ton regard sur mon portfolio m'a beaucoup aidé."};
-    S.past=[{rdv:{id:'lea',slot:0,status:'done',rating:5,thanked:true,when:'Ven. 23 oct, 18 h'},report:rep}];
+    const rep={retiens:["A portfolio with three well-explained case studies is stronger than fifteen polished screens.","Early roles often come through your network, so make your work visible.","Testing with real users always makes a strong impression in interviews."],etape:{titre:"Rebuild my portfolio with three case studies",quand:"within 3 weeks"},merci:"Thank you, Léa. Your feedback on my portfolio helped a lot."};
+    S.past=[{rdv:{id:'lea',slot:0,status:'done',rating:5,thanked:true,when:'Fri, Oct 23 · 6 pm'},report:rep}];
     S.extras=[{titre:rep.etape.titre,quand:rep.etape.quand,de:'Léa'}];
     S.rdv={id:'mehdi',slot:0,status:'confirmed'};
-    S.log=[{at:now-2*H,quoi:'Échange avec Mehdi',ia:"t'a proposé Mehdi pour comparer avec la gestion de projet",toi:'choisi'},
-      {at:now-2*D,quoi:"Étape proposée après l'échange avec Léa",ia:'a proposé « Refaire mon portfolio avec 3 études de cas »',toi:'validé'},
-      {at:now-2*D-H,quoi:"Compte rendu de l'échange avec Léa",ia:'a résumé tes notes en 3 points',toi:'validé'},
-      {at:now-6*D,quoi:'Synthèse de ton profil',ia:'a écrit 3 phrases sur tes goûts',toi:'modifié',detail:'tu as ajouté ton goût pour le jeu vidéo'}];
+    S.log=[{at:now-2*H,quoi:'Event with Mehdi',ia:'suggested Mehdi so you can compare UX with project management',toi:'chosen'},
+      {at:now-2*D,quoi:'Next step after your event with Léa',ia:'suggested “Rebuild my portfolio with three case studies”',toi:'approved'},
+      {at:now-2*D-H,quoi:'Event reflection with Léa',ia:'summarized your notes in 3 points',toi:'approved'},
+      {at:now-6*D,quoi:'Profile summary',ia:'wrote 3 sentences about your interests',toi:'edited',detail:'you added your interest in video games'}];
     S.dec={synth:'modifié'};
   }
 }
