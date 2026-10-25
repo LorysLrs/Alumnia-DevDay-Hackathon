@@ -710,7 +710,7 @@ const CAT={
 };
 const ALUMNI=[
  {id:'lorys',p:2,nom:"Lorys",poste:"Administrateur réseau",co:'nexora',job:"Administrateur systèmes et réseaux",parcours:"BUT Réseaux et télécoms en alternance, après une 1ʳᵉ année de fac abandonnée.",why:{yanis:"Il a hésité comme toi entre deux voies, et il a choisi l'alternance.",paul:"Lui aussi a changé de voie après une 1ʳᵉ année : il sait ce que ça fait.",etu:"Il a construit sa carrière en alternance : il sait ce que regardent les recruteurs."},slots:["Jeu. 29 oct, 18 h","Sam. 31 oct, 10 h","Mar. 3 nov, 19 h"]},
- {id:'nadia',p:7,nom:"Nadia",poste:"Analyste en cybersécurité",co:'vectra',job:"Analyste en cybersécurité",parcours:"BUT Réseaux et télécoms parcours cyber, en alternance. En poste depuis 3 ans.",why:{yanis:"Elle n'était pas « forte en informatique » au lycée. Elle a appris en BUT.",paul:"Elle a choisi un BUT pour apprendre en faisant, pas seulement en cours.",etu:"Elle a appris son métier en alternance et sait ce qu'on attend d'un débutant."},slots:["Ven. 30 oct, 17 h 30","Lun. 2 nov, 18 h"]},
+ {id:'nadia',p:7,nom:"Nadia",poste:"Analyste en cybersécurité",co:'vectra',job:"Analyste en cybersécurité",parcours:"BUT Réseaux et télécoms parcours cyber, en alternance. En poste depuis 3 ans.",why:{yanis:"She did not think she was good at computing in high school. She learned through a BUT program.",paul:"She chose a BUT to learn by doing, not only in the classroom.",etu:"She learned her profession through alternance and knows what beginners are expected to do."},slots:["Ven. 30 oct, 17 h 30","Lun. 2 nov, 18 h"]},
  {id:'ines',p:5,nom:"Inès",poste:"Ingénieure réseau",co:'helio',job:"Administrateur systèmes et réseaux",parcours:"BTS SIO, licence pro, puis école d'ingénieurs en alternance.",why:{yanis:"Elle a commencé par des études courtes et a continué ensuite : la preuve qu'on peut.",paul:"Elle a construit son chemin étape par étape, sans tout savoir au départ.",etu:"Elle a enchaîné BTS, licence pro et école d'ingénieurs : elle connaît les poursuites d'études."},slots:["Ven. 30 oct, 12 h 30","Lun. 2 nov, 18 h"]},
  {id:'sarah',p:1,nom:"Sarah",poste:"Data analyst",co:'helio',job:"Data analyst",parcours:"BUT Science des données, puis master en alternance.",why:{yanis:"Elle aime chercher l'explication derrière les chiffres, comme toi.",paul:"Elle a choisi un métier où on voit à quoi sert son travail.",etu:"Elle a fait un master en alternance après son BUT : exactement ta question du moment."},slots:["Jeu. 5 nov, 18 h"]},
  {id:'karim',p:6,nom:"Karim",poste:"Technicien support",co:'nexora',job:"Technicien support informatique",parcours:"Bac pro, puis BTS SIO en alternance. En poste depuis 2 ans.",why:{yanis:"Il peut te dire ce qu'est le métier sur le terrain, au quotidien.",paul:"Il a trouvé sa voie par l'alternance, sans passer par la fac.",etu:"Il recrute des alternants au support : il sait ce qui fait sortir un CV du lot."},slots:["Mer. 4 nov, 17 h"]},
@@ -833,6 +833,7 @@ function localProfile(){
   const {sc,dom}=score(); const [a,b,c]=dom;
   const preferenceJobs=jobsFromIntent([S.careerFocus,S.ctx.idees,...S.chat.filter(m=>m.me).map(m=>m.t)].filter(Boolean).join(' '));
   const jobs=[...new Set([...preferenceJobs,JOBS[a][0],JOBS[a][1],JOBS[b][0]])].slice(0,3);
+  const careerTitle=j=>({"Administrateur réseau":"Network administrator","Maintenance industrielle":"Industrial maintenance technician","Support informatique":"IT support technician","Analyste cyber":"Cybersecurity analyst","Data analyst":"Data analyst","Technicien de labo":"Lab technician","UX/UI designer":"UX/UI designer","Motion designer":"Motion designer","Game designer":"Game designer","Professeur des écoles":"Primary school teacher","Chargé de formation":"Training specialist","Éducateur spécialisé":"Specialist educator","Chef de projet":"Project manager","Business developer":"Business development specialist","Chargé de com":"Communications specialist","Contrôleur de gestion":"Management controller","Gestionnaire de paie":"Payroll specialist","Assistant RH":"HR assistant","Software and AI engineer":"Software and AI engineer"}[CAT[j].court]||CAT[j].court);
   const court=(S.ctx.duree||'').startsWith('Courtes'), alt=['Oui','Peut-être'].includes(S.ctx.alternance);
   const stated=S.ctx.idees?.trim()||S.careerFocus?.trim();
   let synth=stated?`You said you are interested in ${stated.slice(0,180)}. We start with that direction; your interest answers help refine the next steps.`:`Your answers point to ${DESC[a]}. ${DESC[b]} is another clue, not a verdict.`;
@@ -840,18 +841,18 @@ function localProfile(){
   if(chatInsight) synth+=" Your AI conversation adds context to this direction and helps prioritize which routes to explore.";
   if(isReo()&&S.ctx.reo_why) synth+=` Your experience in ${S.ctx.reo_form||'your previous study program'} also helps shape this direction.`;
   else if(court) synth+=alt?" You prefer a shorter study route, and work-study (alternance) interests you.":" You prefer a shorter study route.";
-  const why=jobs.map(j=>stated?`You named ${stated.slice(0,100)}. Explore how ${j} could connect to that direction: ${CAT[j].phrase}`:CAT[j].why);
+  const why=jobs.map(j=>stated?`You named ${stated.slice(0,100)}. Explore how ${careerTitle(j)} could connect to that direction and what the work involves.`:`Your answers suggest ${careerTitle(j)} as a path worth exploring.`);
   return {sc,dom,jobs,synth,why,questions:localQuestions(jobs),eclaircir:stated?[`Explore the day-to-day work in ${stated.slice(0,90)}.`,`Compare study routes and application timelines for ${stated.slice(0,90)}.`]:[`Compare ${LABEL[a].toLowerCase()} and ${LABEL[b].toLowerCase()} through real work examples.`,court?"Look at shorter study programs and work-study options near you.":"Compare longer study routes with shorter alternatives."]};
 }
 function normalizeIntent(value){return String(value||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
 function jobsFromIntent(value){
-  const text=normalizeIntent(value),jobs=[];
+  const raw=String(value||''),text=normalizeIntent(raw),jobs=[];
   const add=(...titles)=>titles.forEach(title=>{if(CAT[title]&&!jobs.includes(title))jobs.push(title)});
   add(...Object.keys(CAT).filter(title=>text.includes(normalizeIntent(title))));
   if(/cyber|cybersecurity|security|securite|ctf/.test(text))add('Analyste en cybersécurité','Administrateur systèmes et réseaux','Technicien support informatique');
   if(/software|developpement logiciel|developpeur|programming|programmation|coding|code|artificial intelligence|\bai\b|\bia\b|intelligence artificielle/.test(text))add('Ingénieur logiciel IA','Data analyst','Analyste en cybersécurité');
   if(/data|donnee|machine learning|deep learning|llm|intelligence artificielle/.test(text))add('Data analyst','Ingénieur logiciel IA','Analyste en cybersécurité');
-  if(/informatique|computer|technology|technologie|\bit\b|reseau|network/.test(text))add('Ingénieur logiciel IA','Analyste en cybersécurité','Administrateur systèmes et réseaux');
+  if(/\bIT\b/.test(raw)||/informatique|computer|technology|technologie|reseau|network/.test(text))add('Ingénieur logiciel IA','Analyste en cybersécurité','Administrateur systèmes et réseaux');
   if(/ux|ui|design|appli|application|interface|jeu video|game/.test(text))add('UX/UI designer','Game designer','Motion designer');
   if(/finance|comptabilite|gestion/.test(text))add('Contrôleur de gestion','Data analyst','Assistant RH');
   if(/teacher|professeur|enseignement|enseigner/.test(text))add('Professeur des écoles','Chargé de formation','Éducateur spécialisé');
@@ -1547,17 +1548,17 @@ const activeRdv=()=>S.rdv&&S.rdv.status!=='done';
 const prepPro=()=>activeRdv()?proOf():suggestPro();
 function opps(){const J=curJob();const co=J.co?COMPANIES[J.co].nom:'relevant employers';const st=stage();
   if(st==='lycee')return [
-    {k:'Parcoursup',t:'Formuler tes vœux',d:'Mi-janvier à mi-mars 2027',why:`Dont le ${J.form}`},
-    {k:'Portes ouvertes',t:'IUT de Villetaneuse',d:'Samedi 6 février 2027',why:'Pour voir les salles de TP en vrai'},
-    {k:'Découverte',t:`Une demi-journée chez ${co}`,d:"Vacances d'hiver",why:'Proposée par un pro de la communauté'}];
+    {k:'Parcoursup',t:'Choose your preferences',d:'Mid-January to mid-March 2027',why:`Including ${J.form}`},
+    {k:'Open day',t:'IUT de Villetaneuse',d:'Saturday, February 6, 2027',why:'See the practical labs in person'},
+    {k:'Explore',t:`A half-day at ${co}`,d:'Winter break',why:'Suggested by an Alumnia professional'}];
   if(st==='etudiant')return [
-    {k:'Alternance',t:`${J.court} en alternance chez ${co}`,d:"Candidatures jusqu'au 15 mars",why:'Pour la rentrée de septembre 2027'},
-    {k:'Forum',t:"Forum alternance de l'UPEC",d:'Jeudi 19 novembre',why:'40 entreprises, dont 3 de la communauté'},
-    isReo()?{k:'Parcoursup',t:'Vœux de réorientation',d:'Mi-janvier à mi-mars 2027',why:J.form}:{k:'Mon Master',t:'Candidatures en master',d:'Printemps 2027',why:'En alternance si tu veux être payée'}];
+    {k:'Alternance',t:`${J.court} through alternance at ${co}`,d:'Applications close March 15',why:'For the September 2027 intake'},
+    {k:'Fair',t:'UPEC alternance fair',d:'Thursday, November 19',why:'40 companies, including 3 from the Alumnia network'},
+    isReo()?{k:'Parcoursup',t:'Change-of-direction preferences',d:'Mid-January to mid-March 2027',why:J.form}:{k:'Master’s applications',t:'Apply for a master’s degree',d:'Spring 2027',why:'Alternance is an option if you want to earn while studying'}];
   return [
-    {k:'Emploi',t:`${J.court} junior chez ${co}`,d:'Publiée il y a 3 jours',why:'Ouverte aux jeunes diplômés'},
-    {k:'Rencontre',t:'Les pros Alumnia se retrouvent',d:'Mardi 17 novembre, Paris 11ᵉ',why:'Pour élargir ton réseau'},
-    {k:'Alternance',t:`Master en alternance : ${J.court}`,d:'Candidatures au printemps',why:'Si tu veux te spécialiser'}];
+    {k:'Job',t:`Junior ${J.court} at ${co}`,d:'Posted 3 days ago',why:'Open to recent graduates'},
+    {k:'Meetup',t:'Alumnia professionals meet up',d:'Tuesday, November 17 · Paris 11th',why:'Grow your professional network'},
+    {k:'Alternance',t:`Master’s degree through alternance: ${J.court}`,d:'Applications open in spring',why:'If you want to specialize'}];
 }
 function nextAction(){
   const r=S.rdv,skip=S.skipAct||{},L=[];
@@ -1579,17 +1580,18 @@ V.hub=()=>{
   if(!S.profile) return needQuiz();
   const me=ME(),P=S.profile,J=curJob(),A=nextAction(),Y=journeyYears(J);
   const focus=careerDirection()||'your current career ideas',cyber=/cyber|security|sécurité/i.test(focus);
+  const studyStatus=S.ctx.niveau==='Je me réoriente'?'Changing direction':S.ctx.niveau==='Terminale'?'Terminale student':S.ctx.niveau==='Première'?'Première student':S.ctx.niveau==='Seconde'?'Seconde student':String(ME().label||'').includes('licence')?'Second-year licence student':S.ctx.niveau==='Bac +3 ou plus'?'Recent graduate':'Post-baccalaureate student';
   const focusEvents=cyber?['Cybersecurity CTFs and beginner-friendly challenges','Cybersecurity hackathons and student meetups','Security and cloud events near your school']:['AI and software engineering hackathons','Developer meetups and student tech events','Summer software / AI internship application windows'];
   const focusPeople=ALUMNI.filter(a=>/informatique|cyber|réseau|data|support/i.test(a.job+' '+a.poste)).slice(0,3);
   const focusCompanies=[...new Set(focusPeople.map(a=>COMPANIES[a.co].nom))].slice(0,3);
   const steps=pathSteps(J),todo=steps.filter(s=>!s.goal&&s.key!=='base'&&!s.meet),allS=steps.filter(s=>!s.goal),done=allS.filter(s=>s.past||s.key==='base'||s.meet||S.steps[sk(s.key)]).length;
   const nextKey=(todo.find(s=>!S.steps[sk(s.key)])||{}).key; let num=0;
-  const agenda=[...(activeRdv()?[[proOf().slots[S.rdv.slot].split(',')[0],`Échange avec ${proOf().nom}`,'hu']]:[]),...opps().filter(o=>/\d/.test(o.d)&&!/^Publi/.test(o.d)).map(o=>[o.d.split(' 2027')[0].replace(/^Candidatures jusqu'au /,"Jusqu'au "),o.k+' : '+o.t,'pa']),...(S.extras||[]).filter((x,i)=>!S.steps[sk('x'+i)]).slice(-1).map(x=>[cap(x.quand),x.titre,'ok'])].slice(0,4);
-  const alt=S.ctx.alternance==='Oui'?'Alternance':S.ctx.alternance==='Peut-être'?'Alternance : peut-être':'';
+  const agenda=[...(activeRdv()?[[proOf().slots[S.rdv.slot].split(',')[0],`Échange avec ${proOf().nom}`,'hu']]:[]),...opps().filter(o=>/\d/.test(o.d)&&!/^Publi/.test(o.d)).map(o=>[o.d.split(' 2027')[0].replace(/^Candidatures jusqu'au /,"Jusqu'au "),o.k+': '+o.t,'pa']),...(S.extras||[]).filter((x,i)=>!S.steps[sk('x'+i)]).slice(-1).map(x=>[cap(x.quand),x.titre,'ok'])].slice(0,4);
+  const alt=S.ctx.alternance==='Oui'?'Alternance':S.ctx.alternance==='Peut-être'?'Alternance: maybe':'';
   return `<div class="wrap">${topbar('hub')}
   <div class="hubtop">
-    <section class="hello2">${av(me.p,56,'#fff')}<div style="min-width:0"><h1>Bonjour${me.nom==='Toi'?' !':' '+esc(me.nom)}</h1>
-      <p>${[cap(me.label||S.ctx.niveau||''),'Objectif : '+J.court,alt].filter(Boolean).map(esc).join(' · ')}</p></div></section>
+    <section class="hello2">${av(me.p,56,'#fff')}<div style="min-width:0"><h1>Hello${me.nom==='Toi'?'!':' '+esc(me.nom)}</h1>
+      <p>${[studyStatus,'Goal: '+J.court,alt].filter(Boolean).map(esc).join(' · ')}</p></div></section>
     <section class="copilot2"><span class="ob2"><span data-orb="breathing" data-size="36" role="img" aria-label="Ton copilote IA"></span></span><b>Ton copilote IA</b>${engPill()}<button class="btn ai sm" data-go="prep" style="margin:0 0 0 auto">Parler au copilote</button></section>
   </div>
   <section class="card" style="margin-top:18px;background:var(--ai-wash)"><h2 class="t2">Your direction grows clearer with every AI conversation</h2><p class="lead">Start with a career or study path you already have in mind. The AI asks about your reasons, the work you want to do, what you have tried and which study route fits. Your words shape your profile; interest scores are secondary clues. Your Hub turns that direction into events, internships, people, companies and resources. You decide what to keep.</p><div class="row" style="margin-top:14px"><span class="who ai"><i></i>Starting point: ${esc(focus)}</span><button class="btn alt sm" data-go="profil">Build my profile</button></div></section>
@@ -1797,11 +1799,11 @@ function fillDemo(who){
   const keep=S.tournage; S=structuredClone(S0); S.tournage=keep;
   S.persona=who; S.chatDone=true;
   if(who==='paul'){
-    S.ctx={niveau:'Je me réoriente',reo_form:'licence de biologie, 1ʳᵉ année',reo_why:"Trop théorique. Je passais mes journées sur des polys sans voir à quoi ça servait.",specialites:['SVT / biologie','NSI / informatique'],duree:'Courtes (2 à 3 ans)',alternance:'Oui',lycee:'Université Paris-Est Créteil',idees:"something practical, perhaps IT"};
+    S.ctx={niveau:'Je me réoriente',reo_form:'first year of a biology degree',reo_why:"Trop théorique. Je passais mes journées sur des polys sans voir à quoi ça servait.",specialites:['SVT / biologie','NSI / informatique'],duree:'Courtes (2 à 3 ans)',alternance:'Oui',lycee:'Université Paris-Est Créteil',idees:"something practical, perhaps IT"};
     const pat={R:5,I:4,A:2,S:3,E:3,C:3}; ITEMS.forEach(it=>S.ans[it.id]=pat[it.type]); S.ans.R2=5;S.ans.I1=5;
     S.chat=[{me:false,t:"You said you would love to “fix a broken computer, phone or appliance”. What do you enjoy more: the object itself, or figuring out why it broke?"},{me:true,t:"Seeing it work again at the end. In biology, I never saw the result."},{me:false,t:"Seeing the result of your work was exactly what was missing in biology. In networking or maintenance, you know what you fixed each day."}];
   }else if(who==='camille'){
-    S.ctx={niveau:'Bac +1 ou +2',specialites:['SES / économie','Maths'],duree:'Longues (5 ans ou plus)',alternance:'Oui',lycee:'Université Paris-Est Créteil',idees:'la data, ou la finance'};
+    S.ctx={niveau:'Bac +1 ou +2',specialites:['SES / économie','Maths'],duree:'Longues (5 ans ou plus)',alternance:'Oui',lycee:'Université Paris-Est Créteil',idees:'data science, maybe finance'};
     const pat={R:2,I:5,A:2,S:3,E:3,C:4}; ITEMS.forEach(it=>S.ans[it.id]=pat[it.type]); S.ans.I3=5;
     S.chat=[{me:false,t:"You said you would love to “analyze numbers or data to find an explanation”. Do you prefer investigating on your own, or explaining what you found to others?"},{me:true,t:"Both, but especially finding the explanation."},{me:false,t:"Finding the story behind the numbers is at the heart of data analysis. I will add that to your career ideas."}];
   }else if(who==='sami'){
@@ -1822,7 +1824,7 @@ function seedDemo(who){
   S.aiCount=3;
   S.log=[{at:now-5*60000,quoi:'Question de relance du questionnaire',ia:'a rebondi sur ta réponse',toi:'répondu'}];
   if(who==='camille'){
-    S.jobIx=0; S.aiCount=11; S.steps={}; {const P=S.profile;P.jobs=[1,2,0].map(i=>P.jobs[i]);P.why=P.jobs.map(j=>CAT[j].why);P.questions=localQuestions(P.jobs)}
+    S.jobIx=0; S.aiCount=11; S.steps={}; {const P=S.profile;P.questions=localQuestions(P.jobs)}
     const rep={retiens:["Le master en alternance se prépare dès l'automne : les entreprises recrutent tôt.","Pour débuter, SQL et Excel comptent plus que les maths très poussées.","Un petit projet sur des données publiques aide beaucoup en entretien."],etape:{titre:"Postuler à 3 masters data en alternance",quand:"avant fin mars"},merci:"Merci Sarah pour tes conseils très concrets. Je sais maintenant comment m'y prendre pour le master."};
     S.past=[{rdv:{id:'sarah',slot:0,status:'done',rating:5,thanked:true,when:'Mar. 20 oct, 18 h'},report:rep}];
     S.extras=[{titre:rep.etape.titre,quand:rep.etape.quand,de:'Sarah'}];
