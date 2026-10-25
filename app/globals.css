@@ -1,0 +1,179 @@
+/* Alumnia — jetons et styles de base. Source : DESIGN.md (version 4). */
+
+:root {
+  --paper: #ffffff;
+  --wash: #f3f6f1;
+  --line: #e3e8e2;
+  --ink: #15201b;
+  --ink-2: #4a5650;
+  --green: #1c8247;
+  --green-edge: #16683a;
+  --green-wash: #e3f5e9;
+  --sun: #ffc93c;
+  --sun-edge: #e0a800;
+  --sun-wash: #fff4d1;
+  --ai: #1d63b8;
+  --ai-wash: #e6f0fb;
+  --ai-dot: #4c8fe0;
+  --human: #b83e0c;
+  --human-wash: #ffede3;
+  --human-dot: #f07a3e;
+  --partner: #0f766e;
+  --partner-wash: #dff3f0;
+
+  --r-card: 24px;
+  --r-band: 32px;
+  --r-pill: 999px;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --t-press: 160ms;
+  --t-ui: 200ms;
+  --t-move: 250ms;
+}
+
+[data-theme="partner-dark"] {
+  --paper: #0f1714;
+  --wash: #18231f;
+  --line: #2a3a34;
+  --ink: #eef3f0;
+  --ink-2: #a7b5ae;
+  --green: #5fd08f;
+  --green-edge: #3e9e68;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.08;
+  text-wrap: balance;
+  margin: 0;
+}
+
+::selection {
+  background: var(--sun);
+  color: #15201b;
+}
+
+:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* Boutons « autocollants » */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 13px 24px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--green);
+  color: #fff;
+  border-bottom: 4px solid var(--green-edge);
+  cursor: pointer;
+  transition: transform var(--t-press) var(--ease-out), border-bottom-width var(--t-press) var(--ease-out);
+}
+.btn:active {
+  transform: translateY(2px) scale(0.98);
+  border-bottom-width: 2px;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn--alt {
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--line);
+  border-bottom-width: 4px;
+}
+
+/* Toast Sonner : la seconde ligne (« +1 étape ») en jaune */
+.toast-badge {
+  color: var(--sun) !important;
+  font-weight: 700;
+}
+
+/* Choix (questionnaire, créneaux, puces de filtre) */
+.choice {
+  border: 2px solid var(--line);
+  border-bottom-width: 4px;
+  border-radius: 20px;
+  background: #fff;
+  font-weight: 700;
+  transition: background var(--t-ui) ease, border-color var(--t-ui) ease, transform var(--t-press) var(--ease-out);
+}
+.choice[aria-checked="true"],
+.choice[aria-pressed="true"] {
+  background: var(--green-wash);
+  border-color: var(--green);
+  color: var(--green-edge);
+  transform: scale(1.03);
+}
+
+/* Surfaces : pas d'ombre au repos */
+.card {
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 26px;
+}
+.soft {
+  background: var(--wash);
+  border-radius: var(--r-card);
+  padding: 26px;
+}
+
+/* Puces « qui parle » */
+.who {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--r-pill);
+  padding: 4px 12px;
+}
+.who--ai { background: var(--ai-wash); color: var(--ai); }
+.who--human { background: var(--human-wash); color: var(--human); }
+.who--partner { background: var(--partner-wash); color: var(--partner); }
+.who--done { background: var(--green-wash); color: var(--green-edge); }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
