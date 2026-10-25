@@ -31,7 +31,6 @@
     ["sur 2", "of 2"],
     ["pour ce métier.", "for this career."],
     ["Rien d'autre", "Nothing else"],
-    ["ta classe", "your year of study"],
     ["tes réponses au questionnaire", "your questionnaire answers"],
     ["ton e-mail", "your email"],
     ["ton lycée", "your school"],

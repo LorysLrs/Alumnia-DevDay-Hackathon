@@ -653,28 +653,29 @@ const COMPANIES={
 const NIVEAUX=["Seconde","Première","Terminale","Bac +1 ou +2","Bac +3 ou plus","Je me réoriente"];
 const LYCEES=["Lycée Jean-Jaurès, Montreuil","Lycée Paul-Éluard, Saint-Denis","Lycée Marcelin-Berthelot, Pantin","Lycée Henri-Wallon, Aubervilliers","Lycée agricole, Mirecourt","Université Paris-Est Créteil","IUT de Villetaneuse"];
 const CONTEXT=[
-  {id:'prenom',titre:"Comment tu t'appelles ?",aide:"Juste ton prénom. Le pro ne verra que ton prénom et ta classe, jamais ton nom ni ton e-mail.",kind:'prenom',when:()=>S.persona==='moi'},
-  {id:'niveau',titre:"Tu en es où dans tes études ?",aide:"On adapte les métiers et les études à ta situation.",opts:NIVEAUX},
-  {id:'reo',titre:"Qu'est-ce qui ne t'a pas plu dans ta formation ?",aide:"Changer de voie, ce n'est pas un échec : ça dit beaucoup de ce que tu veux. Tu peux rester court.",kind:'reo',when:()=>S.ctx.niveau==="Je me réoriente"},
-  {id:'specialites',titre:"Quelles matières te plaisent le plus ?",aide:"Choisis jusqu'à 3 réponses.",max:3,opts:["Maths","NSI / informatique","Physique-chimie","SVT / biologie","SES / économie","Langues","Lettres, philo","Arts","Sport"]},
-  {id:'duree',titre:"Tu te vois faire des études plutôt…",aide:"Rien n'est définitif : on parle de ce que tu imagines aujourd'hui.",opts:["Courtes (2 à 3 ans)","Longues (5 ans ou plus)","Ça dépendra du métier","Je ne sais pas encore"]},
-  {id:'alternance',titre:"L'alternance, ça t'intéresse ?",aide:"Tu alternes cours et entreprise, et tu es payé pendant tes études.",opts:["Oui","Peut-être","Non","Je ne sais pas ce que c'est"]},
-  {id:'lycee',titre:"Ton lycée ou ta formation",aide:"Facultatif. On s'en sert seulement pour vérifier qu'Alumnia aide autant les jeunes de tous les lycées. Les entreprises ne le voient jamais.",kind:'lycee'},
+  {id:'prenom',titre:"What is your first name?",aide:"Just your first name. Professionals only see your first name and year of study, never your surname or email.",kind:'prenom',when:()=>S.persona==='moi'},
+  {id:'niveau',titre:"Where are you in your studies?",aide:"We tailor careers and study options to your situation.",opts:NIVEAUX},
+  {id:'reo',titre:"What did you dislike about your program?",aide:"Changing direction is not a failure. It tells us a lot about what you want. A short answer is fine.",kind:'reo',when:()=>S.ctx.niveau==="Je me réoriente"},
+  {id:'specialites',titre:"Which subjects do you enjoy most?",aide:"Choose up to 3 answers.",max:3,opts:["Maths","NSI / informatique","Physique-chimie","SVT / biologie","SES / économie","Langues","Lettres, philo","Arts","Sport"]},
+  {id:'duree',titre:"What kind of study path can you picture?",aide:"Nothing is set in stone. This is about what you imagine today.",opts:["Courtes (2 à 3 ans)","Longues (5 ans ou plus)","Ça dépendra du métier","Je ne sais pas encore"]},
+  {id:'alternance',titre:"Are you interested in alternance?",aide:"You combine classes with work at a company and earn a salary while studying.",opts:["Oui","Peut-être","Non","Je ne sais pas ce que c'est"]},
+  {id:'lycee',titre:"Your school or program",aide:"Optional. We use it only to check that Alumnia supports students across different schools. Companies never see it.",kind:'lycee'},
 ];
 const RAW={
-  R:["Réparer un ordinateur, un téléphone ou un appareil en panne","Monter ou installer un équipement (réseau, électricité, meuble)","Travailler en extérieur, sur un chantier ou sur le terrain","Utiliser des outils ou des machines pour fabriquer quelque chose"],
-  I:["Comprendre pourquoi un programme ou une machine ne marche pas","Faire des tests ou des expériences pour vérifier une idée","Analyser des chiffres ou des données pour trouver une explication","Lire ou regarder des contenus scientifiques pour comprendre le monde"],
-  A:["Créer un visuel, une vidéo ou un design","Écrire des textes, des histoires ou des scripts","Imaginer un nouveau jeu, une appli ou un objet","Faire de la musique, du théâtre ou de la photo"],
-  S:["Expliquer quelque chose à quelqu'un qui bloque","Aider un ami à régler un problème, personnel ou technique","Animer un groupe ou une activité avec des plus jeunes","Écouter et conseiller quelqu'un qui hésite"],
-  E:["Convaincre un groupe d'adopter ton idée","Lancer un projet et en prendre la tête","Négocier un prix ou un accord","Vendre ou faire la promotion d'un produit ou d'un événement"],
-  C:["Organiser un planning ou un budget","Vérifier des informations pour qu'il n'y ait aucune erreur","Suivre une méthode précise, étape par étape","Tenir un tableau de suivi bien à jour"],
+  R:["Repair a broken computer, phone or appliance","Set up or install equipment (a network, electrical system or furniture)","Work outdoors, on a construction site or in the field","Use tools or machines to make something"],
+  I:["Figure out why a program or machine is not working","Run tests or experiments to check an idea","Analyze numbers or data to find an explanation","Read or watch science content to understand the world"],
+  A:["Create a visual, video or design","Write texts, stories or scripts","Imagine a new game, app or object","Make music, perform on stage or take photos"],
+  S:["Explain something to someone who is stuck","Help a friend solve a personal or technical problem","Lead a group or activity with younger students","Listen to and advise someone who is unsure"],
+  E:["Persuade a group to get behind your idea","Start a project and lead it","Negotiate a price or agreement","Promote or sell a product or event"],
+  C:["Organize a schedule or budget","Check information so there are no mistakes","Follow a precise method, step by step","Keep a tracking sheet up to date"],
 };
+function optionLabel(o){return ({"Courtes (2 à 3 ans)":"Short (2 to 3 years)","Longues (5 ans ou plus)":"Long (5 years or more)","Ça dépendra du métier":"It depends on the career","Je ne sais pas encore":"I don't know yet","Oui":"Yes","Peut-être":"Maybe","Non":"No","Je ne sais pas ce que c'est":"I don't know what alternance is","NSI / informatique":"Computer science / IT","Physique-chimie":"Physics and chemistry","SVT / biologie":"Biology","SES / économie":"Economics and social sciences","Langues":"Languages","Lettres, philo":"Literature and philosophy","Sport":"Sports"})[o]||o}
 const TYPES=['R','I','A','S','E','C'];
 const ITEMS=[];for(let i=0;i<4;i++)for(const t of TYPES)ITEMS.push({id:t+(i+1),type:t,txt:RAW[t][i]});
-const LIK=["Pas du tout","Plutôt pas","Je ne sais pas","Plutôt oui","J'adorerais"];
-const LABEL={R:"Concret",I:"Curieux",A:"Créatif",S:"Aidant",E:"Meneur",C:"Organisé"};
-const DESC3={R:"aime le concret : manipuler, réparer, voir le résultat",I:"veut comprendre comment les choses marchent",A:"aime inventer et créer",S:"aime aider et expliquer",E:"aime convaincre et lancer des projets",C:"aime quand c'est organisé et précis"};
-const DESC={R:"tu aimes le concret : manipuler, réparer, voir le résultat",I:"tu veux comprendre comment ça marche",A:"tu aimes inventer et créer",S:"tu aimes aider et expliquer",E:"tu aimes convaincre et lancer des projets",C:"tu aimes quand c'est organisé et précis"};
+const LIK=["Not at all","Not really","I don't know yet","Rather yes","I'd love to"];
+const LABEL={R:"Practical",I:"Curious",A:"Creative",S:"Helpful",E:"Persuasive",C:"Organized"};
+const DESC3={R:"likes hands-on work: building, repairing and seeing a result",I:"wants to understand how things work",A:"likes inventing and creating",S:"likes helping and explaining",E:"likes persuading people and starting projects",C:"likes things organized and precise"};
+const DESC={R:"you like hands-on work: building, repairing and seeing a result",I:"you want to understand how things work",A:"you like inventing and creating",S:"you like helping and explaining",E:"you like persuading people and starting projects",C:"you like things organized and precise"};
 const JOBS={
  R:["Administrateur systèmes et réseaux","Technicien de maintenance industrielle","Technicien support informatique"],
   I:["Analyste en cybersécurité","Data analyst","Technicien de laboratoire","Ingénieur logiciel IA"],
@@ -857,11 +858,11 @@ function jobsFromIntent(value){
   return jobs;
 }
 function localQuestions(jobs){
-  const q=[CAT[jobs[0]].q];
-  if(!(S.ctx.specialites||[]).includes('Maths')) q.push("Est-ce qu'on peut réussir sans être fort en maths ?");
-  if(isReo()) q.push("Tu as déjà changé de voie ? Comment tu as su que c'était la bonne ?");
-  if(['Oui','Peut-être'].includes(S.ctx.alternance)) q.push("Comment tu as trouvé ton alternance ?");
-  q.push("À quoi ressemble une vraie journée, du matin au soir ?","Qu'est-ce que tu aurais aimé savoir à mon âge ?",CAT[jobs[1]].q);
+  const q=[`What does a typical day as a ${CAT[jobs[0]].court} look like?`];
+  if(!(S.ctx.specialites||[]).includes('Maths'))q.push("Can I succeed in this field without being strong in maths?");
+  if(isReo())q.push("Have you ever changed direction? How did you know it was right for you?");
+  if(['Oui','Peut-être'].includes(S.ctx.alternance))q.push("How did you find your alternance placement?");
+  q.push("What does a real day look like, from morning to evening?","What would you have liked to know at my age?",`What is it like to work as a ${CAT[jobs[1]].court}?`);
   return [...new Set(q)].slice(0,5);
 }
 async function aiProfile(){
@@ -940,31 +941,31 @@ function qBody(){
   const st=qSteps(); const i=Math.min(S.step,st.length-1); const s=st[i];
   if(s.k==='ctx'){const q=s.q;
     if(q.kind==='prenom') return `<h1 class="qq">${esc(q.titre)}</h1><p class="muted lead" style="margin-top:8px">${esc(q.aide)}</p>
-      <label for="prenom" class="sr">Ton prénom</label><input class="input" id="prenom" style="margin:26px 0;max-width:420px" autocomplete="given-name" placeholder="Ton prénom" value="${esc(S.ctx.prenom||'')}">
-      <div class="row"><button class="btn" data-q="prenom">Continuer</button></div>`;
+      <label for="prenom" class="sr">Your first name</label><input class="input" id="prenom" style="margin:26px 0;max-width:420px" autocomplete="given-name" placeholder="Your first name" value="${esc(S.ctx.prenom||'')}">
+      <div class="row"><button class="btn" data-q="prenom">Continue</button></div>`;
     if(q.kind==='reo') return `<h1 class="qq">${esc(q.titre)}</h1><p class="muted lead" style="margin-top:8px">${esc(q.aide)}</p>
-      <label for="reoForm" class="muted" style="display:block;margin:24px 0 8px;font-weight:700">Tu étais dans quelle formation ?</label><input class="input" id="reoForm" placeholder="Ex. : licence de biologie, 1ʳᵉ année" value="${esc(S.ctx.reo_form||'')}">
-      <label for="reoWhy" class="muted" style="display:block;margin:18px 0 8px;font-weight:700">Qu'est-ce qui ne t'a pas plu ?</label><textarea class="input" id="reoWhy" style="min-height:110px" placeholder="Ex. : trop théorique, je ne voyais pas à quoi ça servait…">${esc(S.ctx.reo_why||'')}</textarea>
-      <div class="row" style="margin-top:22px"><button class="btn alt" data-q="back">Retour</button><button class="btn" data-q="reo">Continuer</button></div>`;
+      <label for="reoForm" class="muted" style="display:block;margin:24px 0 8px;font-weight:700">What program were you in?</label><input class="input" id="reoForm" placeholder="e.g. first year of a biology degree" value="${esc(S.ctx.reo_form||'')}">
+      <label for="reoWhy" class="muted" style="display:block;margin:18px 0 8px;font-weight:700">What did you dislike about it?</label><textarea class="input" id="reoWhy" style="min-height:110px" placeholder="e.g. too theoretical, I could not see how it applied…">${esc(S.ctx.reo_why||'')}</textarea>
+      <div class="row" style="margin-top:22px"><button class="btn alt" data-q="back">Back</button><button class="btn" data-q="reo">Continue</button></div>`;
     if(q.kind==='lycee') return `<h1 class="qq">${esc(q.titre)}</h1><p class="muted lead" style="margin-top:8px">${esc(q.aide)}</p>
-      <label for="lycee" class="sr">Ton lycée ou ta formation</label><input class="input" id="lycee" list="lycees" style="margin:26px 0" placeholder="Commence à taper…" value="${esc(S.ctx.lycee||'')}"><datalist id="lycees">${LYCEES.map(l=>`<option value="${esc(l)}">`).join('')}</datalist>
-      <label for="code" class="muted" style="display:block;margin:-8px 0 8px;font-weight:700">Code de classe (si ton prof t'en a donné un)</label><input class="input" id="code" style="max-width:260px;margin-bottom:22px" placeholder="Ex. : ALU-7K2Q" value="${esc(S.ctx.code||'')}">
-      ${S.ctx.niveau==='Seconde'?`<p class="soft" style="padding:14px 18px;margin-bottom:22px">Tu as moins de 15 ans ? On enverra un e-mail à un parent pour valider ton inscription avant ton premier échange.</p>`:''}
-      <div class="row"><button class="btn alt" data-q="back">Retour</button><button class="btn" data-q="lycee">Continuer</button><button class="btn alt" data-q="next">Passer</button></div>`;
+      <label for="lycee" class="sr">Your school or program</label><input class="input" id="lycee" list="lycees" style="margin:26px 0" placeholder="Start typing…" value="${esc(S.ctx.lycee||'')}"><datalist id="lycees">${LYCEES.map(l=>`<option value="${esc(l)}">`).join('')}</datalist>
+      <label for="code" class="muted" style="display:block;margin:-8px 0 8px;font-weight:700">Class code (if your teacher gave you one)</label><input class="input" id="code" style="max-width:260px;margin-bottom:22px" placeholder="e.g. ALU-7K2Q" value="${esc(S.ctx.code||'')}">
+      ${S.ctx.niveau==='Seconde'?`<p class="soft" style="padding:14px 18px;margin-bottom:22px">Under 15? A parent must confirm your registration by email before your first conversation.</p>`:''}
+      <div class="row"><button class="btn alt" data-q="back">Back</button><button class="btn" data-q="lycee">Continue</button><button class="btn alt" data-q="next">Skip</button></div>`;
     const v=S.ctx[q.id];const multi=!!q.max;
     return `<h1 class="qq">${esc(q.titre)}</h1><p class="muted lead" style="margin-top:8px">${esc(q.aide)}</p>
-    <div class="opts" role="${multi?'group':'radiogroup'}" aria-label="${esc(q.titre)}">${q.opts.map(o=>{const on=multi?(v||[]).includes(o):v===o;return `<button class="choice" ${multi?`aria-pressed="${on}"`:`role="radio" aria-checked="${on}"`} data-ctx="${esc(o)}">${esc(o)}</button>`}).join('')}</div>
-    <div class="row"><button class="btn alt" data-q="back" ${i===0?'disabled':''}>Retour</button>${multi?`<button class="btn" data-q="next" ${(v||[]).length?'':'disabled'}>Continuer</button><span class="muted" id="multiHint">${(v||[]).length} sur 3 choisies</span>`:''}</div>`;}
+    <div class="opts" role="${multi?'group':'radiogroup'}" aria-label="${esc(q.titre)}">${q.opts.map(o=>{const on=multi?(v||[]).includes(o):v===o;return `<button class="choice" ${multi?`aria-pressed="${on}"`:`role="radio" aria-checked="${on}"`} data-ctx="${esc(o)}">${esc(optionLabel(o))}</button>`}).join('')}</div>
+    <div class="row"><button class="btn alt" data-q="back" ${i===0?'disabled':''}>Back</button>${multi?`<button class="btn" data-q="next" ${(v||[]).length?'':'disabled'}>Continue</button><span class="muted" id="multiHint">${(v||[]).length} of 3 selected</span>`:''}</div>`;}
   if(s.k==='item'){const it=s.it;const v=S.ans[it.id];
-    return `<p class="muted" style="font-size:21px;font-weight:600">Est-ce que tu aimerais…</p><h1 class="qq">${esc(it.txt)}</h1><p class="muted">Même si tu ne l'as jamais fait. Il n'y a pas de bonne réponse.</p>
-    <div class="lik" role="radiogroup" aria-label="Ta réponse">${LIK.map((l,k)=>`<button class="choice" role="radio" aria-checked="${v===k+1}" data-lik="${k+1}"><span class="c">${v===k+1?ICON.check('#fff',16):''}</span>${l}</button>`).join('')}</div>
-    <div class="row"><button class="btn alt" data-q="back">Retour</button><span class="muted small kbd">Astuce : touches 1 à 5</span></div>`;}
+    return `<p class="muted" style="font-size:21px;font-weight:600">Would you enjoy…</p><h1 class="qq">${esc(it.txt)}</h1><p class="muted">Even if you have never done it before. There are no right answers.</p>
+    <div class="lik" role="radiogroup" aria-label="Your answer">${LIK.map((l,k)=>`<button class="choice" role="radio" aria-checked="${v===k+1}" data-lik="${k+1}"><span class="c">${v===k+1?ICON.check('#fff',16):''}</span>${l}</button>`).join('')}</div>
+    <div class="row"><button class="btn alt" data-q="back">Back</button><span class="muted small kbd">Tip: keys 1 to 5</span></div>`;}
   if(s.k==='chat'){ if(!S.chat.length) S.chat.push({me:false,t:chatQ()});
     const n=S.chat.filter(m=>m.me).length, closed=S.chatDone;
-    return `<h1 class="qq" style="font-size:clamp(30px,4vw,44px)">L'IA a une question pour toi</h1><p class="muted" style="margin-top:6px">Elle rebondit sur tes réponses. Tu peux passer si tu préfères.</p>
+    return `<h1 class="qq" style="font-size:clamp(30px,4vw,44px)">The AI has a question for you</h1><p class="muted" style="margin-top:6px">It builds on your answers. You can skip this if you prefer.</p>
     <div id="chat" aria-live="polite">${chatHTML()}</div>
-    <form class="chatform" id="chatForm" onsubmit="return false" ${closed?'hidden':''}><label for="chatIn" class="sr">Ta réponse</label><input class="input" id="chatIn" placeholder="Écris ta réponse…" autocomplete="off"><div class="row"><button class="btn alt" type="button" data-q="back">Retour</button><button class="btn" id="chatSend" type="submit">Envoyer</button><button class="btn alt" type="button" data-q="next" id="chatSkip">${n?'Continuer':'Passer'}</button></div></form>
-    <div class="row" id="chatNext" style="margin-top:22px" ${closed?'':'hidden'}><button class="btn alt" data-q="back">Retour</button><button class="btn" data-q="next">Continuer</button></div>
+    <form class="chatform" id="chatForm" onsubmit="return false" ${closed?'hidden':''}><label for="chatIn" class="sr">Your answer</label><input class="input" id="chatIn" placeholder="Write your answer…" autocomplete="off"><div class="row"><button class="btn alt" type="button" data-q="back">Back</button><button class="btn" id="chatSend" type="submit">Send</button><button class="btn alt" type="button" data-q="next" id="chatSkip">${n?'Continue':'Skip'}</button></div></form>
+    <div class="row" id="chatNext" style="margin-top:22px" ${closed?'':'hidden'}><button class="btn alt" data-q="back">Back</button><button class="btn" data-q="next">Continue</button></div>
     <div id="chatPeek">${peekHTML('chat')}</div>`;}
   return `<h1 class="qq">${s.final?'Your direction, in your words':'What career or study path is already on your mind?'}</h1><p class="muted lead" style="margin-top:8px">${s.final?'You can refine it before we build your profile.':'Start with your idea, even if it is early or uncertain. The AI will ask about this first. You can leave it blank.'}</p>
     <label for="idees" class="sr">${s.final?'Your career or study idea':'What you already have in mind'}</label><textarea class="input" id="idees" style="margin:26px 0" placeholder="e.g. software engineering and AI, cybersecurity, nursing, graphic design…">${esc(S.ctx.idees||'')}</textarea>
@@ -1367,99 +1368,101 @@ V.visio=()=>{
 // ======================= Vue du pro (Lorys) =======================
 function localAlv(){
   const P=S.profile; const [a,b]=P.dom; const me=ME();
-  const cls=isReo()?`En réorientation après ${S.ctx.reo_form||'une 1ʳᵉ formation'}`:cap(ME().label||S.ctx.niveau||'Lycéen');
-  const resume=`${cls}. ${cap(DESC3[a])}, et ${DESC3[b]}. ${(S.ctx.duree||'').startsWith('Courtes')?'Préfère des études courtes':'Ouvert sur la durée des études'}${['Oui','Peut-être'].includes(S.ctx.alternance)?", tenté par l'alternance.":"."}`;
+  const studyLabel=ME().label.includes('licence')?'licence student':ME().label==='jeune diplômé'?'recent graduate':S.ctx.niveau==='Terminale'?'Terminale student':S.ctx.niveau==='Première'?'Première student':S.ctx.niveau==='Seconde'?'Seconde student':'student';
+  const cls=isReo()?`Changing direction after ${S.ctx.reo_form||'a previous program'}`:cap(studyLabel);
+  const resume=`${cls}. ${cap(DESC3[a])}, and ${DESC3[b]}. ${(S.ctx.duree||'').startsWith('Courtes')?'Prefers a shorter study path':'Open to different study paths'}${['Oui','Peut-être'].includes(S.ctx.alternance)?', interested in alternance.':'.'}`;
   const doutes=[];
-  if(isReo()) doutes.push("A arrêté sa première formation et veut être sûr de mieux choisir cette fois");
-  if((S.ctx.duree||'').startsWith('Je ne sais')) doutes.push("Ne sait pas encore s'il veut des études courtes ou longues");
-  doutes.push(`Hésite entre ${CAT[P.jobs[0]].court.toLowerCase()} et ${CAT[P.jobs[2]].court.toLowerCase()}`);
-  return {resume,doutes:doutes.slice(0,2),eclaircir:["Le quotidien du métier : terrain ou écran",['Oui','Peut-être'].includes(S.ctx.alternance)?"Comment trouver une alternance":"Les études après le bac"]};
+  if(isReo()) doutes.push("Wants to make a more confident choice after leaving a previous program");
+  if((S.ctx.duree||'').startsWith('Je ne sais')) doutes.push("Has not decided between a shorter or longer study path yet");
+  doutes.push(`Unsure about choosing between ${CAT[P.jobs[0]].court.toLowerCase()} and ${CAT[P.jobs[2]].court.toLowerCase()}`);
+  return {resume,doutes:doutes.slice(0,2),eclaircir:["What the day-to-day work looks like: on site or at a screen",['Oui','Peut-être'].includes(S.ctx.alternance)?"How to find an alternance placement":"Study options after the baccalaureate"]};
 }
 V['alumni-vue']=()=>{
   if(!S.profile){fillDemo(S.persona||'yanis')}
   if(!S.rdv){S.rdv={id:'lorys',slot:0,status:'pending'};save()}
   const me=ME(); const a=proOf(); const st=S.rdv.status; const A=S.alv||localAlv(); const qs=briefQs();
+  const studentLabel=me.label==='en terminale'?'Terminale student':me.label==='en réorientation'?'student changing direction':me.label==='jeune diplômé'?'recent graduate':me.label.includes('licence')?'second-year licence student':me.label;
   return `<div class="wrap">
-  <header class="top"><button class="logo" data-go="login" aria-label="Alumnia">${LOGO.light}</button><nav class="nav"><button aria-current="page">Mes échanges</button><button>Mon profil de pro</button></nav><div class="right">${coLogo(a.co)}${av(a.p,44,'var(--human-wash)')}</div></header>
-  <section style="display:flex;align-items:center;gap:20px;background:var(--wash);border-radius:28px;padding:22px 26px;flex-wrap:wrap">${av(me.p,84,'#fff')}<div style="flex:1;min-width:220px">${statusBadge(st)}<h1 style="font-size:clamp(28px,3.6vw,38px);margin-top:6px">Échange avec ${me.nom}, ${me.label}</h1><div class="muted">Demandé pour ${esc(a.slots[S.rdv.slot])} · 30 minutes</div></div>
-    ${st==='pending'?`<button class="btn" id="confirm">Confirmer</button><button class="btn alt">Proposer un autre créneau</button>`:`<button class="btn alt sm demo-only" data-go="rdv">Démo : revenir côté ${me.nom}</button>`}</section>
+  <header class="top"><button class="logo" data-go="login" aria-label="Alumnia">${LOGO.light}</button><nav class="nav"><button aria-current="page">My events</button><button>My professional profile</button></nav><div class="right">${coLogo(a.co)}${av(a.p,44,'var(--human-wash)')}</div></header>
+  <section style="display:flex;align-items:center;gap:20px;background:var(--wash);border-radius:28px;padding:22px 26px;flex-wrap:wrap">${av(me.p,84,'#fff')}<div style="flex:1;min-width:220px">${statusBadge(st)}<h1 style="font-size:clamp(28px,3.6vw,38px);margin-top:6px">Event with ${me.nom}${studentLabel?', '+studentLabel:''}</h1><div class="muted">Requested for ${esc(a.slots[S.rdv.slot])} · 30 minutes</div></div>
+    ${st==='pending'?`<button class="btn" id="confirm">Confirm</button><button class="btn alt">Suggest another time</button>`:`<button class="btn alt sm demo-only" data-go="rdv">Demo: return to ${me.nom}'s view</button>`}</section>
   <div class="grid2" style="margin-top:24px">
-    <section class="aibox"><div class="row" style="justify-content:space-between"><h2 class="t2" style="margin:0">Qui est ${me.nom}</h2>${aiBadge("Préparé par l'IA")}</div>
-      <p style="font-size:18px;margin-top:12px" id="alvResume">${esc(A.resume)}</p>${hitlBar('alv',['Fiche juste','Corriger','Pas utile'])}
-      <h3 style="margin:18px 0 6px;font-size:20px">Ses doutes</h3><ul class="dots" style="color:var(--ai-ink)">${A.doutes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
-      <h3 style="margin:14px 0 6px;font-size:20px">À éclaircir avec toi</h3><ul class="dots" style="color:var(--ai-ink)">${A.eclaircir.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+    <section class="aibox"><div class="row" style="justify-content:space-between"><h2 class="t2" style="margin:0">About ${me.nom}</h2>${aiBadge("AI-prepared profile")}</div>
+      <p style="font-size:18px;margin-top:12px" id="alvResume">${esc(A.resume)}</p>${hitlBar('alv',['Accurate','Edit','Not useful'])}
+      <h3 style="margin:18px 0 6px;font-size:20px">Questions or uncertainties</h3><ul class="dots" style="color:var(--ai-ink)">${A.doutes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+      <h3 style="margin:14px 0 6px;font-size:20px">Topics to explore together</h3><ul class="dots" style="color:var(--ai-ink)">${A.eclaircir.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
       ${peekHTML('alv')}</section>
-    <div class="stack"><section class="card"><h2 class="t2">Ses questions pour toi</h2>${S.briefSent&&S.briefFor===a.id?'<p class="small" style="margin:-4px 0 6px;font-weight:600;color:var(--human)">Choisies par '+esc(me.nom)+' avec le copilote.</p>':''}<ul class="dots">${qs.map(q=>`<li style="background:var(--wash)">${esc(q)}</li>`).join('')}</ul><p class="muted small" style="margin-top:10px">Tu ne vois pas ses réponses au questionnaire, seulement ce résumé.</p></section>
-    <section class="card" style="background:var(--sun-wash);border-color:#F6E3A6"><h2 class="t2">Ton impact</h2><p style="font-size:18px"><b>3 jeunes aidés</b> · <b>1 h 30</b> donnée ce trimestre</p><p style="margin-top:10px;font-style:italic">« Merci, je sais maintenant que je veux faire le BUT R&T. » — Inès, en première</p></section>
-    <section class="safe"><h3>${ICON.shield()}Tu es dans le cadre</h3><ul><li>Charte Alumnia signée · formation de 15 min faite</li><li>La visio reste dans Alumnia : pas d'échange de numéro ni de réseaux sociaux</li><li>Un souci ? Bouton « Signaler », l'équipe répond sous 24 h</li></ul></section></div>
+    <div class="stack"><section class="card"><h2 class="t2">Questions for you</h2>${S.briefSent&&S.briefFor===a.id?'<p class="small" style="margin:-4px 0 6px;font-weight:600;color:var(--human)">Chosen by '+esc(me.nom)+' with the AI coach.</p>':''}<ul class="dots">${qs.map(q=>`<li style="background:var(--wash)">${esc(q)}</li>`).join('')}</ul><p class="muted small" style="margin-top:10px">You cannot see the student's questionnaire answers, only this summary.</p></section>
+    <section class="card" style="background:var(--sun-wash);border-color:#F6E3A6"><h2 class="t2">Your impact</h2><p style="font-size:18px"><b>3 young people supported</b> · <b>1 h 30</b> contributed this quarter</p><p style="margin-top:10px;font-style:italic">“Thank you. I know now that I want to study Networks and Telecommunications.” — Inès, Première</p></section>
+    <section class="safe"><h3>${ICON.shield()}Your safeguards</h3><ul><li>Alumnia charter signed · 15-minute training completed</li><li>Video calls stay in Alumnia: no sharing phone numbers or social media accounts</li><li>Need help? Use “Report an issue”; the team replies within 24 hours.</li></ul></section></div>
   </div></div>`;
 };
 
 // ======================= Entreprise =======================
 V.entreprise=()=>`<div class="dark"><div class="wrap">
-  <header class="top"><button class="logo" data-go="login" aria-label="Alumnia">${LOGO.dark}</button><span class="muted" style="font-weight:700">Pour les entreprises</span><div class="right"><button class="btn alt sm" data-go="login">Retour</button></div></header>
-  <h1 class="h1xl" style="max-width:860px;margin-top:10px">Vos salariés racontent leur métier. Des jeunes trouvent leur voie.</h1>
-  <p class="lead muted" style="margin:16px 0 30px;max-width:720px">Alumnia met en relation des jeunes qui cherchent leur orientation avec des salariés de plusieurs entreprises. Vous financez, vos salariés mentorent, vous mesurez l'impact.</p>
+  <header class="top"><button class="logo" data-go="login" aria-label="Alumnia">${LOGO.dark}</button><span class="muted" style="font-weight:700">For companies</span><div class="right"><button class="btn alt sm" data-go="login">Back</button></div></header>
+  <h1 class="h1xl" style="max-width:860px;margin-top:10px">Your employees share what they do. Young people find their path.</h1>
+  <p class="lead muted" style="margin:16px 0 30px;max-width:720px">Alumnia connects young people exploring career options with employees from several companies. You fund the program, your employees mentor, and you measure the impact.</p>
   <div class="grid3">
-    <section class="dsurf"><h2 style="font-size:24px">Vos salariés mentorent</h2><p class="muted" style="margin-top:8px">30 minutes, quand ils veulent. L'IA leur prépare une fiche sur le jeune avant chaque échange.</p></section>
-    <section class="dsurf"><h2 style="font-size:24px">Vous mesurez l'impact</h2><p class="muted" style="margin-top:8px">Échanges, heures données, part de jeunes de lycées prioritaires. Rapport RSE prêt à exporter.</p></section>
-    <section class="dsurf"><h2 style="font-size:24px">Vous construisez votre vivier</h2><p class="muted" style="margin-top:8px">Les jeunes qui le souhaitent reçoivent vos offres d'alternance. Vous ne voyez leur nom que s'ils candidatent.</p></section>
+    <section class="dsurf"><h2 style="font-size:24px">Your employees mentor</h2><p class="muted" style="margin-top:8px">30 minutes, whenever it suits them. AI prepares a profile of each young person before the conversation.</p></section>
+    <section class="dsurf"><h2 style="font-size:24px">Measure your impact</h2><p class="muted" style="margin-top:8px">Conversations, mentoring hours and the share of young people from priority schools. Export-ready CSR report.</p></section>
+    <section class="dsurf"><h2 style="font-size:24px">Build your talent pipeline</h2><p class="muted" style="margin-top:8px">Young people who opt in can receive your alternance opportunities. You see their name only if they apply.</p></section>
   </div>
   <section class="offer" style="margin-top:24px"><div class="row" style="justify-content:space-between;align-items:flex-start;gap:24px">
-    <div style="flex:1;min-width:260px"><span class="who" style="background:#3A2F0E;color:var(--sun)">Offre pilote</span><h2 style="font-size:32px;margin:12px 0 8px">6 mois · 1 à 2 sites · jusqu'à 30 mentors</h2><p class="muted">9 900 € HT, déduits si vous continuez. Ensuite, un abonnement selon le nombre de mentors actifs : vous ne payez pas pour les inscrits qui ne font rien.</p>
-      <div class="grid4" style="margin-top:16px;gap:10px">${[["Atelier","3 900 €","jusqu'à 8 mentors"],["Essentiel","12 000 €","jusqu'à 25 mentors"],["Croissance","29 000 €","jusqu'à 75 mentors"],["Groupe","dès 54 000 €","plus de 75 mentors"]].map(([n,pr,d])=>`<div style="background:#22302B;border-radius:18px;padding:14px 16px"><b>${n}</b><div style="font-family:var(--display);font-size:24px;color:var(--sun);margin:4px 0">${pr}</div><span class="muted small">HT par an · ${d}</span></div>`).join('')}</div>
-      <ul style="margin:16px 0 0;padding-left:20px;line-height:1.8"><li>On active vos mentors : connexion avec votre compte entreprise, kit de lancement, rappels.</li><li>Charte et formation de 15 minutes pour chaque mentor.</li><li>Rapport d'impact mensuel, avec la méthode de calcul.</li><li>Neutralité : les métiers sont proposés aux jeunes selon leurs réponses, jamais selon qui paie.</li></ul></div>
-    <div class="stack" style="min-width:240px"><button class="btn" data-go="partenaire">Voir un tableau de bord d'exemple</button><button class="btn alt" id="pilot">Demander un pilote</button></div></div></section>
-  <p class="muted" style="margin-top:22px">Vos mentors rejoignent une communauté de 140 pros issus de 9 entreprises : les jeunes voient un vrai choix, pas une seule marque.</p>
+    <div style="flex:1;min-width:260px"><span class="who" style="background:#3A2F0E;color:var(--sun)">Pilot offer</span><h2 style="font-size:32px;margin:12px 0 8px">6 months · 1 to 2 sites · up to 30 mentors</h2><p class="muted">€9,900 excl. VAT, credited if you continue. Then a subscription based on active mentors: you do not pay for people who sign up but never take part.</p>
+      <div class="grid4" style="margin-top:16px;gap:10px">${[["Workshop","€3,900","up to 8 mentors"],["Essentials","€12,000","up to 25 mentors"],["Growth","€29,000","up to 75 mentors"],["Group","from €54,000","more than 75 mentors"]].map(([n,pr,d])=>`<div style="background:#22302B;border-radius:18px;padding:14px 16px"><b>${n}</b><div style="font-family:var(--display);font-size:24px;color:var(--sun);margin:4px 0">${pr}</div><span class="muted small">excl. VAT per year · ${d}</span></div>`).join('')}</div>
+      <ul style="margin:16px 0 0;padding-left:20px;line-height:1.8"><li>We onboard your mentors: company account access, launch kit and reminders.</li><li>Each mentor signs a charter and completes 15 minutes of training.</li><li>Monthly impact report, including the calculation method.</li><li>Neutrality: career suggestions are based on young people's answers, never on who funds the program.</li></ul></div>
+    <div class="stack" style="min-width:240px"><button class="btn" data-go="partenaire">View a sample dashboard</button><button class="btn alt" id="pilot">Request a pilot</button></div></div></section>
+  <p class="muted" style="margin-top:22px">Your mentors join a community of 140 professionals from 9 companies, giving young people a real choice rather than a single brand.</p>
 </div></div>`;
-const TREND=[["mai",6],["juin",11],["juil.",9],["sept.",24],["oct.",48]];
+const TREND=[["May",6],["June",11],["July",9],["September",24],["October",48]];
 V.partenaire=()=>`<div class="dark"><div class="wrap">
-  <header class="top"><button class="logo" data-go="login" aria-label="Alumnia">${LOGO.dark}</button><span class="muted" style="font-weight:700">Espace partenaire · Nexora</span><div class="right"><span class="count" style="background:#3A2F0E;color:var(--sun)">Données d'exemple</span><button class="btn alt sm" data-go="entreprise">Retour</button></div></header>
-  <h1 style="font-size:clamp(30px,4vw,44px)">En octobre, vos salariés ont parlé avec <span data-count="48">0</span> jeunes</h1>
-  <p class="muted lead" style="margin-top:8px">Chiffres agrégés : aucun jeune n'est identifiable, et un chiffre sous 5 personnes est masqué.</p>
+  <header class="top"><button class="logo" data-go="login" aria-label="Alumnia">${LOGO.dark}</button><span class="muted" style="font-weight:700">Partner space · Nexora</span><div class="right"><span class="count" style="background:#3A2F0E;color:var(--sun)">Sample data</span><button class="btn alt sm" data-go="entreprise">Back</button></div></header>
+  <h1 style="font-size:clamp(30px,4vw,44px)">In October, your employees spoke with <span data-count="48">0</span> young people</h1>
+  <p class="muted lead" style="margin-top:8px">Aggregated figures: no young person can be identified. Figures for fewer than 5 people are hidden.</p>
   <div class="dsurf" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px;margin-top:26px">
-    <div><div class="fig" style="color:#5FD08F" data-count="48">0</div><div class="muted" style="margin-top:6px">échanges avec vos salariés</div></div>
-    <div><div class="fig"><span data-count="4.7" data-dec="1">0</span><span style="font-size:28px"> sur 5</span></div><div class="muted" style="margin-top:6px">note donnée par les jeunes</div></div>
-    <div><div class="fig"><span data-count="24">0</span> h</div><div class="muted" style="margin-top:6px">de mentorat offertes par 12 salariés</div></div>
-    <div><div class="fig"><span data-count="12">0</span><span style="font-size:28px"> / 40</span></div><div class="muted" style="margin-top:6px">mentors actifs sur les inscrits</div></div>
+    <div><div class="fig" style="color:#5FD08F" data-count="48">0</div><div class="muted" style="margin-top:6px">conversations with your employees</div></div>
+    <div><div class="fig"><span data-count="4.7" data-dec="1">0</span><span style="font-size:28px"> out of 5</span></div><div class="muted" style="margin-top:6px">young people's average rating</div></div>
+    <div><div class="fig"><span data-count="24">0</span> h</div><div class="muted" style="margin-top:6px">mentoring hours from 12 employees</div></div>
+    <div><div class="fig"><span data-count="12">0</span><span style="font-size:28px"> / 40</span></div><div class="muted" style="margin-top:6px">active mentors</div></div>
   </div>
   <div class="g-part" style="margin-top:24px">
-    <section class="dsurf"><h2 style="font-size:24px;margin-bottom:16px">Échanges par mois</h2><div class="bars6">${TREND.map(([m,v])=>`<div><b style="font-size:14px">${v}</b><i style="height:${Math.round(v/48*84)}px"></i><span>${m}</span></div>`).join('')}</div><p class="muted small" style="margin-top:12px">98 échanges sur l'objectif de 300 pour l'année. Août non compté (fermeture).</p></section>
-    <section class="dsurf"><h2 style="font-size:24px;margin-bottom:14px">Votre vivier</h2><div class="funnel">${[[312,"jeunes ont ouvert la fiche d'un de vos métiers"],[48,"ont parlé avec un de vos salariés"],[37,"acceptent de recevoir vos offres d'alternance"],[9,"ont candidaté chez vous"]].map(([n,t],k)=>`<div style="width:${100-k*12}%"><b data-count="${n}">0</b><span>${t}</span></div>`).join('')}</div><p class="muted small" style="margin-top:10px">Vous ne voyez le nom d'un jeune que s'il candidate.</p></section>
+    <section class="dsurf"><h2 style="font-size:24px;margin-bottom:16px">Conversations by month</h2><div class="bars6">${TREND.map(([m,v])=>`<div><b style="font-size:14px">${v}</b><i style="height:${Math.round(v/48*84)}px"></i><span>${m}</span></div>`).join('')}</div><p class="muted small" style="margin-top:12px">98 conversations toward this year's goal of 300. August excluded (office closed).</p></section>
+    <section class="dsurf"><h2 style="font-size:24px;margin-bottom:14px">Your talent pipeline</h2><div class="funnel">${[[312,"young people viewed one of your career profiles"],[48,"spoke with one of your employees"],[37,"agreed to receive your alternance opportunities"],[9,"applied to your company"]].map(([n,t],k)=>`<div style="width:${100-k*12}%"><b data-count="${n}">0</b><span>${t}</span></div>`).join('')}</div><p class="muted small" style="margin-top:10px">You see a young person's name only if they apply.</p></section>
   </div>
   <div class="g-part" style="margin-top:24px">
-    <section class="dsurf"><h2 style="font-size:24px">Égalité des chances</h2><p style="margin:6px 0 18px"><b style="font-family:var(--display);font-size:40px;color:var(--sun)"><span data-count="41">0</span> %</b> <span class="muted">des jeunes accompagnés viennent d'un lycée en éducation prioritaire ou en zone rurale.</span></p><div class="units" id="units">${Array.from({length:100},()=>'<i></i>').join('')}</div><p class="muted small" style="margin-top:12px">Un point = 1 % des jeunes. Déduit du lycée (facultatif) et de la base publique de l'Éducation nationale. Aucune question sur les revenus.</p></section>
-    <section class="dsurf"><h2 style="font-size:24px">Vos métiers les plus regardés</h2>${[["Administrateur réseau",128],["Technicien support",84],["UX designer",60],["Développeur web",28],["Chef de projet IT",null]].map(([n,v])=>`<div class="hb ${v?'':'muted'}"><span>${n}</span><span class="tr"><i data-w="${v?Math.round(v/128*100):0}"></i></span><b>${v??'moins de 5'}</b></div>`).join('')}</section>
+    <section class="dsurf"><h2 style="font-size:24px">Equal opportunity</h2><p style="margin:6px 0 18px"><b style="font-family:var(--display);font-size:40px;color:var(--sun)"><span data-count="41">0</span> %</b> <span class="muted">of supported young people attend a priority school or live in a rural area.</span></p><div class="units" id="units">${Array.from({length:100},()=>'<i></i>').join('')}</div><p class="muted small" style="margin-top:12px">One dot = 1% of young people. Based on optional school details and public national education data. No income questions.</p></section>
+    <section class="dsurf"><h2 style="font-size:24px">Most viewed careers</h2>${[["Network administrator",128],["IT support technician",84],["UX designer",60],["Web developer",28],["IT project manager",null]].map(([n,v])=>`<div class="hb ${v?'':'muted'}"><span>${n}</span><span class="tr"><i data-w="${v?Math.round(v/128*100):0}"></i></span><b>${v??'under 5'}</b></div>`).join('')}</section>
   </div>
-  <div class="grid2" style="margin-top:24px"><div class="quote">« Karim m'a montré ce qu'on fait vraiment au support. Je me suis inscrit en BTS SIO. » <div class="muted small" style="margin-top:8px">Un jeune de terminale, Seine-Saint-Denis</div></div><div class="quote">« Lorys a arrêté la fac comme moi. Il m'a enlevé un poids. » <div class="muted small" style="margin-top:8px">Un jeune en réorientation, Val-de-Marne</div></div></div>
-  <section class="dsurf" style="margin-top:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap"><div style="flex:1;min-width:240px"><b style="font-size:19px">Rapport d'impact d'octobre</b><div class="muted">Une page, avec la méthode de calcul. Prêt pour votre rapport de durabilité.</div></div><button class="btn" data-go="rapport">Exporter le rapport RSE</button></section>
-  <p class="muted" style="margin-top:20px">Vos 12 mentors font partie d'une communauté de 140 pros issus de 9 entreprises.</p>
+  <div class="grid2" style="margin-top:24px"><div class="quote">“Karim showed me what IT support is really like. I enrolled in a BTS SIO program.” <div class="muted small" style="margin-top:8px">A Terminale student, Seine-Saint-Denis</div></div><div class="quote">“Lorys left university too. He helped me feel less worried.” <div class="muted small" style="margin-top:8px">A student changing direction, Val-de-Marne</div></div></div>
+  <section class="dsurf" style="margin-top:24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap"><div style="flex:1;min-width:240px"><b style="font-size:19px">October impact report</b><div class="muted">One page, including the calculation method. Ready for your sustainability report.</div></div><button class="btn" data-go="rapport">Export CSR report</button></section>
+  <p class="muted" style="margin-top:20px">Your 12 mentors are part of a community of 140 professionals from 9 companies.</p>
 </div></div>`;
 V.rapport=()=>`<div class="wrap" style="padding-top:24px">
-  <div class="row noprint" style="justify-content:space-between;margin-bottom:18px"><button class="btn alt sm" data-go="partenaire">${ICON.back} Tableau de bord</button><button class="btn" id="print">Imprimer ou enregistrer en PDF</button></div>
+  <div class="row noprint" style="justify-content:space-between;margin-bottom:18px"><button class="btn alt sm" data-go="partenaire">${ICON.back} Dashboard</button><button class="btn" id="print">Print or save as PDF</button></div>
   <article class="paper">
-    <div class="row" style="justify-content:space-between"><div style="height:34px">${LOGO.light}</div><span class="muted small">Données d'exemple</span></div>
-    <h1 style="font-size:30px;margin:22px 0 4px">Rapport d'impact · Nexora × Alumnia</h1><p class="muted">Octobre 2026 · généré le ${new Date().toLocaleDateString('fr-FR')}</p>
+    <div class="row" style="justify-content:space-between"><div style="height:34px">${LOGO.light}</div><span class="muted small">Sample data</span></div>
+    <h1 style="font-size:30px;margin:22px 0 4px">Impact report · Nexora × Alumnia</h1><p class="muted">October 2026 · generated ${new Date().toLocaleDateString('en-GB')}</p>
     <table><tbody>
-      <tr><th>Échanges réalisés</th><td>48</td></tr><tr><th>Heures de mentorat offertes</th><td>24 h, par 12 salariés</td></tr>
-      <tr><th>Note moyenne donnée par les jeunes</th><td>4,7 sur 5 (41 notes)</td></tr><tr><th>Jeunes de lycées prioritaires ou ruraux</th><td>41 %</td></tr>
-      <tr><th>Jeunes ouverts à vos offres d'alternance</th><td>37</td></tr><tr><th>Candidatures reçues</th><td>9</td></tr><tr><th>Jeunes qui disent y voir plus clair après l'échange</th><td>86 % (41 réponses)</td></tr></tbody></table>
-    <p style="margin-top:6px"><b>Usage</b> : indicateurs sociaux prêts pour le volet « communautés et engagement » de votre rapport de durabilité.</p>
-    <h2 style="font-size:20px;margin:22px 0 8px">Méthode</h2>
+      <tr><th>Conversations completed</th><td>48</td></tr><tr><th>Mentoring hours contributed</th><td>24 h, by 12 employees</td></tr>
+      <tr><th>Average rating from young people</th><td>4.7 out of 5 (41 ratings)</td></tr><tr><th>Young people from priority or rural schools</th><td>41 %</td></tr>
+      <tr><th>Young people interested in your alternance opportunities</th><td>37</td></tr><tr><th>Applications received</th><td>9</td></tr><tr><th>Young people who say the conversation gave them clarity</th><td>86 % (41 responses)</td></tr></tbody></table>
+    <p style="margin-top:6px"><b>Use</b>: social impact indicators ready for the communities and engagement section of your sustainability report.</p>
+    <h2 style="font-size:20px;margin:22px 0 8px">Method</h2>
     <ul style="line-height:1.7;padding-left:20px;margin:0">
-      <li><b>Un échange</b> : un rendez-vous d'au moins 20 minutes, confirmé par le jeune et le mentor.</li>
-      <li><b>Lycée prioritaire ou rural</b> : établissement classé REP, REP+ ou en commune rurale dans la base publique de l'Éducation nationale. L'information vient du lycée indiqué (facultatif) par le jeune.</li>
-      <li><b>Seuil de masquage</b> : tout chiffre qui concerne moins de 5 jeunes est masqué.</li>
-      <li><b>Données</b> : aucune donnée nominative dans ce rapport. Hébergement dans l'Union européenne.</li></ul>
-    <p class="muted small" style="margin-top:22px">Alumnia · rapport produit automatiquement à partir des données agrégées de la plateforme.</p>
+      <li><b>Conversation</b>: a meeting of at least 20 minutes, confirmed by the student and mentor.</li>
+      <li><b>Priority or rural school</b>: a school classified as REP or REP+, or in a rural municipality in the national education database. Information comes from the school optionally provided by the student.</li>
+      <li><b>Privacy threshold</b>: any figure relating to fewer than 5 young people is hidden.</li>
+      <li><b>Data</b>: this report contains no personally identifiable information. Data is hosted in the European Union.</li></ul>
+    <p class="muted small" style="margin-top:22px">Alumnia · report generated from aggregated platform data.</p>
   </article></div>`;
 
 // ======================= Vue prof =======================
-V.classe=()=>`<div class="wrap">${plainTop(`<button class="btn alt sm" data-go="login">Retour</button>`)}
-  <h1 class="h1">Inscris ta classe</h1><p class="lead muted" style="margin:10px 0 24px;max-width:720px">Tes élèves font le questionnaire en classe ou chez eux. Tu suis l'avancée du groupe, jamais leurs réponses.</p>
-  <div class="grid2"><section class="card" style="text-align:center"><p class="muted" style="font-weight:700">Code de ta classe</p><p style="font-family:var(--display);font-size:56px;letter-spacing:.06em;margin:8px 0">ALU-7K2Q</p><p>Tes élèves le saisissent au début du questionnaire.</p><button class="btn" style="margin-top:16px" id="copyCode">Copier le code</button></section>
-  <section class="soft"><h2 class="t2">Terminale 3 · 28 élèves</h2><div class="rb"><span>Questionnaire fini</span><span class="tr"><i data-w="68"></i></span><b>19</b></div><div class="rb"><span>Ont parlé à un pro</span><span class="tr"><i data-w="25"></i></span><b>7</b></div><div class="rb lo"><span>Compte rendu fait</span><span class="tr"><i data-w="0"></i></span><b>moins de 5</b></div><p class="muted small" style="margin-top:12px">Comme pour les entreprises, un chiffre sous 5 élèves est masqué.</p></section></div>
-  <section class="soft" style="margin-top:24px;position:relative;overflow:hidden;min-height:200px"><div style="position:relative;z-index:2;max-width:560px"><h2 class="t2">Pour les Cordées de la réussite et les professeurs principaux</h2><p>Un atelier d'une heure suffit : 20 minutes de questionnaire, puis chacun réserve son échange.</p></div>${crowd([3,7,10],104,20,'enter ppl-r','right:24px;bottom:0')}</section></div>`;
+V.classe=()=>`<div class="wrap">${plainTop(`<button class="btn alt sm" data-go="login">Back</button>`)}
+  <h1 class="h1">Set up your class</h1><p class="lead muted" style="margin:10px 0 24px;max-width:720px">Your students can complete the questionnaire in class or at home. Track the group's progress, never their individual answers.</p>
+  <div class="grid2"><section class="card" style="text-align:center"><p class="muted" style="font-weight:700">Your class code</p><p style="font-family:var(--display);font-size:56px;letter-spacing:.06em;margin:8px 0">ALU-7K2Q</p><p>Students enter it at the start of the questionnaire.</p><button class="btn" style="margin-top:16px" id="copyCode">Copy code</button></section>
+  <section class="soft"><h2 class="t2">Terminale 3 · 28 students</h2><div class="rb"><span>Questionnaire completed</span><span class="tr"><i data-w="68"></i></span><b>19</b></div><div class="rb"><span>Spoke with a professional</span><span class="tr"><i data-w="25"></i></span><b>7</b></div><div class="rb lo"><span>Follow-up completed</span><span class="tr"><i data-w="0"></i></span><b>under 5</b></div><p class="muted small" style="margin-top:12px">As with company reporting, figures for fewer than 5 students are hidden.</p></section></div>
+  <section class="soft" style="margin-top:24px;position:relative;overflow:hidden;min-height:200px"><div style="position:relative;z-index:2;max-width:560px"><h2 class="t2">For the Cordées de la réussite and homeroom teachers</h2><p>One hour is enough: 20 minutes for the questionnaire, then each student books a conversation.</p></div>${crowd([3,7,10],104,20,'enter ppl-r','right:24px;bottom:0')}</section></div>`;
 
 // ======================= Comment ça marche =======================
 const HOW=[
