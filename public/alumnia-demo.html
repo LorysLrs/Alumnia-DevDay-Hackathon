@@ -1093,13 +1093,13 @@ V.profil=()=>{
       <p style="margin:8px 0 4px">Un pro, c'est quelqu'un qui est passé par là avant toi et qui fait ce métier aujourd'hui.</p>
       <ul class="dots">${P.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></section>
     <section class="soft"><h2 class="t2">Encore à éclaircir</h2><ul class="dots">${P.eclaircir.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></section>
-    <section class="card c12" id="career-profile-tools"><h2 class="t2">Build your career profile</h2>
+    <section class="card" style="grid-column:1/-1" id="career-profile-tools"><h2 class="t2">Build your career profile</h2>
       <p class="lead">Every conversation with your AI coach adds context to your profile. Set a direction, and Alumnia can tailor events, people, companies and learning resources around it.</p>
       <label for="careerFocus" class="muted" style="display:block;margin:18px 0 8px;font-weight:700">What career or study direction do you want to explore?</label>
       <div class="row"><input class="input" id="careerFocus" maxlength="140" value="${esc(careerDirection())}" placeholder="e.g. software engineering and AI"><button class="btn" type="button" data-focus-save>Save my direction</button></div>
       <p class="muted small" style="margin-top:8px">Your direction personalizes your Hub. Your choices stay yours; AI suggestions never update your roadmap without your approval.</p>
     </section>
-    <section class="card c12" id="cv-tools"><h2 class="t2">Your CV and professional profile</h2>
+    <section class="card" style="grid-column:1/-1" id="cv-tools"><h2 class="t2">Your CV and professional profile</h2>
       <p class="muted">Keep your CV here, then ask for specific feedback on a target role. Files are private to your account. For AI review, paste only the CV text you want reviewed; contact details and links are removed before analysis.</p>
       <div class="row" style="margin-top:16px;align-items:end"><div style="flex:1;min-width:240px"><label for="cvFile" class="muted" style="display:block;margin-bottom:8px;font-weight:700">Add a CV (PDF, DOC or DOCX, up to 10 MB)</label><input class="input" id="cvFile" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"></div><button class="btn alt" type="button" data-cv-upload>Upload CV</button></div>
       <div id="cvList" class="dots" aria-live="polite"><span class="muted">Loading your private CV library…</span></div>
@@ -1933,13 +1933,13 @@ document.addEventListener('click',e=>{
   const ff=t.closest('[data-filter]'); if(ff){S.alFilter=ff.dataset.filter;save();render(false);return}
   const sl=t.closest('[data-slot]'); if(sl&&!sl.disabled){const [id,k]=sl.dataset.slot.split(':');S.pick=id;S.slot=+k;save();render(false);const pp=$(`[data-al="${id}"] .pp`);if(pp){pp.classList.add('wave');setTimeout(()=>pp.classList.remove('wave'),650)}return}
   const pk=t.closest('[data-pick]'); if(pk){S.pick=pk.dataset.pick;S.slot=0;S.alFilter='all';save();go('alumni');return}
-  const rq=t.closest('[data-req]'); if(rq){const id=rq.dataset.req; if(rq.classList.contains('done'))return; if(S.rdv&&S.rdv.id===id&&S.rdv.status!=='done')return; if(S.pick!==id){S.pick=id;S.slot=0;save();render(false);toast(`Choisis d'abord un créneau chez ${ALUMNI.find(x=>x.id===id).nom}`,null,'info');return}
-    if(S.rdv&&S.rdv.status!=='done'&&S.rdv.id!==id){toast(`Tu as déjà une demande en cours avec ${proOf().nom}`,null,'info');return}
+  const rq=t.closest('[data-req]'); if(rq){const id=rq.dataset.req; if(rq.classList.contains('done'))return; if(S.rdv&&S.rdv.id===id&&S.rdv.status!=='done')return; if(S.pick!==id){S.pick=id;S.slot=0;save();render(false);toast(`Choose a time with ${ALUMNI.find(x=>x.id===id).nom} first`,null,'info');return}
+    if(S.rdv&&S.rdv.status!=='done'&&S.rdv.id!==id){toast(`You already have a pending event request with ${proOf().nom}`,null,'info');return}
     if(S.rdv&&S.rdv.status==='done'){S.past=[...(S.past||[]),{rdv:S.rdv,report:S.report}]}
-    S.rdv={id,slot:S.slot,status:'pending'};S.report=null;S.notes='';S.checked={};S.alv=null;S.pick=null;if(S.dec){delete S.dec.step;delete S.dec.report}if(S.briefFor!==id){S.brief=null;S.pchat=[]}S.briefSent=null;logIt(`Échange demandé à ${ALUMNI.find(x=>x.id===id).nom}`,'avait proposé des pros proches de tes pistes','choisi');save();const a=ALUMNI.find(x=>x.id===id);
-    rq.className='btn done wide';rq.innerHTML=ICON.check('#fff',20)+' Demande envoyée';burst(rq,'sm');updateCount(true);
+    S.rdv={id,slot:S.slot,status:'pending'};S.report=null;S.notes='';S.checked={};S.alv=null;S.pick=null;if(S.dec){delete S.dec.step;delete S.dec.report}if(S.briefFor!==id){S.brief=null;S.pchat=[]}S.briefSent=null;logIt(`Event request sent to ${ALUMNI.find(x=>x.id===id).nom}`,'suggested professionals related to your career ideas','chosen');save();const a=ALUMNI.find(x=>x.id===id);
+    rq.className='btn done wide';rq.innerHTML=ICON.check('#fff',20)+' Request sent';burst(rq,'sm');updateCount(true);
     const pp=$(`[data-al="${id}"] .pp`);if(pp)pp.classList.add('wave');
-    toast(`Demande envoyée à ${a.nom}`,'+1 étape'); setTimeout(()=>{if(S.view==='alumni')go('rdv')},1200); return}
+    toast(`Event request sent to ${a.nom}`,'+1 step'); setTimeout(()=>{if(S.view==='alumni')go('rdv')},1200); return}
   const ck=t.closest('[data-chk]'); if(ck){const k=+ck.dataset.chk;S.checked[k]=!S.checked[k];save();ck.setAttribute('aria-checked',String(!!S.checked[k]));ck.innerHTML=S.checked[k]?ICON.check('#fff',15):'';return}
   if(t.closest('#demoNotes')){$('#notes').value=DEMO_NOTES[S.persona]||DEMO_NOTES.yanis;return}
   if(t.closest('#genReport')){const n=$('#notes').value.trim(); if(!n){toast("Écris d'abord quelques notes",null,'info');$('#notes').focus();return}
