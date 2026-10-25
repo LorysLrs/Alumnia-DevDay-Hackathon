@@ -1,13 +1,50 @@
 (() => {
   const phrases = [
+    ["Démo", "Demo"],
+    ["Aller à un écran", "Go to a screen"],
+    ["Encore 4 min environ", "About 4 minutes left"],
+    ["Reprendre plus tard", "Pick up later"],
+    ["Tu en es où dans tes études ?", "Where are you in your studies?"],
+    ["On adapte les métiers et les études à ta situation.", "We tailor career and study suggestions to your situation."],
+    ["Je me réoriente", "I am changing direction"],
+    ["Fiche métier", "Career profile"],
+    ["Copilote IA (avant l'échange)", "AI career coach (before the event)"],
+    ["Moteur IA (OpenAI)", "AI engine (OpenAI)"],
+    ["Changer de rôle", "Change role"],
+    ["Vue du pro (Lorys)", "Professional view (Lorys)"],
+    ["Offre entreprise", "Company offer"],
+    ["Tableau de bord Nexora", "Nexora dashboard"],
+    ["Rapport RSE", "CSR report"],
+    ["Vue prof", "Teacher view"],
+    ["Données", "Data"],
+    ["Remplir comme Yanis (terminale)", "Fill in as Yanis (Terminale)"],
+    ["Remplir comme Paul (réorientation)", "Fill in as Paul (changing direction)"],
+    ["Remplir comme Camille (licence)", "Fill in as Camille (licence student)"],
+    ["Remplir comme Sami (jeune diplômé)", "Fill in as Sami (recent graduate)"],
+    ["Échange : passer à « confirmé »", "Event status: set to “confirmed”"],
+    ["Échange : passer à « terminé »", "Event status: set to “completed”"],
+    ["Mode tournage (touche D pour revenir)", "Presentation mode (press D to exit)"],
+    ["Tout recommencer", "Start over"],
+
+    ["Essayer la démo", "Try the demo"],
+    ["Commencer (5 min)", "Get started (5 min)"],
+    ["Je suis une entreprise", "I'm representing a company"],
+    ["Je suis prof : inscrire ma classe", "I'm a teacher: register my class"],
+    ["Déjà commencé ? Reçois ton lien de connexion", "Already started? Get your sign-in link"],
+    ["Disponible jeudi, 18 h", "Available Thursday at 6:00 pm"],
+    ["Lorys, administrateur réseau chez Nexora", "Lorys, network administrator at Nexora"],
+    ["Il a quitté la fac après un an, puis il a trouvé sa voie en BUT. Il peut te raconter comment.", "After leaving university after a year, he found his path through a BUT. He can tell you what it was like."],
+    ["Réponds à 30 questions. L'IA rebondit sur tes réponses.", "Answer 30 questions. AI follows up on what you say."],
+    ["Ton copilote IA t'explique 3 métiers et le chemin pour y arriver.", "Your AI career coach explains three careers and ways to pursue them."],
+    ["Parle 30 minutes avec un pro. L'IA prépare, toi tu décides.", "Talk with a professional for 30 minutes. AI helps you prepare; you decide."],
     ["Copilote d'orientation IA · un humain a toujours le dernier mot", "AI career coach · people always have the final say"],
     ["Réponds à quelques questions, découvre des métiers qui te ressemblent, puis parle 30 minutes avec quelqu'un qui les fait.", "Answer a few questions, explore careers that fit you, then talk with someone who does the job."],
     ["Ton avenir ne se devine pas. Il se discute.", "Your future isn't a guess. It's a conversation."],
     ["Pour celles et ceux qui ne savent pas encore quoi chercher.", "For anyone who isn't sure what to look for yet."],
     ["Gratuit · 5 minutes · sans mot de passe", "Free · 5 minutes · no password required"],
-    ["Je suis Yanis, en terminale", "I'm Yanis, in my final year of high school"],
+    ["Je suis Yanis, en terminale", "I'm Yanis, in Terminale"],
     ["Je suis Paul, je me réoriente", "I'm Paul, changing direction"],
-    ["Je suis Camille, en licence", "I'm Camille, an undergraduate student"],
+    ["Je suis Camille, en licence", "I'm Camille, studying for a licence"],
     ["Je suis Sami, jeune diplômé", "I'm Sami, a recent graduate"],
     ["Je suis Lorys, pro chez Nexora", "I'm Lorys, a professional at Nexora"],
     ["Je suis prof : inscrire ma classe", "I'm a teacher: register my class"],
@@ -74,6 +111,8 @@
     ["action faite", "action completed"],
     ["étapes du chemin faites", "roadmap steps completed"],
     ["étapes faites", "steps completed"],
+    ["étape", "step"],
+    ["à ce stade", "at this stage"],
     ["étape proposée après ton échange", "next step suggested after your event"],
     ["Compte rendu de l'échange", "Event reflection"],
     ["Raconter ton échange", "Reflect on your event"],
@@ -117,30 +156,30 @@
     ["Bac", "French baccalaureate"],
     ["Bac +1 ou +2", "1–2 years after the French baccalaureate"],
     ["Bac +3 ou plus", "3+ years after the French baccalaureate"],
-    ["Seconde", "10th grade (Seconde)"],
-    ["Première", "11th grade (Première)"],
-    ["Terminale", "12th grade (Terminale)"],
+    ["Seconde", "Seconde"],
+    ["Première", "Première"],
+    ["Terminale", "Terminale"],
     ["lycée", "high school"],
     ["Lycée", "High school"],
     ["études courtes", "shorter studies"],
     ["études longues", "longer studies"],
-    ["alternance", "work-study (alternance)"],
-    ["Alternance", "Work-study (alternance)"],
+    ["alternance", "alternance"],
+    ["Alternance", "Alternance"],
     ["formation", "study program"],
     ["Formation", "Study program"],
     ["formations", "study programs"],
     ["Formations", "Study programs"],
-    ["stage", "internship"],
-    ["Stage", "Internship"],
-    ["stages", "internships"],
+    ["stage", "stage"],
+    ["Stage", "Stage"],
+    ["stages", "stages"],
     ["Parcoursup", "Parcoursup (French university admissions platform)"],
     ["Mon Master", "Mon Master (French master's admissions platform)"],
     ["BUT", "BUT (French university technology degree)"],
     ["BTS", "BTS (French vocational diploma)"],
-    ["Licence", "Bachelor's degree"],
-    ["licence", "bachelor's degree"],
-    ["Master", "Master's degree"],
-    ["master", "master's degree"],
+    ["Licence", "licence"],
+    ["licence", "licence"],
+    ["Master", "master"],
+    ["master", "master"],
     ["Vœux", "Preferences"],
     ["vœux", "preferences"],
     ["Candidatures", "Applications"],
@@ -279,17 +318,33 @@
     ["décembre", "December"],
   ];
 
-  const ordered = [...phrases].sort((a, b) => b[0].length - a[0].length);
+  const normalize = (value) => String(value).replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim().toLocaleLowerCase("fr");
+  const exact = new Map();
+  const phraseMap = new Map();
+  for (const [source, target] of phrases) {
+    const key = normalize(source);
+    exact.set(key, target);
+    if (/\s/.test(source.trim())) phraseMap.set(key, target);
+  }
+  const ordered = [...phraseMap.keys()].sort((a, b) => b.length - a.length);
+  const phrasePattern = ordered.length
+    ? new RegExp(`(^|[^\\p{L}\\p{N}_])(${ordered.map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})(?=$|[^\\p{L}\\p{N}_])`, "giu")
+    : null;
+  const matchInitialCase = (source, target) => {
+    const first = source.match(/\p{L}/u)?.[0];
+    if (!first || !target) return target;
+    const upper = first.toLocaleUpperCase("fr") === first;
+    const lower = first.toLocaleLowerCase("fr") === first;
+    if (upper && !lower) return target[0].toLocaleUpperCase("en") + target.slice(1);
+    if (lower) return target[0].toLocaleLowerCase("en") + target.slice(1);
+    return target;
+  };
   const english = (value) => {
-    let result = String(value);
-    for (const [source, en] of ordered) {
-      const fr = source.trim();
-      if (!fr) continue;
-      const escaped = fr.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const pattern = new RegExp(`(^|[^\\p{L}\\p{N}_])(${escaped})(?=$|[^\\p{L}\\p{N}_])`, "giu");
-      result = result.replace(pattern, (_match, prefix) => `${prefix}${en}`);
-    }
-    return result;
+    const source = String(value);
+    if (!phrasePattern) return source;
+    const exactMatch = exact.get(normalize(source));
+    if (exactMatch !== undefined) return matchInitialCase(source, exactMatch);
+    return source.replace(phrasePattern, (whole, prefix, matched) => `${prefix}${matchInitialCase(matched, phraseMap.get(normalize(matched)))}`);
   };
   const skip = (node) => node.parentElement?.closest("script,style,textarea,input,select,[contenteditable='true'],.msg.me,.user-content");
   const translatedText = new WeakMap();
