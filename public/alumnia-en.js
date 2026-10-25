@@ -292,11 +292,19 @@
     return result;
   };
   const skip = (node) => node.parentElement?.closest("script,style,textarea,input,select,[contenteditable='true'],.msg.me,.user-content");
+  const translatedText = new WeakMap();
+  function translateText(node) {
+    const current = node.nodeValue || "";
+    if (translatedText.get(node) === current) return;
+    const value = english(current);
+    translatedText.set(node, value);
+    if (value !== current) node.nodeValue = value;
+  }
   function applyEnglish(root = document.body) {
     if (!root) return;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node;
-    while ((node = walker.nextNode())) if (!skip(node)) node.nodeValue = english(node.nodeValue || "");
+    while ((node = walker.nextNode())) if (!skip(node)) translateText(node);
     for (const element of root.querySelectorAll("[aria-label],[title],[placeholder],[alt]")) {
       for (const name of ["aria-label", "title", "placeholder", "alt"]) {
         const value = element.getAttribute(name);
@@ -310,8 +318,7 @@
   new MutationObserver((records) => {
     for (const record of records) {
       if (record.type === "characterData" && record.target.nodeType === Node.TEXT_NODE && !skip(record.target)) {
-        const value = english(record.target.nodeValue || "");
-        if (value !== record.target.nodeValue) record.target.nodeValue = value;
+        translateText(record.target);
       } else if (record.type === "childList") {
         for (const node of record.addedNodes) if (node.nodeType === Node.ELEMENT_NODE) applyEnglish(node);
       }
