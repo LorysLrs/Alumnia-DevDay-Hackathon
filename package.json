@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "tsx scripts/test-scoring.ts",
+    "test": "tsx scripts/test-scoring.ts && node scripts/test-sector.cjs",
+    "test:sector": "node scripts/test-sector.cjs",
     "test:db": "node scripts/test-migration.mjs"
   },
   "dependencies": {

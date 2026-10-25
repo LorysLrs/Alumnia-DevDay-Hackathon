@@ -37,14 +37,24 @@ assert.equal(AnswersSchema.safeParse({ context: { niveau: "terminale" }, riasec:
 
 // 6. Profil de secours complet
 const answers: QuestionnaireAnswers = {
-  context: { niveau: "terminale", specialites: ["maths", "nsi_informatique"], idees: "informatique, commerce" },
+  context: { niveau: "terminale", specialites: ["maths", "nsi_informatique"], idees: "cybersecurity internships and CTFs" },
   riasec: allWith((t) => (t === "R" ? 5 : t === "I" ? 4 : 2)),
   followups: [],
 };
 const p = fallbackProfile(answers, scoreRiasec(answers.riasec));
 assert.equal(p.metiers_pistes.length, 3);
-assert.deepEqual(p.idees, ["informatique", "commerce"]);
+assert.deepEqual(p.idees, ["cybersecurity internships and CTFs"]);
+assert.equal(p.domaines_proposes[0], "Cybersecurity & digital safety");
+assert.equal(p.metiers_pistes[0].titre, "Analyste en cybersécurité");
+assert.match(p.synthese, /You said you are interested in cybersecurity internships and CTFs/);
 assert.equal(p.genere_par, "secours");
 
-console.log("OK — tous les tests passent. Exemple :", yanis.code, yanis.scores);
+const dataFinanceAnswers: QuestionnaireAnswers = {
+  ...answers,
+  context: { ...answers.context, idees: "data science, maybe finance" },
+};
+const dataFinance = fallbackProfile(dataFinanceAnswers, scoreRiasec(dataFinanceAnswers.riasec));
+assert.equal(dataFinance.domaines_proposes[0], "Data & finance");
+assert.deepEqual(dataFinance.metiers_pistes.map((role) => role.titre), ["Data analyst", "Ingénieur logiciel IA", "Contrôleur de gestion"]);
+console.log("OK — scoring, stated-sector priority, and profile fallback pass. Example:", yanis.code, yanis.scores);
 console.log("Pistes de secours :", p.metiers_pistes.map((m) => m.titre).join(" | "));

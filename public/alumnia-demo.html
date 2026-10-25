@@ -631,6 +631,7 @@ react/cjs/react-jsx-runtime.production.min.js:
 */
 </script>
 <script src="/alumnia-en.js"></script>
+<script src="/alumnia-sector.js"></script>
 <script>
 "use strict";
 // ======================= Données =======================
@@ -839,7 +840,7 @@ function score(){
   return {sc,dom};
 }
 const level=v=>v>=80?"Très fort":v>=60?"Fort":v>=40?"Moyen":"Moins";
-function englishCareerTitle(j){return CAT[j]?.court||j}
+function englishCareerTitle(j){return ({"Gestionnaire de paie":"Payroll specialist","Assistant RH":"HR assistant","Contrôleur de gestion":"Management accountant","Analyste en cybersécurité":"Cybersecurity analyst","Administrateur systèmes et réseaux":"Network and systems administrator","Technicien support informatique":"IT support technician","Ingénieur logiciel IA":"Software and AI engineer"})[j]||CAT[j]?.court||j}
 function localProfile(){
   const {sc,dom}=score(); const [a,b,c]=dom;
   const preferenceJobs=jobsFromIntent([S.careerFocus,S.ctx.idees,...S.chat.filter(m=>m.me).map(m=>m.t)].filter(Boolean).join(' '));
@@ -1072,11 +1073,12 @@ function finishQuiz(){
 V.profil=()=>{
   if(!S.profile) return needQuiz();
   const P=S.profile; const sorted=[...TYPES].sort((a,b)=>P.sc[b]-P.sc[a]||TYPES.indexOf(a)-TYPES.indexOf(b));
+  const sectorId=AlumniaSector.inferSector(careerDirection(),P.jobs), sector=AlumniaSector.SECTORS[sectorId], sectorJobs=AlumniaSector.rankedRoles(sectorId,P.jobs);
   return `<div class="wrap">${topbar('profil')}
   <section class="band" style="background:var(--sun-wash)">
     <div class="txt" style="display:flex;gap:28px;align-items:center;flex-wrap:wrap">
       <div class="medal" id="medal">${ICON.star('#fff',46)}</div>
-      <div style="min-width:0;flex:1"><h1 class="h1" style="font-size:clamp(32px,4.2vw,44px)">Ton profil est prêt${ME().nom==='Toi'?'':', '+esc(ME().nom)}</h1><p class="lead" style="margin-top:10px">3 métiers à explorer. Ce sont des pistes, pas un verdict.</p></div>
+      <div style="min-width:0;flex:1"><h1 class="h1" style="font-size:clamp(32px,4.2vw,44px)">Ton profil est prêt${ME().nom==='Toi'?'':', '+esc(ME().nom)}</h1><p class="lead" style="margin-top:10px">Your starting sector is <b>${esc(sector.name)}</b>. The roles below are possible paths shaped by what you told us.</p></div>
     </div>
     <div class="ppl">${crowd([11,0,1],138,30,'enter','right:28px;bottom:0')}</div>
   </section>
@@ -1086,9 +1088,9 @@ V.profil=()=>{
       <div style="margin-top:18px">${sorted.map((t,k)=>`<div class="rb ${k>2?'lo':''}"><span>${LABEL[t]}</span><span class="tr"><i data-w="${Math.max(6,P.sc[t])}"></i></span><b>${level(P.sc[t])}</b></div>${k<3?`<p class="rbd">${cap(DESC[t])}.</p>`:''}`).join('')}</div>
       <p class="muted small" style="margin-top:14px">Les métiers viennent d'un calcul vérifiable, basé sur le modèle d'intérêts de Holland. L'IA les explique avec tes mots, prépare tes échanges et les résume.</p>
       ${peekHTML('profil')}</section>
-    <section class="card"><h2 class="t2">Trois métiers à explorer</h2>
-      ${P.jobs.map((j,k)=>`<button class="job" data-job="${k}"><span style="min-width:0"><b style="font-size:18px;display:block">${esc(j)}</b><span style="display:block;margin:2px 0 4px">${esc(CAT[j].phrase)}</span><span class="muted small" style="display:block;color:var(--ai)">${esc(P.why[k]||CAT[j].why)}</span></span><span class="go">${ICON.arrow}</span></button>`).join('')}
-      <div class="row" style="margin-top:14px"><button class="btn" data-go="hub">Ouvrir mon hub</button><button class="btn alt" data-go="roadmap">Voir mon chemin</button><button class="btn alt" id="redo">Refaire le questionnaire</button></div><p style="margin-top:16px"><button class="btn alt sm" id="wipe" style="color:var(--danger)">Effacer toutes mes données</button></p></section>
+    <section class="card"><h2 class="t2">Possible roles in ${esc(sector.name)}</h2><p class="muted">Your direction and conversation come first. Interest scores help refine these options.</p>
+       ${sectorJobs.map((j,k)=>{const ix=P.jobs.indexOf(j);return `<button class="job" data-sector-job="${esc(j)}" data-job="${ix<0?k:ix}"><span style="min-width:0"><b style="font-size:18px;display:block">${esc(englishCareerTitle(j))}</b><span style="display:block;margin:2px 0 4px">${esc(CAT[j]?.phrase||'Explore this role within the sector')}</span><span class="muted small" style="display:block;color:var(--ai)">${esc(P.why[ix]||sector.summary)}</span></span><span class="go">${ICON.arrow}</span></button>`}).join('')}
+       <div class="row" style="margin-top:14px"><button class="btn" data-go="hub">Open my Hub</button><button class="btn alt" data-go="roadmap">View my pathway</button><button class="btn alt" id="redo">Retake questionnaire</button></div><p style="margin-top:16px"><button class="btn alt sm" id="wipe" style="color:var(--danger)">Delete all my data</button></p></section>
     <section class="aibox"><div class="row" style="justify-content:space-between"><h2 class="t2" style="margin:0">Tes questions pour un pro</h2>${aiBadge('Préparé par l\'IA')}</div>
       <p style="margin:8px 0 4px">Un pro, c'est quelqu'un qui est passé par là avant toi et qui fait ce métier aujourd'hui.</p>
       <ul class="dots">${P.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></section>
@@ -1178,8 +1180,8 @@ V.roadmap=()=>{
   <div class="row" role="group" aria-label="Choose a career" style="margin-bottom:16px">${P.jobs.map((j,k)=>`<button class="chip" aria-pressed="${k===S.jobIx}" data-jobix="${k}">${esc(CAT[j].court)}</button>`).join('')}</div>
   <section class="journey" aria-label="Your roadmap" id="journey">
     <div class="jhead">
-      <div style="min-width:0"><span class="jkicker">Your roadmap to</span><h1 class="h1" style="margin-top:4px">${esc(englishCareerTitle(J.title))}</h1>
-        <p class="jsub">${J.ans} years${['Oui','Peut-être'].includes(S.ctx.alternance)?", through alternance":""} · ${esc(pathStudyProgram(J.form))} · ${esc(J.sal)} at the start</p></div>
+      <div style="min-width:0"><span class="jkicker">Your sector pathway · ${esc(AlumniaSector.SECTORS[AlumniaSector.inferSector(careerDirection(),P.jobs)].name)}</span><h1 class="h1" style="margin-top:4px">${esc(englishCareerTitle(J.title))}</h1>
+        <p class="jsub">Example role · ${J.ans} years${['Oui','Peut-être'].includes(S.ctx.alternance)?", through alternance":""} · ${esc(pathStudyProgram(J.form))} · ${esc(J.sal)} at the start</p></div>
       <div class="jstat"><div><b id="jdone">${done}</b><span> of ${todo.length}</span></div><span>roadmap steps completed</span><div class="jbar"><i id="jbar" style="transform:scaleX(${todo.length?done/todo.length:0})"></i></div><span class="jyears">${new Date().getFullYear()} → ${Y.end}</span></div>
     </div>
     <div class="jbody" id="jbody">
@@ -1268,7 +1270,7 @@ V.metier=()=>{
   const list=(same.length?same:near).slice(0,3);
   return `<div class="wrap">${topbar('roadmap')}
   <button class="btn alt sm" data-go="roadmap" style="margin-bottom:14px">${ICON.back} Mon chemin</button>
-  <section class="band" style="background:var(--green-wash)"><div class="txt">${J.co?coLogo(J.co):''}<h1 class="h1" style="margin-top:12px">${esc(J.title)}</h1><p class="lead" style="margin-top:10px;max-width:640px">${esc(J.phrase)}</p></div><div class="ppl">${crowd([2,9,6],138,30,'enter','right:28px;bottom:0')}</div></section>
+  <section class="band" style="background:var(--green-wash)"><div class="txt">${J.co?coLogo(J.co):''}<p class="muted" style="margin-top:8px">One possible role in ${esc(AlumniaSector.SECTORS[AlumniaSector.inferSector(careerDirection(),S.profile.jobs)].name)}</p><h1 class="h1" style="margin-top:8px">${esc(englishCareerTitle(J.title))}</h1><p class="lead" style="margin-top:10px;max-width:640px">${esc(J.phrase)}</p></div><div class="ppl">${crowd([2,9,6],138,30,'enter','right:28px;bottom:0')}</div></section>
   <div class="grid2" style="margin-top:24px">
     <div class="stack">
       <section class="card"><h2 class="t2">Une journée type</h2>${J.jour.map(([h,t])=>`<div style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;padding:10px 0"><b style="color:var(--green-edge);font-variant-numeric:tabular-nums">${h}</b><span>${esc(t)}</span></div>`).join('')}<p class="muted small">Exemple simplifié, pour la démo.</p></section>
@@ -1624,10 +1626,11 @@ function ensureBrief(a){if(!S.brief||S.briefFor!==a.id){S.brief=rdvQuestions(a).
 V.hub=()=>{
   if(!S.profile) return needQuiz();
   const me=ME(),P=S.profile,J=curJob(),A=nextAction(),Y=journeyYears(J);
-  const focus=careerDirection()||'your current career ideas',cyber=/cyber|security|sécurité/i.test(focus);
+  const focus=careerDirection()||'your current career ideas',sectorId=AlumniaSector.inferSector(focus,P.jobs),sector=AlumniaSector.SECTORS[sectorId],sectorJobs=AlumniaSector.rankedRoles(sectorId,P.jobs);
   const studyStatus=S.ctx.niveau==='Je me réoriente'?'Changing direction':S.ctx.niveau==='Terminale'?'Terminale student':S.ctx.niveau==='Première'?'Première student':S.ctx.niveau==='Seconde'?'Seconde student':String(ME().label||'').includes('licence')?'Second-year licence student':S.ctx.niveau==='Bac +3 ou plus'?'Recent graduate':'Post-baccalaureate student';
-  const focusEvents=cyber?['Cybersecurity CTFs and beginner-friendly challenges','Cybersecurity hackathons and student meetups','Security and cloud events near your school']:['AI and software engineering hackathons','Developer meetups and student tech events','Summer software / AI internship application windows'];
-  const focusPeople=ALUMNI.filter(a=>/informatique|cyber|réseau|data|support/i.test(a.job+' '+a.poste)).slice(0,3);
+  const focusEvents=sector.events;
+  const roleNeedles={cybersecurity:/cyber|réseau|support/i,dataFinance:/data|contrôle|paie/i,data:/data|IA/i,digitalProduct:/design|UX|game/i,networks:/réseau|support|cyber/i,softwareAI:/IA|data|cyber/i,technology:/informatique|cyber|réseau|support/i,finance:/gestion|paie|RH|data/i}[sectorId];
+  const focusPeople=ALUMNI.filter(a=>roleNeedles.test(a.job+' '+a.poste)).slice(0,3);
   const focusCompanies=[...new Set(focusPeople.map(a=>COMPANIES[a.co].nom))].slice(0,3);
   const steps=pathSteps(J),todo=steps.filter(s=>!s.goal&&s.key!=='base'&&!s.meet),allS=steps.filter(s=>!s.goal),done=allS.filter(s=>s.past||s.key==='base'||s.meet||S.steps[sk(s.key)]).length;
   const nextKey=(todo.find(s=>!S.steps[sk(s.key)])||{}).key; let num=0;
@@ -1636,10 +1639,10 @@ V.hub=()=>{
   return `<div class="wrap">${topbar('hub')}
   <div class="hubtop">
     <section class="hello2">${av(me.p,56,'#fff')}<div style="min-width:0"><h1>Hello${me.nom==='Toi'?'!':' '+esc(me.nom)}</h1>
-      <p>${[studyStatus,'Goal: '+J.court,alt].filter(Boolean).map(esc).join(' · ')}</p></div></section>
+      <p>${[studyStatus,sector.name,alt].filter(Boolean).map(esc).join(' · ')}</p></div></section>
     <section class="copilot2"><span class="ob2"><span data-orb="breathing" data-size="36" role="img" aria-label="Ton copilote IA"></span></span><b>Ton copilote IA</b>${engPill()}<button class="btn ai sm" data-go="prep" style="margin:0 0 0 auto">Parler au copilote</button></section>
   </div>
-  <section class="card" style="margin-top:18px;background:var(--ai-wash)"><h2 class="t2">Your direction grows clearer with every AI conversation</h2><p class="lead">Start with a career or study path you already have in mind. The AI asks about your reasons, the work you want to do, what you have tried and which study route fits. Your words shape your profile; interest scores are secondary clues. Your Hub turns that direction into events, internships, people, companies and resources. You decide what to keep.</p><div class="row" style="margin-top:14px"><span class="who ai"><i></i>Starting point: ${esc(focus)}</span><button class="btn alt sm" data-go="profil">Build my profile</button></div></section>
+  <section class="card" style="margin-top:18px;background:var(--ai-wash)"><h2 class="t2">Your direction grows clearer with every AI conversation</h2><p class="lead">Start with a career or study path you already have in mind. The AI asks about your reasons, the work you want to do, what you have tried and which study route fits. Your words shape your profile; interest scores are secondary clues. Your Hub turns that direction into events, internships, people, companies and resources. You decide what to keep.</p><div class="row" style="margin-top:14px"><span class="who ai"><i></i>Starting sector: ${esc(sector.name)}</span><button class="btn alt sm" data-go="profil">Build my profile</button></div></section>
   <div class="hubgrid">
     <section class="nextact c5" aria-label="Prochaine action">${aiBadge("Proposé par l'IA")}
       <p class="t">${esc(A.t)}</p><p>${esc(A.s)}</p>
@@ -1649,17 +1652,15 @@ V.hub=()=>{
     <section class="hcard c4"><h2>Pour toi en ce moment</h2>
       ${opps().map(o=>`<div class="opp2"><span class="who pa"><i></i>${esc(o.k)}</span><b>${esc(o.t)}</b><span class="muted small">${esc(o.d)}</span></div>`).join('')}</section>
     <section class="hcard c3"><h2>Mon agenda</h2><div class="agenda2">${agenda.map(([d,t,k])=>`<div class="ag ${k}"><b>${esc(d)}</b><span>${esc(t)}</span></div>`).join('')||'<p class="muted">Rien de prévu.</p>'}</div></section>
-    <section class="hcard c7"><h2>Mon chemin vers ${esc(J.court)} <button class="lnk" data-go="roadmap">Voir en grand</button></h2>
-      <div class="hbar"><i style="transform:scaleX(${allS.length?done/allS.length:0})"></i></div><p class="muted small" style="margin:6px 0 4px">${done} of ${allS.length} steps · target: ${Y.end}</p>
+    <section class="hcard c7" data-testid="sector-focus"><h2>Your sector focus <span class="who ai"><i></i>${esc(sector.name)}</span></h2><p class="muted">${esc(sector.summary)} Your profile helps rank the roles worth exploring.</p><div class="sector-roles">${sectorJobs.map((job,k)=>{const ix=P.jobs.indexOf(job);return `<button class="job" data-sector-job="${esc(job)}" data-job="${ix<0?k:ix}" style="margin:8px 0;padding:12px 14px"><b style="flex:1;min-width:0;font-size:17px">${esc(englishCareerTitle(job))}</b><span class="go">${ICON.arrow}</span></button>`}).join('')}</div><button class="btn alt sm" data-go="profil">Shape my profile</button></section>
+    <section class="hcard c5"><h2>My route through the sector <button class="lnk" data-go="roadmap">View full path</button></h2><p class="muted">Example role: <b>${esc(englishCareerTitle(J.title))}</b></p><div class="hbar"><i style="transform:scaleX(${allS.length?done/allS.length:0})"></i></div><p class="muted small" style="margin:6px 0 4px">${done} of ${allS.length} steps · target: ${Y.end}</p>
       ${steps.map(s=>{const isD=s.past||s.key==='base'||s.meet||S.steps[sk(s.key)];const n=(!s.goal&&s.key!=='base'&&!s.meet)?++num:0;const nx=s.key===nextKey;
         return `<div class="mrow"><span class="mdot ${s.goal?'goal':isD?'done':nx?'next':''}">${s.goal?ICON.star('#15201B',15):isD?ICON.check('#fff',14):n}</span><b style="flex:1;min-width:0">${esc(s.t)}</b>${nx?'<span class="who ok"><i></i>À faire</span>':''}</div>`}).join('')}</section>
-    <section class="hcard c5"><h2>Mes 3 pistes</h2>
-      ${P.jobs.map((j,k)=>`<button class="job" data-job="${k}" style="margin-bottom:8px;padding:12px 14px"><b style="flex:1;min-width:0;font-size:17px">${esc(j)}</b><span class="go">${ICON.arrow}</span></button>`).join('')}</section>
-    <section class="hcard c12"><h2>Events and opportunities for your direction</h2><p class="muted">A discovery feed for <b>${esc(focus)}</b>. Published opportunities from your Alumnia workspace appear here; sample paths show what can be tailored next.</p><div id="liveOpportunityFeed" aria-live="polite" style="margin-top:12px"><span class="muted">Checking published opportunities…</span></div><h3 class="t3" style="margin-top:18px">Explore this direction</h3><div class="grid2" style="margin-top:12px">
+    <section class="hcard c12"><h2>Events and opportunities in ${esc(sector.name)}</h2><p class="muted">A discovery feed for <b>${esc(sector.name)}</b>, shaped by your direction: ${esc(focus)}. Published opportunities from your Alumnia workspace appear here; sample paths show what can be tailored next.</p><div id="liveOpportunityFeed" aria-live="polite" style="margin-top:12px"><span class="muted">Checking published opportunities…</span></div><h3 class="t3" style="margin-top:18px">Explore this direction</h3><div class="grid2" style="margin-top:12px">
       <article class="soft"><h3 class="t3">Events to explore</h3><ul class="dots">${focusEvents.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></article>
       <article class="soft"><h3 class="t3">Internships and study routes</h3><p>Find summer internships and alternance, then connect them to the right application window. Compare Parcoursup, BTS, BUT, licence and master routes for your target role. Alumnia helps you prepare; applications happen on employer or school websites. You apply there directly.</p></article>
       <article class="soft"><h3 class="t3">People to talk to</h3><p>Professionals in this sample network:</p><ul class="dots">${focusPeople.map(a=>`<li>${esc(a.nom)} · ${esc(a.poste)}</li>`).join('')}</ul><button class="btn alt sm" data-go="alumni">Explore professionals</button></article>
-      <article class="soft"><h3 class="t3">Companies and sector resources</h3><p>Companies represented in these sample profiles:</p><p><b>${esc(focusCompanies.join(' · ')||'Companies tailored to your focus')}</b></p><p>Build skills with project ideas, portfolio reviews, sector news, CV feedback and LinkedIn guidance.</p></article>
+      <article class="soft"><h3 class="t3">Companies and sector resources</h3><p><b>${esc(sector.name)}</b></p><p>Companies represented in these sample profiles:</p><p><b>${esc(focusCompanies.join(' · ')||'Companies tailored to your focus')}</b></p><p>Build skills with project ideas, portfolio reviews, sector news, CV feedback and LinkedIn guidance.</p></article>
     </div><div class="row" style="margin-top:14px"><button class="btn alt" data-go="profil">Add my CV and get feedback</button><button class="btn alt" data-go="prep">Ask the AI coach to refine my direction</button></div></section>
     <section class="hcard c12"><h2>L'IA propose, tu décides <button class="lnk" data-go="ia">Tout voir</button></h2>${logHTML(4)}</section>
   </div></div>`;
@@ -1922,6 +1923,7 @@ document.addEventListener('click',e=>{
       S.ctx[qq.id]=arr; save(); cx.setAttribute('aria-pressed',String(arr.includes(val))); const h=$('#multiHint');if(h)h.textContent=`${arr.length} sur 3 choisies`; const n=$('[data-q="next"]',$('#qcard'));if(n)n.disabled=!arr.length; }
     else {if(qBusy)return;S.ctx[qq.id]=val;save();$$('[data-ctx]').forEach(b=>b.setAttribute('aria-checked',String(b===cx)));qBusy=true;setTimeout(()=>{qBusy=false;qMove(1)},180)} return}
   const lk=t.closest('[data-lik]'); if(lk){answer(+lk.dataset.lik);return}
+  const sectorJob=t.closest('[data-sector-job]'); if(sectorJob){const role=sectorJob.dataset.sectorJob;let ix=S.profile.jobs.indexOf(role);if(ix<0){S.profile.jobs=[...S.profile.jobs.slice(0,2),role];S.profile.why=[...(S.profile.why||[]).slice(0,2),`This role is one possible path in ${AlumniaSector.SECTORS[AlumniaSector.inferSector(careerDirection(),S.profile.jobs)].name}.`];ix=S.profile.jobs.indexOf(role);save()}S.jobIx=Math.max(0,ix);save();go('metier');return}
   const job=t.closest('[data-job]'); if(job){S.jobIx=+job.dataset.job;save();go('roadmap');return}
   const jx=t.closest('[data-jobix]'); if(jx){S.jobIx=+jx.dataset.jobix;save();render(false);return}
   const js=t.closest('[data-jstep]'); if(js){journeyToggle(js);return}

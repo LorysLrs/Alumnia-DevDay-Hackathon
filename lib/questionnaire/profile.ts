@@ -9,7 +9,8 @@ Help a young person aged 16–25 make sense of their interests and career ideas 
 Rules:
 - Write in clear, concise English. Keep French education terms such as Parcoursup, BTS, BUT, licence, master and alternance in French, with a short explanation when useful.
 - Offer possibilities, never a verdict or personality label.
-- Treat Holland RIASEC scores as clues, not facts; connect them to the person's own words.
+- Begin with the sector, career idea or study path the young person stated. Ask about the reasons, tasks, experiences and constraints behind it. Suggest several roles within that sector before adjacent options.
+- Treat Holland RIASEC scores as secondary clues, not facts; they may refine the person's direction but must never replace or overrule their own words.
 - Consider study length, work-study options and mobility.
 - Never invent a qualification, employer, statistic or promise.
 - When answers are limited, say what is still unknown and suggest what to explore next.
@@ -70,15 +71,31 @@ export function fallbackProfile(answers: QuestionnaireAnswers, riasec: RiasecRes
     .split(/[,;\n]/)
     .map((s) => s.trim())
     .filter(Boolean);
-  const metiers = [PISTES_PAR_TYPE[t1].metiers[0], PISTES_PAR_TYPE[t1].metiers[1], PISTES_PAR_TYPE[t2].metiers[0]];
+  const direction = idees.join(" ").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const sectorRules: Array<{ match: RegExp; domain: string; roles: string[] }> = [
+    { match: /cyber|securite|security|ctf/, domain: "Cybersecurity & digital safety", roles: ["Analyste en cybersécurité", "Administrateur systèmes et réseaux", "Technicien support informatique"] },
+    { match: /data|donnee|analytics/, domain: /finance|accounting|comptabilite|gestion/.test(direction) ? "Data & finance" : "Data & analytics", roles: ["Data analyst", "Ingénieur logiciel IA", "Contrôleur de gestion"] },
+    { match: /software|programmation|coding|intelligence artificielle|\bai\b/, domain: "AI & software engineering", roles: ["Ingénieur logiciel IA", "Data analyst", "Analyste en cybersécurité"] },
+    { match: /ux|ui|design|application|interface|game/, domain: "Digital product & design", roles: ["UX/UI designer", "Game designer", "Motion designer"] },
+    { match: /finance|financial|accounting|comptabilite|controle de gestion/, domain: "Finance & business operations", roles: ["Contrôleur de gestion", "Gestionnaire de paie", "Data analyst"] },
+    { match: /network|reseau|infrastructure|informatique|\bit\b/, domain: "Digital technology", roles: ["Administrateur systèmes et réseaux", "Technicien support informatique", "Analyste en cybersécurité"] },
+  ];
+  const statedSector = sectorRules.find((rule) => rule.match.test(direction));
+  const fallbackRoles = [PISTES_PAR_TYPE[t1].metiers[0], PISTES_PAR_TYPE[t1].metiers[1], PISTES_PAR_TYPE[t2].metiers[0]];
+  const metiers = [...new Set([...(statedSector?.roles ?? []), ...fallbackRoles])].slice(0, 3);
+  const domains = statedSector
+    ? [statedSector.domain, PISTES_PAR_TYPE[t1].domaine]
+    : [PISTES_PAR_TYPE[t1].domaine, PISTES_PAR_TYPE[t2].domaine];
   return {
     ...buildBaseProfile(answers, riasec),
     interets: riasec.dominant.map((t) => RIASEC_LABELS[t].description),
     idees,
-    domaines_proposes: [PISTES_PAR_TYPE[t1].domaine, PISTES_PAR_TYPE[t2].domaine],
+    domaines_proposes: domains,
     metiers_pistes: metiers.map((titre) => ({
       titre,
-      pourquoi: `Ça colle avec ton côté ${RIASEC_LABELS[t1].nom.toLowerCase()} et ${RIASEC_LABELS[t2].nom.toLowerCase()}.`,
+      pourquoi: statedSector
+        ? `You mentioned ${idees[0]}. This role is one possible path in ${statedSector.domain}; your interest answers help refine what to explore.`
+        : `Your interest answers suggest this as one possibility. It is a clue to explore, not a verdict.`,
     })),
     a_explorer: ["Ce que ces métiers donnent au quotidien", "Les études courtes ou en alternance qui y mènent"],
     questions_pour_alumni: [
@@ -86,7 +103,9 @@ export function fallbackProfile(answers: QuestionnaireAnswers, riasec: RiasecRes
       "Qu'est-ce qui t'a fait choisir ce métier ?",
       asString(answers.context.question_alumni) || "Qu'est-ce que tu aurais aimé savoir à mon âge ?",
     ],
-    synthese: `Tes réponses montrent surtout un côté ${RIASEC_LABELS[t1].nom.toLowerCase()} et ${RIASEC_LABELS[t2].nom.toLowerCase()}. Ce sont des pistes, pas un verdict : le mieux est d'en parler avec quelqu'un qui fait ces métiers.`,
+    synthese: statedSector
+      ? `You said you are interested in ${idees[0]}. We start with ${statedSector.domain}; your interest answers are secondary clues for choosing which roles and next steps to explore.`
+      : `Your answers suggest ${RIASEC_LABELS[t1].description.toLowerCase()} and ${RIASEC_LABELS[t2].description.toLowerCase()} as starting clues. They are possibilities, not a verdict.`,
     genere_par: "secours",
   };
 }

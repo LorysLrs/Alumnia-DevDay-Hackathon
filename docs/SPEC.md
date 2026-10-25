@@ -1319,6 +1319,13 @@ Cette section complète tout ce qui précède. En cas de conflit, elle gagne. R�
 - **L'humain a le dernier mot.** Toute sortie de l'IA qui change quelque chose pour l'élève ou que le pro va lire passe par trois boutons : **Valider · Modifier · Refuser** (libellés adaptés à chaque cas). Rien n'est envoyé au pro, ni ajouté au chemin, sans clic de l'élève. Chaque décision est enregistrée et affichée dans un journal.
 - **Les intérêts restent calculés sans IA** (score RIASEC vérifiable). Ils éclairent les pistes, mais la direction exprimée par le jeune et ses propres mots priment. L'IA aide à approfondir cette direction, prépare et résume.
 
+### Priorité secteur — 25 octobre 2026
+
+- **Le secteur ouvre le Hub et le profil.** The student's own words and stated direction identify the starting sector; the Hub labels the sector first, then shows plausible roles within it. A role remains selectable to open its pathway, but it is presented as one possible route, not the student's presumed destination.
+- **The conversation builds the profile.** Follow-up questions clarify what the student already has in mind: why it appeals, tasks they want to try, what they have done, and study or practical constraints. Those details rank the sector's roles and tailor events, internships, mentors, companies and CV/LinkedIn resources. RIASEC is a secondary clue and cannot overrule an explicit direction.
+- **Fallback behavior follows the same contract.** With no AI key or network, the sector and first suggested roles still come from the stated direction before RIASEC-based alternatives. Unknown direction keeps broad technology as an exploration space.
+- **Acceptance cases:** “cybersecurity” → Cybersecurity & digital safety, with a CTF/hackathon feed and cyber/network/support roles; “data science, maybe finance” → Data & finance with data and business-finance roles; “app design” → Digital product & design. Choosing a role opens that role's detail and pathway while keeping the sector visible.
+
 ### Raffinement produit — 25 octobre 2026
 
 - **Langue de l'application : anglais sur tous les écrans.** Les noms des voies et dispositifs français restent en français (Parcoursup, BTS, BUT, licence, master, alternance) et sont brièvement expliqués en anglais quand cela aide.
