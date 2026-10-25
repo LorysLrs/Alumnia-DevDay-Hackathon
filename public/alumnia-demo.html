@@ -819,7 +819,7 @@ function toast(title,badge,kind){
 }
 function cheer(){ $$('#app .crowd').forEach(c=>{c.classList.remove('cheer','enter');void c.offsetWidth;c.classList.add('cheer')}) }
 const stepsDone=()=>{const ex=[...(S.past||[]),...(S.rdv?[{rdv:S.rdv,report:S.report}]:[])];return (S.profile?1:0)+Object.values(S.steps).filter(Boolean).length+ex.length+ex.filter(e=>e.rdv.status==='done').length+ex.filter(e=>e.report).length};
-function updateCount(pop){const c=$('#count');if(!c)return;const n=stepsDone();$('.lbl',c).textContent=`action${n>1?'s':''} faite${n>1?'s':''}`;$('.n',c).textContent=n;if(pop){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')}}
+function updateCount(pop){const c=$('#count');if(!c)return;const n=stepsDone();$('.lbl',c).textContent=`action${n>1?'s':''} completed`;$('.n',c).textContent=n;if(pop){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')}}
 
 // ======================= Profil (calcul sans IA, comme lib/questionnaire/scoring.ts) =======================
 function score(){
@@ -886,7 +886,7 @@ function topbar(active,noFab){
   return `<header class="top">
     <button class="logo" data-go="login" aria-label="Alumnia, accueil">${LOGO.light}</button>
     <nav class="nav" aria-label="Navigation">${[['hub','Mon hub','Hub'],['profil','Mon profil','Profil'],['roadmap','Mon chemin','Chemin'],['echanges','Mes échanges','Échanges']].map(([v,l,sh])=>`<button data-go="${v}" ${active===v?'aria-current="page"':''}><span class="l">${l}</span><span class="s">${sh}</span></button>`).join('')}</nav>
-    <div class="right"><span class="count" id="count">${ICON.star('#E0A800',16)}<span class="n">${n}</span><span class="lbl">action${n>1?'s':''} faite${n>1?'s':''}</span></span>${av(ME().p,44)}</div>
+    <div class="right"><span class="count" id="count">${ICON.star('#E0A800',16)}<span class="n">${n}</span><span class="lbl">action${n>1?'s':''} completed</span></span>${av(ME().p,44)}</div>
   </header>${noFab?'':`<button class="aifab" data-go="prep" aria-label="Copilote IA"><span class="ob"><span data-orb="breathing" data-size="30"></span></span><span class="lbl">Copilote IA</span></button>`}`;
 }
 function plainTop(right=''){return `<header class="top"><button class="logo" data-go="login" aria-label="Alumnia, accueil">${LOGO.light}</button><div class="right">${right}</div></header>`}
@@ -1134,7 +1134,7 @@ V.roadmap=()=>{
     <div class="jhead">
       <div style="min-width:0"><span class="jkicker">Ton chemin vers</span><h1 class="h1" style="margin-top:4px">${esc(J.title)}</h1>
         <p class="jsub">${J.ans} ans${['Oui','Peut-être'].includes(S.ctx.alternance)?", en alternance":""} · ${esc(J.form)} · ${esc(J.sal)} au début</p></div>
-      <div class="jstat"><div><b id="jdone">${done}</b><span> sur ${todo.length}</span></div><span>étapes du chemin faites</span><div class="jbar"><i id="jbar" style="transform:scaleX(${todo.length?done/todo.length:0})"></i></div><span class="jyears">${new Date().getFullYear()} → ${Y.end}</span></div>
+      <div class="jstat"><div><b id="jdone">${done}</b><span> of ${todo.length}</span></div><span>étapes du chemin faites</span><div class="jbar"><i id="jbar" style="transform:scaleX(${todo.length?done/todo.length:0})"></i></div><span class="jyears">${new Date().getFullYear()} → ${Y.end}</span></div>
     </div>
     <div class="jbody" id="jbody">
       <svg class="jsvg" id="jsvg" aria-hidden="true"><defs><mask id="jmask" maskUnits="userSpaceOnUse"><path id="jmaskp" fill="none" stroke="#fff" stroke-width="60" stroke-linecap="round"/></mask></defs>
@@ -1227,7 +1227,7 @@ V.metier=()=>{
     <div class="stack">
       <section class="card"><h2 class="t2">Une journée type</h2>${J.jour.map(([h,t])=>`<div style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;padding:10px 0"><b style="color:var(--green-edge);font-variant-numeric:tabular-nums">${h}</b><span>${esc(t)}</span></div>`).join('')}<p class="muted small">Exemple simplifié, pour la démo.</p></section>
       <section class="card"><h2 class="t2">Comment y arriver</h2><div class="job" style="cursor:default"><span><b style="font-size:17px;display:block">${esc(J.form)} · ${J.ans} ans</b><span class="muted">${esc(J.lieux)}</span></span><span class="who ok" style="margin-left:auto"><i></i>Ton chemin</span></div>
-        <p style="margin-top:12px"><b>Salaire au début :</b> ${esc(J.sal)}</p><p class="muted small" style="margin-top:8px">Source : Onisep (données simplifiées pour la démo)</p></section>
+        <p style="margin-top:12px"><b>Starting salary:</b> ${esc(J.sal)}</p><p class="muted small" style="margin-top:8px">Source : Onisep (données simplifiées pour la démo)</p></section>
     </div>
     <div class="stack">
       <section class="soft"><h2 class="t2">Ce qu'il faut aimer</h2><div class="row">${J.aimer.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div></section>
@@ -1254,7 +1254,7 @@ V.alumni=()=>{
   <p class="lead" style="margin:10px 0 4px;max-width:760px">Un pro, c'est quelqu'un qui est passé par là avant toi et qui fait ce métier aujourd'hui. 30 minutes en visio, gratuit, caméra pas obligatoire.</p>
   <p class="muted" style="margin-bottom:20px">Les métiers te sont proposés selon tes réponses, jamais selon l'entreprise qui finance Alumnia.</p>
   <div class="row" role="group" aria-label="Filtrer par métier" style="margin-bottom:22px">${jobs.map(j=>`<button class="chip" aria-pressed="${f===j}" data-filter="${esc(j)}">${esc(CAT[j].court)}</button>`).join('')}<button class="chip" aria-pressed="${f==='all'}" data-filter="all">Tous les métiers</button></div>
-  ${same.length?'':`<p class="soft" style="padding:16px 20px;margin-bottom:18px"><b>Pas encore de pro pour ce métier.</b> Ceux-là travaillent juste à côté, et ils connaissent bien ce milieu.</p>`}
+  ${same.length?'':`<p class="soft" style="padding:16px 20px;margin-bottom:18px"><b>No professional is available for this career yet.</b> These professionals work in related roles and know the field well.</p>`}
   <div class="grid3">${show.map(a=>{const sel=S.pick===a.id;const sent=sentId===a.id;const sl=sent?S.rdv.slot:S.slot;return `<article class="card acard ${sel||sent?'sel':''}" data-al="${a.id}">
     <div class="cv"><span class="co">${coLogo(a.co)}</span>${person(a.p,128,0,'')}</div>
     <div class="bd"><div><b style="font-size:21px">${a.nom}</b><div class="muted">${esc(a.poste)} chez ${esc(COMPANIES[a.co].nom)}</div></div><p>${esc(a.parcours)}</p>
@@ -1475,7 +1475,7 @@ V.comment=()=>`<div class="wrap">${plainTop(`<button class="btn alt sm" data-go=
   <h1 class="h1xl">Comment marche Alumnia</h1><p class="lead muted" style="margin:10px 0 26px">En 8 étapes, sans un mot d'informatique.</p>
   <div class="grid4">${HOW.map(([t,d,bg,pic],k)=>`<section class="how" style="background:${bg}"><span class="n">${k+1}</span><h2 style="font-size:22px">${t}</h2><p>${d}</p><div class="pic">${pic==='orb'?`<div class="orb64" data-orb="${k===2?'composing':'weaving'}" role="img" aria-label="L'IA" style="position:absolute;right:0;bottom:6px"></div>`:pic==='calc'?`<div style="position:absolute;right:0;bottom:8px;display:grid;gap:5px;width:120px">${[90,70,55].map(w=>`<i style="display:block;height:10px;border-radius:9px;background:var(--green);width:${w}%"></i>`).join('')}</div>`:crowd([+pic.slice(2)],84,0,'','right:0;bottom:0')}</div></section>`).join('')}</div>
   <h2 class="t2" style="margin-top:44px">Pourquoi Alumnia</h2>
-  <div class="vs">${[["Onisep te dit ce qu'est un métier.","Alumnia te fait parler à quelqu'un qui le fait."],["My Job Glasses te fait rencontrer des pros.","Alumnia commence avant : quand tu ne sais pas encore quel métier chercher."],["JobTeaser t'aide à trouver un stage.","Alumnia t'aide à choisir tes études."],["Un rendez-vous, c'est bien.","Ici, chaque échange fait avancer ton chemin d'une étape."]].map(([x,y])=>`<div><span class="muted">${x}</span><b>${y}</b></div>`).join('')}</div>
+  <div class="vs">${[["Onisep te dit ce qu'est un métier.","Alumnia te fait parler à quelqu'un qui le fait."],["My Job Glasses te fait rencontrer des pros.","Alumnia commence avant : quand tu ne sais pas encore quel métier chercher."],["JobTeaser t'aide à trouver un stage.","Alumnia t'aide à choisir tes études."],["An event is a good start.","Here, every event moves your roadmap forward."]].map(([x,y])=>`<div><span class="muted">${x}</span><b>${y}</b></div>`).join('')}</div>
   <div class="grid2" style="margin-top:30px">${safeBox()}<section class="soft"><h3 style="font-size:20px;margin-bottom:8px">Tes données</h3><ul style="margin:0;padding-left:20px;line-height:1.7"><li>Hébergées dans l'Union européenne.</li><li>L'IA reçoit tes réponses sans ton prénom, ton e-mail ni ton lycée. Elles ne servent pas à l'entraîner.</li><li>Le pro voit un résumé, jamais tes réponses.</li><li>L'entreprise voit des chiffres, jamais un nom.</li><li>Tu peux tout effacer en un clic, à tout moment (bouton sur ton profil).</li><li>L'IA propose, tu décides : chaque texte de l'IA a un bouton Valider, Modifier ou Refuser, et chaque décision est notée dans ton journal.</li><li>En production, l'IA passe par l'API d'OpenAI (gpt-4.1-mini par défaut), avec des réponses en JSON structuré. Si elle ne répond pas, le site continue avec une version de secours.</li></ul></section></div>
 </div>`;
 
@@ -1617,9 +1617,10 @@ V.hub=()=>{
 
 // ======================= v6 : le copilote avant l'échange =======================
 let pBusy=false,pFresh=false;
-const PQ=["Quelles questions poser ?","Je stresse un peu","C'est quoi l'alternance ?","Je préfère parler à un humain"];
+const englishRole=a=>({"Analyste en cybersécurité":"cybersecurity analyst","Administrateur réseau":"network administrator","Ingénieure réseau":"network engineer","Data analyst":"data analyst","Technicien support":"support technician"}[a.poste]||a.poste.toLowerCase());
+const PQ=["What questions should I ask?","I'm a little nervous","What is alternance?","I'd rather talk to a person"];
 function prepHello(a){const has=activeRdv();const nom=ME().nom==='Toi'?'':' '+ME().nom;
-  return `Salut${nom} ! Je suis ton copilote. ${has?`Tu parles bientôt avec ${a.nom}, ${a.poste.toLowerCase()} chez ${COMPANIES[a.co].nom}.`:`${a.nom}, ${a.poste.toLowerCase()} chez ${COMPANIES[a.co].nom}, pourrait t'aider.`} J'ai préparé ${rdvQuestions(a).length} questions à partir de ton profil (à droite) : garde celles qui te parlent. Qu'est-ce que tu aimerais savoir en sortant de l'échange ?`}
+  return `Hi${nom}! I'm your AI coach. ${has?`You'll soon meet ${a.nom}, ${englishRole(a)} at ${COMPANIES[a.co].nom}.`:`${a.nom}, a ${englishRole(a)} at ${COMPANIES[a.co].nom}, may be able to help.`} I prepared ${rdvQuestions(a).length} questions based on your profile (on the right). Keep the ones that feel useful. What would you like to know by the end of the event?`}
 function pchatHTML(typing){let h='';const lastAi=typing?-1:S.pchat.map(m=>!m.me).lastIndexOf(true);
   S.pchat.forEach((m,k)=>{const nw=pFresh&&k===S.pchat.length-1?' new':'';
     h+=m.me?`<div class="msg me${nw}"><div class="bub">${esc(m.t)}</div>${av(ME().p,44)}</div>`
@@ -1668,7 +1669,7 @@ V.prep=()=>{
   if(!S.pchat.length){S.pchat.push({me:false,t:prepHello(a)});save()}
   const B=S.brief, kept=B.filter(b=>b.st==='kept').length, removed=B.filter(b=>b.st==='removed').length, sent=S.briefSent&&has;
   return `<div class="wrap">${topbar('echanges',true)}
-  <div class="prephead"><div style="min-width:0;max-width:720px">${aiBadge('Copilote IA · avant ton échange')}<h1 class="h1" style="margin-top:10px">Prépare ton échange avec ${a.nom}</h1><p class="lead muted" style="margin-top:8px">2 minutes avec l'IA, puis 30 minutes avec un humain. Rien n'est envoyé à ${a.nom} sans ton accord.</p></div>
+  <div class="prephead"><div style="min-width:0;max-width:720px">${aiBadge('Copilote IA · avant ton échange')}<h1 class="h1" style="margin-top:10px">Prepare for your event with ${a.nom}</h1><p class="lead muted" style="margin-top:8px">Spend 2 minutes with AI, then 30 minutes with a professional. Nothing is shared with ${a.nom} without your approval.</p></div>
     <div class="promini">${av(a.p,56,'#fff')}<div style="min-width:0"><b>${a.nom}</b><div class="muted small">${esc(a.poste)} chez ${esc(COMPANIES[a.co].nom)}</div><div style="margin-top:4px">${has?statusBadge(S.rdv.status):'<span class="who wait"><i></i>Pas encore réservé</span>'}</div></div></div></div>
   <div class="g-prep">
     <section class="chatbox" aria-label="Discussion avec le copilote">
@@ -1676,10 +1677,10 @@ V.prep=()=>{
       <div class="pmsgs" id="pchat" aria-live="polite">${pchatHTML(pBusy)}</div>
       <div class="quick">${PQ.map(q=>`<button data-pq="${esc(q)}" ${pBusy?'disabled':''}>${esc(q)}</button>`).join('')}</div>
       <form id="pform" class="pform"><label for="pin" class="sr">Ton message au copilote</label><input class="input" id="pin" placeholder="Écris au copilote…" autocomplete="off" ${pBusy?'disabled':''}><button class="btn ai" type="submit" ${pBusy?'disabled':''}>Envoyer</button></form>
-      <div class="chatnote"><p class="muted small">Le copilote ne remplace pas ${a.nom} : il t'aide à préparer. Tu préfères un humain tout de suite ? <button class="lnk" data-human="1">Écrire à l'équipe Alumnia</button></p>${peekHTML('prechat')}</div>
+      <div class="chatnote"><p class="muted small">The AI coach does not replace ${a.nom}; it helps you prepare. Would you rather talk to a person now? <button class="lnk" data-human="1">Message the Alumnia team</button></p>${peekHTML('prechat')}</div>
     </section>
-    <aside class="brief" id="brief" aria-label="Ton brief"><div class="row" style="justify-content:space-between"><h2 class="t2" style="margin:0;color:var(--human)">Ton brief pour ${a.nom}</h2>${sent?'<span class="who ok"><i></i>Envoyé</span>':''}</div>
-      <p style="margin-top:6px">L'IA propose des questions. <b>Toi seul choisis</b> ce que ${a.nom} verra.</p>
+    <aside class="brief" id="brief" aria-label="Ton brief"><div class="row" style="justify-content:space-between"><h2 class="t2" style="margin:0;color:var(--human)">Your briefing for ${a.nom}</h2>${sent?'<span class="who ok"><i></i>Envoyé</span>':''}</div>
+      <p style="margin-top:6px">AI suggests questions. <b>You choose what ${a.nom} can see.</b></p>
       <ul class="blist">${B.map((b,i)=>b.st==='removed'?'':`<li class="bq ${b.st}${b.fresh?' flash':''}">${b.src==='ia'?aiBadge(b.edited?"Proposée par l'IA, modifiée par toi":"Proposée par l'IA",1):'<span class="who hu"><i></i>Ta question</span>'}
         ${S.bEdit===i?`<form data-bqform="${i}" style="display:grid;gap:8px;margin-top:8px"><label for="bqIn" class="sr">Modifier la question</label><input class="input" id="bqIn" value="${esc(b.t)}"><div class="bact"><button class="k" type="submit">Enregistrer</button><button type="button" data-bq="${i}:cancel">Annuler</button></div></form>`
         :`<p>${esc(b.t)}</p><div class="bact">${b.st==='proposed'?`<button class="k" data-bq="${i}:keep">Garder</button>`:`<span class="who ok"><i></i>Gardée</span>`}<button data-bq="${i}:edit">Modifier</button><button data-bq="${i}:drop">Retirer</button></div>`}</li>`).join('')}</ul>
@@ -1687,8 +1688,8 @@ V.prep=()=>{
       <form id="bform" class="row" style="flex-wrap:nowrap;margin-bottom:14px"><label for="bin" class="sr">Ajoute ta propre question</label><input class="input" id="bin" placeholder="Ajoute ta propre question"><button class="btn alt sm" type="submit" style="flex:none;margin:0">Ajouter</button></form>
       ${sent?`<p style="font-weight:600">${a.nom} a reçu tes ${kept} question${kept>1?'s':''} ${ago(S.briefSent)}.</p><div class="row" style="margin-top:10px"><button class="btn" data-go="rdv">Voir mon échange</button><button class="btn alt sm" id="unsend">Modifier le brief</button></div>`
         :has?`<button class="btn wide" id="sendBrief" ${kept?'':'disabled'}>${kept?`Envoyer mes ${kept} question${kept>1?'s':''} à ${a.nom}`:'Garde au moins une question'}</button>`
-        :`<button class="btn wide" data-pick="${a.id}">Réserver un échange avec ${a.nom}</button><p class="muted small" style="margin-top:8px">Ton brief est gardé : tu l'enverras après avoir réservé.</p>`}
-      <p class="muted small" style="margin-top:12px">${a.nom} verra ton prénom, ta classe, tes 3 métiers et ces questions. Rien d'autre.</p>
+        :`<button class="btn wide" data-pick="${a.id}">Réserver un échange avec ${a.nom}</button><p class="muted small" style="margin-top:8px">Your briefing is saved. You can send it after booking.</p>`}
+      <p class="muted small" style="margin-top:12px">${a.nom} will see your first name, year of study, three career ideas and these questions. Nothing else.</p>
     </aside>
   </div></div>`;
 };
@@ -1793,21 +1794,21 @@ function fillDemo(who){
   const keep=S.tournage; S=structuredClone(S0); S.tournage=keep;
   S.persona=who; S.chatDone=true;
   if(who==='paul'){
-    S.ctx={niveau:'Je me réoriente',reo_form:'licence de biologie, 1ʳᵉ année',reo_why:"Trop théorique. Je passais mes journées sur des polys sans voir à quoi ça servait.",specialites:['SVT / biologie','NSI / informatique'],duree:'Courtes (2 à 3 ans)',alternance:'Oui',lycee:'Université Paris-Est Créteil',idees:"quelque chose de concret, peut-être l'informatique"};
+    S.ctx={niveau:'Je me réoriente',reo_form:'licence de biologie, 1ʳᵉ année',reo_why:"Trop théorique. Je passais mes journées sur des polys sans voir à quoi ça servait.",specialites:['SVT / biologie','NSI / informatique'],duree:'Courtes (2 à 3 ans)',alternance:'Oui',lycee:'Université Paris-Est Créteil',idees:"something practical, perhaps IT"};
     const pat={R:5,I:4,A:2,S:3,E:3,C:3}; ITEMS.forEach(it=>S.ans[it.id]=pat[it.type]); S.ans.R2=5;S.ans.I1=5;
-    S.chat=[{me:false,t:"Tu as dit que tu adorerais « réparer un ordinateur, un téléphone ou un appareil en panne ». Qu'est-ce qui te plaît le plus : l'objet lui-même, ou comprendre pourquoi il est cassé ?"},{me:true,t:"Voir que ça remarche à la fin. En bio je ne voyais jamais le résultat."},{me:false,t:"Voir le résultat de ton travail : c'est exactement ce qui manquait en bio. En réseau ou en maintenance, tu sais chaque soir ce que tu as réparé."}];
+    S.chat=[{me:false,t:"You said you would love to “fix a broken computer, phone or appliance”. What do you enjoy more: the object itself, or figuring out why it broke?"},{me:true,t:"Seeing it work again at the end. In biology, I never saw the result."},{me:false,t:"Seeing the result of your work was exactly what was missing in biology. In networking or maintenance, you know what you fixed each day."}];
   }else if(who==='camille'){
     S.ctx={niveau:'Bac +1 ou +2',specialites:['SES / économie','Maths'],duree:'Longues (5 ans ou plus)',alternance:'Oui',lycee:'Université Paris-Est Créteil',idees:'la data, ou la finance'};
     const pat={R:2,I:5,A:2,S:3,E:3,C:4}; ITEMS.forEach(it=>S.ans[it.id]=pat[it.type]); S.ans.I3=5;
-    S.chat=[{me:false,t:"Tu as dit que tu adorerais « analyser des chiffres ou des données pour trouver une explication ». Tu préfères chercher seule, ou expliquer ce que tu as trouvé à d'autres ?"},{me:true,t:"Les deux, mais surtout trouver l'explication."},{me:false,t:"Trouver l'explication derrière les chiffres : c'est le cœur du métier de data analyst. On le note pour tes pistes."}];
+    S.chat=[{me:false,t:"You said you would love to “analyze numbers or data to find an explanation”. Do you prefer investigating on your own, or explaining what you found to others?"},{me:true,t:"Both, but especially finding the explanation."},{me:false,t:"Finding the story behind the numbers is at the heart of data analysis. I will add that to your career ideas."}];
   }else if(who==='sami'){
-    S.ctx={niveau:'Bac +3 ou plus',specialites:['Arts','NSI / informatique'],duree:'Ça dépendra du métier',alternance:'Peut-être',lycee:'IUT de Villetaneuse',idees:"le design d'applis"};
+    S.ctx={niveau:'Bac +3 ou plus',specialites:['Arts','NSI / informatique'],duree:'Ça dépendra du métier',alternance:'Peut-être',lycee:'IUT de Villetaneuse',idees:"app design"};
     const pat={R:2,I:3,A:5,S:3,E:4,C:2}; ITEMS.forEach(it=>S.ans[it.id]=pat[it.type]); S.ans.A3=5;
-    S.chat=[{me:false,t:"Tu as dit que tu adorerais « imaginer un nouveau jeu, une appli ou un objet ». C'est plutôt l'idée de départ qui te plaît, ou fabriquer le résultat final ?"},{me:true,t:"L'idée, et voir les gens l'utiliser."},{me:false,t:"Penser aux gens qui vont utiliser ce que tu crées : c'est tout le métier d'UX designer. On le note."}];
+    S.chat=[{me:false,t:"You said you would love to “imagine a new game, app or product”. Do you enjoy coming up with the idea, or making the finished result?"},{me:true,t:"The idea, and seeing people use it."},{me:false,t:"Thinking about the people who will use what you create is at the heart of UX design. I will add that to your career ideas."}];
   }else{
-    S.ctx={niveau:'Terminale',specialites:['Maths','NSI / informatique'],duree:'Courtes (2 à 3 ans)',alternance:'Oui',lycee:'Lycée Paul-Éluard, Saint-Denis',idees:"l'informatique"};
+    S.ctx={niveau:'Terminale',specialites:['Maths','NSI / informatique'],duree:'Courtes (2 à 3 ans)',alternance:'Oui',lycee:'Lycée Paul-Éluard, Saint-Denis',idees:"IT"};
     const pat={R:4,I:5,A:2,S:3,E:2,C:4}; ITEMS.forEach(it=>S.ans[it.id]=pat[it.type]); S.ans.R1=5;
-    S.chat=[{me:false,t:"Tu as dit que tu adorerais « comprendre pourquoi un programme ou une machine ne marche pas ». Tu préfères chercher seul, ou expliquer ce que tu as trouvé à d'autres ?"},{me:true,t:"Chercher seul d'abord. J'aime trouver la panne, même sur un ordi."},{me:false,t:"Chercher la panne tout seul, puis trouver : c'est le cœur des métiers de la cyber et du réseau. On le note pour tes pistes."}];
+    S.chat=[{me:false,t:"You said you would love to “figure out why a program or machine is not working”. Do you prefer investigating on your own, or explaining what you found to others?"},{me:true,t:"I like investigating on my own first. I enjoy finding what is broken, even on a computer."},{me:false,t:"Finding what is broken is central to cybersecurity and networking. I will add that to your career ideas."}];
   }
   S.careerFocus=S.ctx.idees||'';
   S.profile=localProfile(); S.step=qSteps().length-1; S.alv=null; S.celebrated.profil=false;
